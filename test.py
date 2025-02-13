@@ -1,5 +1,6 @@
 import nmap
 import pydig
+from pymetasploit3.msfrpc import MsfRpcClient
 
 nmapScan = nmap.PortScanner()
 
