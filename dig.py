@@ -1,6 +1,6 @@
 import pydig
 
-## Get all records
+## Get specific record
 def get_dns_records(domain, record_type):
     try:
         results = pydig.query(domain, record_type)
@@ -21,9 +21,16 @@ def get_IP():
     return IPs
 
 #Check txt records
-
+def checkForTXT(domain):
+    record = get_dns_records(domain, 'TXT')
+    if (record):
+        print(record)
+    else :
+        print('No txt')
 ##CNAME function
 
 ##SRV function
 
 ##MX record
+
+checkForTXT('horselaugh.com')
