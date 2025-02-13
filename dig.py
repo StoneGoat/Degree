@@ -1,5 +1,6 @@
 import pydig
 
+## Get all records
 def get_dns_records(domain, record_type):
     try:
         results = pydig.query(domain, record_type)
@@ -8,6 +9,7 @@ def get_dns_records(domain, record_type):
         print(f"Error fetching {record_type} records: {e}")
         return None
 
+## Get Ip of domain
 def get_IP():
     domain = input('Enter domain: ')
     IPs = []
@@ -17,4 +19,11 @@ def get_IP():
     if (len(IPs) == 1):
         IPs = IPs[0]
     return IPs
-print(get_IP())
+
+#Check txt records
+
+##CNAME function
+
+##SRV function
+
+##MX record

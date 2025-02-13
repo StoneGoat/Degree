@@ -1,13 +1,15 @@
 import nmap
-import pydig
 from pymetasploit3.msfrpc import MsfRpcClient
+import dig
 
 nmapScan = nmap.PortScanner()
 
-ip = "192.168.0.254"
+ip = dig.get_IP()
 portmin = "0"
-portmax = "5000"
+portmax = "50"
 
+
+###check multiple IPS
 portrange = f"{portmin}-{portmax}"
 
 result = nmapScan.scan(ip, portrange)
