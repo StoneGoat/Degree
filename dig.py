@@ -16,8 +16,6 @@ def get_IP():
     record = get_dns_records(domain, 'A')
     for ip in record :
         IPs.append(ip)
-    if (len(IPs) == 1):
-        IPs = IPs[0]
     return IPs
 
 #Check txt records
