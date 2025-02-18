@@ -30,5 +30,3 @@ def checkForTXT(domain):
 ##SRV function
 
 ##MX record
-
-checkForTXT('horselaugh.com')
