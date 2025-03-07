@@ -1,8 +1,8 @@
 from pymetasploit3.msfrpc import MsfRpcClient
-import dig
+import dig_module
 import nmap_module
 
-ips = dig.get_IP()
+ips = dig_module.get_IP()
 portmin = "0"
 portmax = "50"
 
