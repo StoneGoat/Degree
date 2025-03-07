@@ -10,8 +10,7 @@ def get_dns_records(domain, record_type):
         return None
 
 ## Get Ip of domain
-def get_IP():
-    domain = input('Enter domain: ')
+def get_IP(domain):
     IPs = []
     record = get_dns_records(domain, 'A')
     for ip in record :
