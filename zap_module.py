@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import time
 from zapv2 import ZAPv2
+import json
 
 # Configuration
 API_KEY = 'eih9sob8710beis5ubeb3th3pd'
@@ -43,11 +44,13 @@ def save_report(results):
     with open("scan-report.xml", "w") as f:
         f.write(zap.core.xmlreport(apikey=API_KEY))
     with open("scan-report.xml", "a") as f:
-        f.write(results)
+        f.write("\n" + json.dumps(results, indent=4))
 
 
 
 def run_full_scan(target, results):
+    target = 'https://' + target
     spider_scan(target)
     active_scan(target)
     save_report(results)
+

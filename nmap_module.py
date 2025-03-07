@@ -5,7 +5,7 @@ nmapScan = nmap.PortScanner()
 def scan(ips, portrange):
     results = {}
     for ip in ips:
-        result = nmapScan.scan(ip, portrange)
+        result = nmapScan.scan(ip, portrange, arguments='-Pn')
         results[ip] = result
 
         print(f"Nmap: {result.get('nmap', {})}")
