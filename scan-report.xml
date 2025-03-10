@@ -1,5 +1,496 @@
-<?xml version="1.0"?>
-<OWASPZAPReport programName="ZAP" version="2.16.0" generated="Mon, 10 Mar 2025 17:51:25">
+<ScanReport><OWASPZAPReport programName="ZAP" version="2.16.0" generated="Mon, 10 Mar 2025 18:57:45">
+	
+		<site name="https://flamman.se" host="flamman.se" port="443" ssl="true">
+			<alerts>
+				
+					<alertitem>
+						<pluginid>10037</pluginid>
+						<alertRef>10037</alertRef>
+						<alert>Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s)</alert>
+						<name>Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s)</name>
+						<riskcode>1</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Low (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;The web/application server is leaking information via one or more "X-Powered-By" HTTP response headers. Access to such information may facilitate attackers identifying other frameworks/components your web application is reliant upon and the vulnerabilities such components may be subject to.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>X-Powered-By: Templ.io</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>X-Powered-By: Templ.io</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>X-Powered-By: Templ.io</evidence>
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>3</count>
+						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to suppress "X-Powered-By" headers.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework&lt;/p&gt;&lt;p&gt;https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html&lt;/p&gt;</reference>
+						<cweid>497</cweid>
+						<wascid>13</wascid>
+						<sourceid>2362</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10035</pluginid>
+						<alertRef>10035-1</alertRef>
+						<alert>Strict-Transport-Security Header Not Set</alert>
+						<name>Strict-Transport-Security Header Not Set</name>
+						<riskcode>1</riskcode>
+						<confidence>3</confidence>
+						<riskdesc>Low (High)</riskdesc>
+						<confidencedesc>High</confidencedesc>
+						<desc>&lt;p&gt;HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>3</count>
+						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html&lt;/p&gt;&lt;p&gt;https://owasp.org/www-community/Security_Headers&lt;/p&gt;&lt;p&gt;https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security&lt;/p&gt;&lt;p&gt;https://caniuse.com/stricttransportsecurity&lt;/p&gt;&lt;p&gt;https://datatracker.ietf.org/doc/html/rfc6797&lt;/p&gt;</reference>
+						<cweid>319</cweid>
+						<wascid>15</wascid>
+						<sourceid>2362</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10104</pluginid>
+						<alertRef>10104</alertRef>
+						<alert>User Agent Fuzzer</alert>
+						<name>User Agent Fuzzer</name>
+						<riskcode>0</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Informational (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;Check for differences in response based on fuzzed User Agent (eg. mobile sites, access as a Search Engine Crawler). Compares the response statuscode and the hashcode of the response body with the original response.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>36</count>
+						<solution />
+						<otherinfo />
+						<reference>&lt;p&gt;https://owasp.org/wstg&lt;/p&gt;</reference>
+						<cweid>0</cweid>
+						<wascid>0</wascid>
+						<sourceid>2467</sourceid>
+					</alertitem>
+				
+			</alerts>
+		</site>
+	
 	
 		<site name="http://hackthissite.org" host="hackthissite.org" port="80" ssl="false">
 			<alerts>
@@ -20,22 +511,22 @@
 						<confidence>1</confidence>
 						<riskdesc>Medium (Low)</riskdesc>
 						<confidencedesc>Low</confidencedesc>
-						<desc>&lt;p&gt;No Anti-CSRF tokens were found in a HTML submission form.&lt;/p&gt;&lt;p&gt;A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;CSRF attacks are effective in a number of situations, including:&lt;/p&gt;&lt;p&gt;    * The victim has an active session on the target site.&lt;/p&gt;&lt;p&gt;    * The victim is authenticated via HTTP auth on the target site.&lt;/p&gt;&lt;p&gt;    * The victim is on the same local network as the target site.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;CSRF has primarily been used to perform an action against a target site using the victim&apos;s privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;No Anti-CSRF tokens were found in a HTML submission form.&lt;/p&gt;&lt;p&gt;A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;CSRF attacks are effective in a number of situations, including:&lt;/p&gt;&lt;p&gt;    * The victim has an active session on the target site.&lt;/p&gt;&lt;p&gt;    * The victim is authenticated via HTTP auth on the target site.&lt;/p&gt;&lt;p&gt;    * The victim is on the same local network as the target site.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
-									<evidence>&lt;form id=&quot;loginform&quot; method=&quot;post&quot; action=&quot;/user/login&quot;&gt;</evidence>
-									<otherinfo>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;btn_submit&quot; &quot;password&quot; &quot;username&quot; ].</otherinfo>
+									<param />
+									<attack />
+									<evidence>&lt;form id="loginform" method="post" action="/user/login"&gt;</evidence>
+									<otherinfo>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: "btn_submit" "password" "username" ].</otherinfo>
 								</instance>
 							
 						</instances>
 						<count>1</count>
 						<solution>&lt;p&gt;Phase: Architecture and Design&lt;/p&gt;&lt;p&gt;Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.&lt;/p&gt;&lt;p&gt;For example, use anti-CSRF packages such as the OWASP CSRFGuard.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Phase: Implementation&lt;/p&gt;&lt;p&gt;Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Phase: Architecture and Design&lt;/p&gt;&lt;p&gt;Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).&lt;/p&gt;&lt;p&gt;Note that this can be bypassed using XSS.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.&lt;/p&gt;&lt;p&gt;Note that this can be bypassed using XSS.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Use the ESAPI Session Management control.&lt;/p&gt;&lt;p&gt;This control includes a component for CSRF.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Do not use the GET method for any request that triggers a state change.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Phase: Implementation&lt;/p&gt;&lt;p&gt;Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.&lt;/p&gt;</solution>
-						<otherinfo>&lt;p&gt;No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;btn_submit&quot; &quot;password&quot; &quot;username&quot; ].&lt;/p&gt;</otherinfo>
+						<otherinfo>&lt;p&gt;No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: "btn_submit" "password" "username" ].&lt;/p&gt;</otherinfo>
 						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html&lt;/p&gt;&lt;p&gt;https://cwe.mitre.org/data/definitions/352.html&lt;/p&gt;</reference>
 						<cweid>352</cweid>
 						<wascid>9</wascid>
@@ -52,15 +543,15 @@
 						<confidence>3</confidence>
 						<riskdesc>Medium (High)</riskdesc>
 						<confidencedesc>High</confidencedesc>
-						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page &#x2014; covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
 script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
 
@@ -72,8 +563,47 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/hp.php</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
+script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
+
+The directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
+script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
+
+The directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
+script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
+
+The directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all/humans</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
 script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
 
@@ -85,8 +615,21 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/killing/all/humans/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
+script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
+
+The directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/missions</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
 script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
 
@@ -98,8 +641,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/missions/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
 script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
 
@@ -111,8 +654,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/sitemap.xml</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:
 script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src
 
@@ -120,7 +663,7 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								</instance>
 							
 						</instances>
-						<count>5</count>
+						<count>9</count>
 						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.&lt;/p&gt;</solution>
 						<otherinfo>&lt;p&gt;The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined:&lt;/p&gt;&lt;p&gt;script-src, style-src, img-src, connect-src, frame-ancestors, font-src, media-src, object-src, manifest-src&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;The directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.&lt;/p&gt;</otherinfo>
 						<reference>&lt;p&gt;https://www.w3.org/TR/CSP/&lt;/p&gt;&lt;p&gt;https://caniuse.com/#search=content+security+policy&lt;/p&gt;&lt;p&gt;https://content-security-policy.com/&lt;/p&gt;&lt;p&gt;https://github.com/HtmlUnit/htmlunit-csp&lt;/p&gt;&lt;p&gt;https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources&lt;/p&gt;</reference>
@@ -139,15 +682,15 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 						<confidence>3</confidence>
 						<riskdesc>Medium (High)</riskdesc>
 						<confidencedesc>High</confidencedesc>
-						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page &#x2014; covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>script-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -156,8 +699,38 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/hp.php</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>script-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>script-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>script-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all/humans</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>script-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -166,8 +739,18 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/killing/all/humans/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>script-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/missions</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>script-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -176,8 +759,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/missions/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>script-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -186,13 +769,13 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/sitemap.xml</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>script-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
 						</instances>
-						<count>5</count>
+						<count>9</count>
 						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.&lt;/p&gt;</solution>
 						<otherinfo>&lt;p&gt;script-src includes unsafe-inline.&lt;/p&gt;</otherinfo>
 						<reference>&lt;p&gt;https://www.w3.org/TR/CSP/&lt;/p&gt;&lt;p&gt;https://caniuse.com/#search=content+security+policy&lt;/p&gt;&lt;p&gt;https://content-security-policy.com/&lt;/p&gt;&lt;p&gt;https://github.com/HtmlUnit/htmlunit-csp&lt;/p&gt;&lt;p&gt;https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources&lt;/p&gt;</reference>
@@ -211,15 +794,15 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 						<confidence>3</confidence>
 						<riskdesc>Medium (High)</riskdesc>
 						<confidencedesc>High</confidencedesc>
-						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page &#x2014; covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>style-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -228,8 +811,38 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/hp.php</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>style-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>style-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>style-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all/humans</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>style-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -238,8 +851,18 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/killing/all/humans/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>style-src includes unsafe-inline.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/missions</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>style-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -248,8 +871,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/missions/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>style-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
@@ -258,13 +881,13 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 									<uri>https://hackthissite.org/sitemap.xml</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>style-src includes unsafe-inline.</otherinfo>
 								</instance>
 							
 						</instances>
-						<count>5</count>
+						<count>9</count>
 						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.&lt;/p&gt;</solution>
 						<otherinfo>&lt;p&gt;style-src includes unsafe-inline.&lt;/p&gt;</otherinfo>
 						<reference>&lt;p&gt;https://www.w3.org/TR/CSP/&lt;/p&gt;&lt;p&gt;https://caniuse.com/#search=content+security+policy&lt;/p&gt;&lt;p&gt;https://content-security-policy.com/&lt;/p&gt;&lt;p&gt;https://github.com/HtmlUnit/htmlunit-csp&lt;/p&gt;&lt;p&gt;https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources&lt;/p&gt;</reference>
@@ -289,8 +912,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
+									<param />
+									<attack />
 									<evidence>Access-Control-Allow-Origin: *</evidence>
 									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
 								</instance>
@@ -299,8 +922,38 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								<instance>
 									<uri>https://hackthissite.org/hp.php</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
+									<param />
+									<attack />
+									<evidence>Access-Control-Allow-Origin: *</evidence>
+									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>Access-Control-Allow-Origin: *</evidence>
+									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>Access-Control-Allow-Origin: *</evidence>
+									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all/humans</uri>
+									<method>GET</method>
+									<param />
+									<attack />
 									<evidence>Access-Control-Allow-Origin: *</evidence>
 									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
 								</instance>
@@ -309,8 +962,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								<instance>
 									<uri>https://hackthissite.org/killing/all/humans/</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
+									<param />
+									<attack />
 									<evidence>Access-Control-Allow-Origin: *</evidence>
 									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
 								</instance>
@@ -319,8 +972,18 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								<instance>
 									<uri>https://hackthissite.org/manifest.webmanifest</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
+									<param />
+									<attack />
+									<evidence>Access-Control-Allow-Origin: *</evidence>
+									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/missions</uri>
+									<method>GET</method>
+									<param />
+									<attack />
 									<evidence>Access-Control-Allow-Origin: *</evidence>
 									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
 								</instance>
@@ -329,8 +992,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								<instance>
 									<uri>https://hackthissite.org/missions/</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
+									<param />
+									<attack />
 									<evidence>Access-Control-Allow-Origin: *</evidence>
 									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
 								</instance>
@@ -339,8 +1002,8 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								<instance>
 									<uri>https://hackthissite.org/robots.txt</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
+									<param />
+									<attack />
 									<evidence>Access-Control-Allow-Origin: *</evidence>
 									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
 								</instance>
@@ -349,15 +1012,15 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 								<instance>
 									<uri>https://hackthissite.org/sitemap.xml</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
+									<param />
+									<attack />
 									<evidence>Access-Control-Allow-Origin: *</evidence>
 									<otherinfo>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</otherinfo>
 								</instance>
 							
 						</instances>
-						<count>7</count>
-						<solution>&lt;p&gt;Ensure that sensitive data is not available in an unauthenticated manner (using IP address white-listing, for instance).&lt;/p&gt;&lt;p&gt;Configure the &quot;Access-Control-Allow-Origin&quot; HTTP header to a more restrictive set of domains, or remove all CORS headers entirely, to allow the web browser to enforce the Same Origin Policy (SOP) in a more restrictive manner.&lt;/p&gt;</solution>
+						<count>11</count>
+						<solution>&lt;p&gt;Ensure that sensitive data is not available in an unauthenticated manner (using IP address white-listing, for instance).&lt;/p&gt;&lt;p&gt;Configure the "Access-Control-Allow-Origin" HTTP header to a more restrictive set of domains, or remove all CORS headers entirely, to allow the web browser to enforce the Same Origin Policy (SOP) in a more restrictive manner.&lt;/p&gt;</solution>
 						<otherinfo>&lt;p&gt;The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.&lt;/p&gt;</otherinfo>
 						<reference>&lt;p&gt;https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy&lt;/p&gt;</reference>
 						<cweid>264</cweid>
@@ -375,22 +1038,22 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 						<confidence>2</confidence>
 						<riskdesc>Medium (Medium)</riskdesc>
 						<confidencedesc>Medium</confidencedesc>
-						<desc>&lt;p&gt;The response does not protect against &apos;ClickJacking&apos; attacks. It should include either Content-Security-Policy with &apos;frame-ancestors&apos; directive or X-Frame-Options.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;The response does not protect against 'ClickJacking' attacks. It should include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>x-frame-options</param>
-									<attack></attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<attack />
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>1</count>
-						<solution>&lt;p&gt;Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.&lt;/p&gt;&lt;p&gt;If you expect the page to be framed only by pages on your server (e.g. it&apos;s part of a FRAMESET) then you&apos;ll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy&apos;s &quot;frame-ancestors&quot; directive.&lt;/p&gt;</solution>
-						<otherinfo></otherinfo>
+						<solution>&lt;p&gt;Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.&lt;/p&gt;&lt;p&gt;If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's "frame-ancestors" directive.&lt;/p&gt;</solution>
+						<otherinfo />
 						<reference>&lt;p&gt;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options&lt;/p&gt;</reference>
 						<cweid>1021</cweid>
 						<wascid>15</wascid>
@@ -407,15 +1070,15 @@ The directive(s): frame-ancestors are among the directives that do not fallback 
 						<confidence>3</confidence>
 						<riskdesc>Low (High)</riskdesc>
 						<confidencedesc>High</confidencedesc>
-						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page &#x2014; covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>Warnings:
 The report-uri directive has been deprecated in favor of the new report-to directive
 </otherinfo>
@@ -426,8 +1089,44 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org/hp.php</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>Warnings:
+The report-uri directive has been deprecated in favor of the new report-to directive
+</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>Warnings:
+The report-uri directive has been deprecated in favor of the new report-to directive
+</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>Warnings:
+The report-uri directive has been deprecated in favor of the new report-to directive
+</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/killing/all/humans</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>Warnings:
 The report-uri directive has been deprecated in favor of the new report-to directive
 </otherinfo>
@@ -438,8 +1137,20 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org/killing/all/humans/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<otherinfo>Warnings:
+The report-uri directive has been deprecated in favor of the new report-to directive
+</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://hackthissite.org/missions</uri>
+									<method>GET</method>
+									<param>Content-Security-Policy</param>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>Warnings:
 The report-uri directive has been deprecated in favor of the new report-to directive
 </otherinfo>
@@ -450,8 +1161,8 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org/missions/</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>Warnings:
 The report-uri directive has been deprecated in favor of the new report-to directive
 </otherinfo>
@@ -462,15 +1173,15 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org/sitemap.xml</uri>
 									<method>GET</method>
 									<param>Content-Security-Policy</param>
-									<attack></attack>
-									<evidence>child-src &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action &apos;self&apos; hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
+									<attack />
+									<evidence>child-src 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org discord.com; form-action 'self' hackthissite.org *.hackthissite.org htscdn.org *.htscdn.org; upgrade-insecure-requests; report-uri https://hackthissite.report-uri.com/r/d/csp/enforce</evidence>
 									<otherinfo>Warnings:
 The report-uri directive has been deprecated in favor of the new report-to directive
 </otherinfo>
 								</instance>
 							
 						</instances>
-						<count>5</count>
+						<count>9</count>
 						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.&lt;/p&gt;</solution>
 						<otherinfo>&lt;p&gt;Warnings:&lt;/p&gt;&lt;p&gt;The report-uri directive has been deprecated in favor of the new report-to directive&lt;/p&gt;&lt;p&gt;&lt;/p&gt;</otherinfo>
 						<reference>&lt;p&gt;https://www.w3.org/TR/CSP/&lt;/p&gt;&lt;p&gt;https://caniuse.com/#search=content+security+policy&lt;/p&gt;&lt;p&gt;https://content-security-policy.com/&lt;/p&gt;&lt;p&gt;https://github.com/HtmlUnit/htmlunit-csp&lt;/p&gt;&lt;p&gt;https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources&lt;/p&gt;</reference>
@@ -496,15 +1207,15 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>HackThisSite</param>
-									<attack></attack>
+									<attack />
 									<evidence>Set-Cookie: HackThisSite</evidence>
-									<otherinfo></otherinfo>
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>1</count>
 						<solution>&lt;p&gt;Ensure that the HttpOnly flag is set for all cookies.&lt;/p&gt;</solution>
-						<otherinfo></otherinfo>
+						<otherinfo />
 						<reference>&lt;p&gt;https://owasp.org/www-community/HttpOnly&lt;/p&gt;</reference>
 						<cweid>1004</cweid>
 						<wascid>13</wascid>
@@ -528,15 +1239,15 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>HackThisSite</param>
-									<attack></attack>
+									<attack />
 									<evidence>Set-Cookie: HackThisSite</evidence>
-									<otherinfo></otherinfo>
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>1</count>
 						<solution>&lt;p&gt;Whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted channel. Ensure that the secure flag is set for cookies containing such sensitive information.&lt;/p&gt;</solution>
-						<otherinfo></otherinfo>
+						<otherinfo />
 						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html&lt;/p&gt;</reference>
 						<cweid>614</cweid>
 						<wascid>13</wascid>
@@ -553,22 +1264,22 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 						<confidence>2</confidence>
 						<riskdesc>Low (Medium)</riskdesc>
 						<confidencedesc>Medium</confidencedesc>
-						<desc>&lt;p&gt;A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a &apos;cross-site&apos; request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>HackThisSite</param>
-									<attack></attack>
+									<attack />
 									<evidence>Set-Cookie: HackThisSite</evidence>
-									<otherinfo></otherinfo>
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>1</count>
-						<solution>&lt;p&gt;Ensure that the SameSite attribute is set to either &apos;lax&apos; or ideally &apos;strict&apos; for all cookies.&lt;/p&gt;</solution>
-						<otherinfo></otherinfo>
+						<solution>&lt;p&gt;Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.&lt;/p&gt;</solution>
+						<otherinfo />
 						<reference>&lt;p&gt;https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site&lt;/p&gt;</reference>
 						<cweid>1275</cweid>
 						<wascid>13</wascid>
@@ -592,9 +1303,9 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>https://data.htscdn.org/js/jquery-1.8.1.min.js</param>
-									<attack></attack>
-									<evidence>&lt;script type=&quot;text/javascript&quot; src=&quot;https://data.htscdn.org/js/jquery-1.8.1.min.js&quot;&gt;&lt;/script&gt;</evidence>
-									<otherinfo></otherinfo>
+									<attack />
+									<evidence>&lt;script type="text/javascript" src="https://data.htscdn.org/js/jquery-1.8.1.min.js"&gt;&lt;/script&gt;</evidence>
+									<otherinfo />
 								</instance>
 							
 							
@@ -602,16 +1313,16 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>https://data.htscdn.org/js/notice.min.js</param>
-									<attack></attack>
-									<evidence>&lt;script type=&quot;text/javascript&quot; src=&quot;https://data.htscdn.org/js/notice.min.js&quot;&gt;&lt;/script&gt;</evidence>
-									<otherinfo></otherinfo>
+									<attack />
+									<evidence>&lt;script type="text/javascript" src="https://data.htscdn.org/js/notice.min.js"&gt;&lt;/script&gt;</evidence>
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>2</count>
-						<solution>&lt;p&gt;Ensure JavaScript source files are loaded from only trusted sources, and the sources can&apos;t be controlled by end users of the application.&lt;/p&gt;</solution>
-						<otherinfo></otherinfo>
-						<reference></reference>
+						<solution>&lt;p&gt;Ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference />
 						<cweid>829</cweid>
 						<wascid>15</wascid>
 						<sourceid>11</sourceid>
@@ -627,17 +1338,17 @@ The report-uri directive has been deprecated in favor of the new report-to direc
 						<confidence>2</confidence>
 						<riskdesc>Low (Medium)</riskdesc>
 						<confidencedesc>Medium</confidencedesc>
-						<desc>&lt;p&gt;The Anti-MIME-Sniffing header X-Content-Type-Options was not set to &apos;nosniff&apos;. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.&lt;/p&gt;</desc>
+						<desc>&lt;p&gt;The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.&lt;/p&gt;</desc>
 						<instances>
 							
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
 									<param>x-content-type-options</param>
-									<attack></attack>
-									<evidence></evidence>
+									<attack />
+									<evidence />
 									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
-At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</otherinfo>
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
 								</instance>
 							
 							
@@ -645,10 +1356,10 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<uri>https://hackthissite.org/manifest.webmanifest</uri>
 									<method>GET</method>
 									<param>x-content-type-options</param>
-									<attack></attack>
-									<evidence></evidence>
+									<attack />
+									<evidence />
 									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
-At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</otherinfo>
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
 								</instance>
 							
 							
@@ -656,16 +1367,16 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<uri>https://hackthissite.org/robots.txt</uri>
 									<method>GET</method>
 									<param>x-content-type-options</param>
-									<attack></attack>
-									<evidence></evidence>
+									<attack />
+									<evidence />
 									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
-At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</otherinfo>
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
 								</instance>
 							
 						</instances>
 						<count>3</count>
-						<solution>&lt;p&gt;Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to &apos;nosniff&apos; for all web pages.&lt;/p&gt;&lt;p&gt;If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.&lt;/p&gt;</solution>
-						<otherinfo>&lt;p&gt;This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.&lt;/p&gt;&lt;p&gt;At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.&lt;/p&gt;</otherinfo>
+						<solution>&lt;p&gt;Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.&lt;/p&gt;&lt;p&gt;If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.&lt;/p&gt;</solution>
+						<otherinfo>&lt;p&gt;This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.&lt;/p&gt;&lt;p&gt;At "High" threshold this scan rule will not alert on client or server error responses.&lt;/p&gt;</otherinfo>
 						<reference>&lt;p&gt;https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)&lt;/p&gt;&lt;p&gt;https://owasp.org/www-community/Security_Headers&lt;/p&gt;</reference>
 						<cweid>693</cweid>
 						<wascid>15</wascid>
@@ -689,15 +1400,15 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<uri>https://hackthissite.org/manifest.webmanifest</uri>
 									<method>GET</method>
 									<param>content-type</param>
-									<attack></attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<attack />
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>1</count>
 						<solution>&lt;p&gt;Ensure each page is setting the specific and appropriate content-type value for the content being delivered.&lt;/p&gt;</solution>
-						<otherinfo></otherinfo>
+						<otherinfo />
 						<reference>&lt;p&gt;https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)&lt;/p&gt;</reference>
 						<cweid>345</cweid>
 						<wascid>12</wascid>
@@ -720,9 +1431,9 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 								<instance>
 									<uri>https://hackthissite.org</uri>
 									<method>GET</method>
-									<param></param>
-									<attack></attack>
-									<evidence>&lt;a class=&quot;nav&quot; href=&quot;&quot;&gt;&lt;/a&gt;</evidence>
+									<param />
+									<attack />
+									<evidence>&lt;a class="nav" href=""&gt;&lt;/a&gt;</evidence>
 									<otherinfo>Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application.</otherinfo>
 								</instance>
 							
@@ -730,7 +1441,7 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 						<count>1</count>
 						<solution>&lt;p&gt;This is an informational alert and so no changes are required.&lt;/p&gt;</solution>
 						<otherinfo>&lt;p&gt;Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application.&lt;/p&gt;</otherinfo>
-						<reference></reference>
+						<reference />
 						<cweid>-1</cweid>
 						<wascid>-1</wascid>
 						<sourceid>11</sourceid>
@@ -753,15 +1464,15 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<uri>https://hackthissite.org/robots.txt</uri>
 									<method>GET</method>
 									<param>cache-control</param>
-									<attack></attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<attack />
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>1</count>
-						<solution>&lt;p&gt;For secure content, ensure the cache-control HTTP header is set with &quot;no-cache, no-store, must-revalidate&quot;. If an asset should be cached consider setting the directives &quot;public, max-age, immutable&quot;.&lt;/p&gt;</solution>
-						<otherinfo></otherinfo>
+						<solution>&lt;p&gt;For secure content, ensure the cache-control HTTP header is set with "no-cache, no-store, must-revalidate". If an asset should be cached consider setting the directives "public, max-age, immutable".&lt;/p&gt;</solution>
+						<otherinfo />
 						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching&lt;/p&gt;&lt;p&gt;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control&lt;/p&gt;&lt;p&gt;https://grayduck.mn/2021/09/13/cache-control-recommendations/&lt;/p&gt;</reference>
 						<cweid>525</cweid>
 						<wascid>13</wascid>
@@ -786,8 +1497,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -796,8 +1507,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -806,8 +1517,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -816,8 +1527,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -826,8 +1537,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -836,8 +1547,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -846,8 +1557,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -856,8 +1567,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -866,8 +1577,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -876,8 +1587,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -886,8 +1597,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -896,8 +1607,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -906,8 +1617,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -916,8 +1627,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -926,8 +1637,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -936,8 +1647,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -946,8 +1657,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -956,8 +1667,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -966,8 +1677,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -976,8 +1687,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -986,8 +1697,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -996,8 +1707,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1006,8 +1717,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1016,8 +1727,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1026,8 +1737,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1036,8 +1747,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1046,8 +1757,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1056,8 +1767,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1066,8 +1777,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1076,8 +1787,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1086,8 +1797,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1096,8 +1807,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1106,8 +1817,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1116,8 +1827,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1126,8 +1837,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1136,8 +1847,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1146,8 +1857,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1156,8 +1867,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1166,8 +1877,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1176,8 +1887,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1186,8 +1897,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1196,8 +1907,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1206,8 +1917,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1216,8 +1927,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1226,8 +1937,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1236,8 +1947,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1246,8 +1957,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1256,8 +1967,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1266,8 +1977,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1276,8 +1987,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1286,8 +1997,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1296,8 +2007,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1306,8 +2017,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1316,8 +2027,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1326,8 +2037,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1336,8 +2047,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1346,8 +2057,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1356,8 +2067,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1366,8 +2077,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1376,8 +2087,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1386,8 +2097,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1396,8 +2107,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1406,8 +2117,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1416,8 +2127,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1426,8 +2137,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1436,8 +2147,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1446,8 +2157,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1456,8 +2167,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1466,8 +2177,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1476,8 +2187,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1486,8 +2197,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1496,8 +2207,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1506,8 +2217,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1516,8 +2227,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1526,8 +2237,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1536,8 +2247,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1546,8 +2257,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1556,8 +2267,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1566,8 +2277,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1576,8 +2287,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1586,8 +2297,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1596,8 +2307,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1606,8 +2317,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1616,8 +2327,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1626,8 +2337,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1636,8 +2347,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1646,8 +2357,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1656,8 +2367,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1666,8 +2377,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1676,8 +2387,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1686,8 +2397,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1696,8 +2407,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1706,8 +2417,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1716,8 +2427,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1726,8 +2437,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1736,8 +2447,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1746,8 +2457,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1756,8 +2467,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1766,8 +2477,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1776,8 +2487,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1786,8 +2497,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1796,8 +2507,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1806,8 +2517,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1816,8 +2527,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1826,8 +2537,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1836,8 +2547,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1846,8 +2557,8 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 							
@@ -1856,14 +2567,14 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 									<method>GET</method>
 									<param>Header User-Agent</param>
 									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
-									<evidence></evidence>
-									<otherinfo></otherinfo>
+									<evidence />
+									<otherinfo />
 								</instance>
 							
 						</instances>
 						<count>108</count>
-						<solution></solution>
-						<otherinfo></otherinfo>
+						<solution />
+						<otherinfo />
 						<reference>&lt;p&gt;https://owasp.org/wstg&lt;/p&gt;</reference>
 						<cweid>0</cweid>
 						<wascid>0</wascid>
@@ -1873,246 +2584,71 @@ At &quot;High&quot; threshold this scan rule will not alert on client or server 
 			</alerts>
 		</site>
 	
-</OWASPZAPReport>
-{
-    "137.74.187.100": {
-        "nmap": {
-            "command_line": "nmap -oX - -p 0-50 -Pn 137.74.187.100",
-            "scaninfo": {
-                "tcp": {
-                    "method": "connect",
-                    "services": "0-50"
-                }
-            },
-            "scanstats": {
-                "timestr": "Mon Mar 10 17:48:04 2025",
-                "elapsed": "1.66",
-                "uphosts": "1",
-                "downhosts": "0",
-                "totalhosts": "1"
-            }
-        },
-        "scan": {
-            "137.74.187.100": {
-                "hostnames": [
-                    {
-                        "name": "hackthissite.org",
-                        "type": "PTR"
-                    }
-                ],
-                "addresses": {
-                    "ipv4": "137.74.187.100"
-                },
-                "vendor": {},
-                "status": {
-                    "state": "up",
-                    "reason": "user-set"
-                },
-                "tcp": {
-                    "22": {
-                        "state": "closed",
-                        "reason": "conn-refused",
-                        "name": "ssh",
-                        "product": "",
-                        "version": "",
-                        "extrainfo": "",
-                        "conf": "3",
-                        "cpe": ""
-                    }
-                }
-            }
-        }
-    },
-    "137.74.187.102": {
-        "nmap": {
-            "command_line": "nmap -oX - -p 0-50 -Pn 137.74.187.102",
-            "scaninfo": {
-                "tcp": {
-                    "method": "connect",
-                    "services": "0-50"
-                }
-            },
-            "scanstats": {
-                "timestr": "Mon Mar 10 17:48:06 2025",
-                "elapsed": "1.63",
-                "uphosts": "1",
-                "downhosts": "0",
-                "totalhosts": "1"
-            }
-        },
-        "scan": {
-            "137.74.187.102": {
-                "hostnames": [
-                    {
-                        "name": "hackthissite.org",
-                        "type": "PTR"
-                    }
-                ],
-                "addresses": {
-                    "ipv4": "137.74.187.102"
-                },
-                "vendor": {},
-                "status": {
-                    "state": "up",
-                    "reason": "user-set"
-                },
-                "tcp": {
-                    "22": {
-                        "state": "closed",
-                        "reason": "conn-refused",
-                        "name": "ssh",
-                        "product": "",
-                        "version": "",
-                        "extrainfo": "",
-                        "conf": "3",
-                        "cpe": ""
-                    }
-                }
-            }
-        }
-    },
-    "137.74.187.104": {
-        "nmap": {
-            "command_line": "nmap -oX - -p 0-50 -Pn 137.74.187.104",
-            "scaninfo": {
-                "tcp": {
-                    "method": "connect",
-                    "services": "0-50"
-                }
-            },
-            "scanstats": {
-                "timestr": "Mon Mar 10 17:48:07 2025",
-                "elapsed": "1.68",
-                "uphosts": "1",
-                "downhosts": "0",
-                "totalhosts": "1"
-            }
-        },
-        "scan": {
-            "137.74.187.104": {
-                "hostnames": [
-                    {
-                        "name": "hackthissite.org",
-                        "type": "PTR"
-                    }
-                ],
-                "addresses": {
-                    "ipv4": "137.74.187.104"
-                },
-                "vendor": {},
-                "status": {
-                    "state": "up",
-                    "reason": "user-set"
-                },
-                "tcp": {
-                    "22": {
-                        "state": "closed",
-                        "reason": "conn-refused",
-                        "name": "ssh",
-                        "product": "",
-                        "version": "",
-                        "extrainfo": "",
-                        "conf": "3",
-                        "cpe": ""
-                    }
-                }
-            }
-        }
-    },
-    "137.74.187.101": {
-        "nmap": {
-            "command_line": "nmap -oX - -p 0-50 -Pn 137.74.187.101",
-            "scaninfo": {
-                "tcp": {
-                    "method": "connect",
-                    "services": "0-50"
-                }
-            },
-            "scanstats": {
-                "timestr": "Mon Mar 10 17:48:09 2025",
-                "elapsed": "1.69",
-                "uphosts": "1",
-                "downhosts": "0",
-                "totalhosts": "1"
-            }
-        },
-        "scan": {
-            "137.74.187.101": {
-                "hostnames": [
-                    {
-                        "name": "hackthissite.org",
-                        "type": "PTR"
-                    }
-                ],
-                "addresses": {
-                    "ipv4": "137.74.187.101"
-                },
-                "vendor": {},
-                "status": {
-                    "state": "up",
-                    "reason": "user-set"
-                },
-                "tcp": {
-                    "22": {
-                        "state": "closed",
-                        "reason": "conn-refused",
-                        "name": "ssh",
-                        "product": "",
-                        "version": "",
-                        "extrainfo": "",
-                        "conf": "3",
-                        "cpe": ""
-                    }
-                }
-            }
-        }
-    },
-    "137.74.187.103": {
-        "nmap": {
-            "command_line": "nmap -oX - -p 0-50 -Pn 137.74.187.103",
-            "scaninfo": {
-                "tcp": {
-                    "method": "connect",
-                    "services": "0-50"
-                }
-            },
-            "scanstats": {
-                "timestr": "Mon Mar 10 17:48:11 2025",
-                "elapsed": "1.70",
-                "uphosts": "1",
-                "downhosts": "0",
-                "totalhosts": "1"
-            }
-        },
-        "scan": {
-            "137.74.187.103": {
-                "hostnames": [
-                    {
-                        "name": "hackthissite.org",
-                        "type": "PTR"
-                    }
-                ],
-                "addresses": {
-                    "ipv4": "137.74.187.103"
-                },
-                "vendor": {},
-                "status": {
-                    "state": "up",
-                    "reason": "user-set"
-                },
-                "tcp": {
-                    "22": {
-                        "state": "closed",
-                        "reason": "conn-refused",
-                        "name": "ssh",
-                        "product": "",
-                        "version": "",
-                        "extrainfo": "",
-                        "conf": "3",
-                        "cpe": ""
-                    }
-                }
-            }
-        }
-    }
-}
+</OWASPZAPReport><NmapScanResults>
+    <tag_35_228_57_67>
+        <nmap>
+            <command_line>nmap -oX - -p 0-50 -Pn 35.228.57.67</command_line>
+            <scaninfo>
+                <tcp>
+                    <method>connect</method>
+                    <services>0-50</services>
+                </tcp>
+            </scaninfo>
+            <scanstats>
+                <timestr>Mon Mar 10 18:55:16 2025</timestr>
+                <elapsed>1.55</elapsed>
+                <uphosts>1</uphosts>
+                <downhosts>0</downhosts>
+                <totalhosts>1</totalhosts>
+            </scanstats>
+        </nmap>
+        <scan>
+            <tag_35_228_57_67>
+                <hostnames>
+                    <name>67.57.228.35.bc.googleusercontent.com</name>
+                    <type>PTR</type>
+                </hostnames>
+                <addresses>
+                    <ipv4>35.228.57.67</ipv4>
+                </addresses>
+                <vendor />
+                <status>
+                    <state>up</state>
+                    <reason>user-set</reason>
+                </status>
+                <tcp>
+                    <tag_20>
+                        <state>closed</state>
+                        <reason>conn-refused</reason>
+                        <name>ftp-data</name>
+                        <product />
+                        <version />
+                        <extrainfo />
+                        <conf>3</conf>
+                        <cpe />
+                    </tag_20>
+                    <tag_21>
+                        <state>closed</state>
+                        <reason>conn-refused</reason>
+                        <name>ftp</name>
+                        <product />
+                        <version />
+                        <extrainfo />
+                        <conf>3</conf>
+                        <cpe />
+                    </tag_21>
+                    <tag_22>
+                        <state>open</state>
+                        <reason>syn-ack</reason>
+                        <name>ssh</name>
+                        <product />
+                        <version />
+                        <extrainfo />
+                        <conf>3</conf>
+                        <cpe />
+                    </tag_22>
+                </tcp>
+            </tag_35_228_57_67>
+        </scan>
+    </tag_35_228_57_67>
+</NmapScanResults></ScanReport>
