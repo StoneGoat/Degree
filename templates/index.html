@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Automated Vulnerability Scanner</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <!-- Include jQuery for AJAX functionality -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("form").submit(function(e){
+        e.preventDefault();
+        // Show a loading indicator in the result div
+        $("#result").html("<p>Scanning in progress, please wait...</p>");
+        $.ajax({
+          url: "{{ url_for('index') }}",
+          type: "POST",
+          data: $(this).serialize(),
+          success: function(response){
+            // Replace the current document with the returned HTML
+            $("body").html(response);
+          },
+          error: function(){
+            $("#result").html("<p>An error occurred during the scan. Please try again later.</p>");
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Automated Vulnerability Scanner</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <form method="post">
+    <label for="domain">Enter Domain:</label>
+    <input type="text" id="domain" name="domain" placeholder="example.com" required>
+    <button type="submit">Scan</button>
+  </form>
+  <!-- Div to display the loading message or errors -->
+  <div id="result"></div>
+</body>
+</html>

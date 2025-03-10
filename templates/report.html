@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scan Report for {{ domain }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Scan Report for {{ domain }}</h1>
+    <pre style="background-color: #f4f4f4; padding: 1em; border: 1px solid #ccc;">
+{{ report }}
+    </pre>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

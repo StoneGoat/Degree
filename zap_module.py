@@ -4,7 +4,7 @@ from zapv2 import ZAPv2
 import json
 
 # Configuration
-API_KEY = 'eih9sob8710beis5ubeb3th3pd'
+API_KEY = 'ctrj0tgroh8lurrpffi4sdqibm'
 PROXY = 'http://localhost:8080'  # assuming default port 8080
 
 # Initialize ZAP client with the specified proxy and API key
