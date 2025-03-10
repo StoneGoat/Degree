@@ -111,7 +111,7 @@ def save_json(data, filename):
         json.dump(data, f, indent=4)
     print(f"JSON saved as {filename}")
 
-def test_alert_items(xml_file_path="scan-report.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0"):
+def test_alert_items(xml_file_path="scan-report-iteration1.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0"):
     """
     Loads alert items from the XML file and sends each as a message to the AI.
     It parses the markdown response and checks that it contains exactly 6 sections.
