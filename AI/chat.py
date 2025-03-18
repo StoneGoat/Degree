@@ -111,10 +111,10 @@ def save_json(data, filename):
         json.dump(data, f, indent=4)
     print(f"JSON saved as {filename}")
 
-def test_alert_items(xml_file_path="scan-report-iteration1.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0"):
+def test_alert_items(xml_file_path="../scan-report-iteration1.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0"):
     """
     Loads alert items from the XML file and sends each as a message to the AI.
-    It parses the markdown response and checks that it contains exactly 6 sections.
+    It parses the markdown response and checks that it contains exactly 5 sections.
     Instead of saving each alert separately, all alerts in one scan are aggregated
     into one JSON file with alert numbers as keys.
     """
@@ -128,7 +128,6 @@ def test_alert_items(xml_file_path="scan-report-iteration1.xml", model_id="White
         3. **Exploitation Details:** Outline how an attacker might exploit this vulnerability.
         4. **Step-by-Step Remediation:** Provide a detailed, sequential list of numbered steps to mitigate or resolve the issue.
         5. **References & Best Practices:** Include links to relevant documentation or established best practices.
-        6. **Risk Score:** Conclude with a numerical risk score on a scale from 1 (lowest) to 10 (highest).
 
         Please ensure every section header starts with exactly "###".
     """
@@ -139,8 +138,8 @@ def test_alert_items(xml_file_path="scan-report-iteration1.xml", model_id="White
         return
     print("Initialized chat session with ID:", chat_id)
 
-    fixed_keys = ["issue", "impact", "exploit", "solution", "reference", "risk"]
-    scan_results = {}
+    fixed_keys = ["issue", "impact", "exploit", "solution", "reference"]
+    scan_results = {"zap": {}}
     
     for i, message in enumerate(alert_messages):
         print("Sending alert message:")
@@ -154,7 +153,7 @@ def test_alert_items(xml_file_path="scan-report-iteration1.xml", model_id="White
             print(response)
             sections = parse_markdown_response_ordered(response)
             
-            if len(sections) == 6:
+            if len(sections) == 5:
                 break
             else:
                 print(f"Response has {len(sections)} sections (expected 6). Resending request (attempt {attempt+1})...")
@@ -165,7 +164,9 @@ def test_alert_items(xml_file_path="scan-report-iteration1.xml", model_id="White
         else:
             # Map the 6 sections to the fixed keys.
             alert_data = dict(zip(fixed_keys, sections))
-            scan_results[f"alert_{i}"] = alert_data
+            alert_name = re.search(r"Alert:\s*(.+)", message).group(1)
+            print(f"Alert Name: {alert_name}")
+            scan_results["zap"][f"{alert_name}"] = alert_data
         print("-" * 80)
     
     # Save all alerts from this scan as one JSON file.
