@@ -17,6 +17,12 @@ class XML_Parser:
                 alert_items.append(alert)
     return alert_items
   
+  def get_nmap_object(file_path):
+    tree = ET.parse(file_path)
+    root = tree.getroot()
+
+    return root.find('NmapScanResults')
+  
   if __name__ == "__main__":
     file_path = "scan-report.xml"
     items = get_alert_items(file_path)
