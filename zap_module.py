@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
 
 # Config
-API_KEY = 'ctrj0tgroh8lurrpffi4sdqibm'
+API_KEY = '126gp7bpv1rfgf5aqbious8cpb'
 PROXY = 'http://localhost:8080'
 
 zap = ZAPv2(apikey=API_KEY, proxies={'http': PROXY, 'https': PROXY})

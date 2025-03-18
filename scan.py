@@ -19,3 +19,16 @@ def run_scan(domain):
     
     # Optionally, return a report or results for further processing
     return "Scan complete for domain: " + domain
+
+
+##TESTING ONLY####
+def scan(domain):
+    ips = dig_module.get_IP(domain)
+    print(ips)
+    portmin = "0"
+    portmax = "50"
+    portrange = f"{portmin}-{portmax}"
+    
+    # Run nmap scan on the IPs within the given port range
+    results = nmap_module.scan(ips, portrange)
+    print(results)
