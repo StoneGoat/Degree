@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <ScanReport><OWASPZAPReport programName="ZAP" version="2.16.0" generated="Tue, 18 Mar 2025 16:28:20">
 	
 		<site name="https://flamman.se" host="flamman.se" port="443" ssl="true">
@@ -524,7 +525,9 @@
 			</alerts>
 		</site>
 	
-</OWASPZAPReport><NmapScanResults>
+</OWASPZAPReport>
+
+<NmapScanResults>
     <tag_35_228_57_67>
         <nmap>
             <command_line>nmap -oX - -p 0-50 -Pn 35.228.57.67</command_line>

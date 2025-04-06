@@ -2,7 +2,6 @@ import xml.etree.ElementTree as ET
 import requests
 import re
 import json
-from buildpdf import MarkdownReport  # assuming this module exists for PDF generation
 
 API_URL = "http://127.0.0.1:9000/chat"
 
@@ -111,7 +110,7 @@ def save_json(data, filename):
         json.dump(data, f, indent=4)
     print(f"JSON saved as {filename}")
 
-def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0"):
+def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=""):
     """
     Loads alert items from the XML file and sends each as a message to the AI.
     It parses the markdown response and checks that it contains exactly 5 sections.
@@ -167,6 +166,9 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
             alert_name = re.search(r"Alert:\s*(.+)", message).group(1)
             print(f"Alert Name: {alert_name}")
             scan_results["zap"][f"{alert_name}"] = alert_data
+            vulnerability_data = {alert_name: alert_data}
+            send_vulnerability_to_api(vulnerability_data, scan_id)
+
         print("-" * 80)
 
 def get_nmap_results_from_xml(file_path):
@@ -283,6 +285,33 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         # Store the cleaned response as the overview.
         scan_results["nmap"][host_tag] = {"overview": cleaned_response}
         print("-" * 80)
+
+def send_vulnerability_to_api(vulnerability_data, scan_id=None):
+    if not scan_id:
+        print("Warning: No scan_id provided when sending vulnerability data")
+        return None
+        
+    # Define the API endpoint URL
+    url = f"http://localhost:5000/update?scan_id={scan_id}"
+    
+    print(f"Sending vulnerability data to {url}")
+    
+    # Set headers for JSON content
+    headers = {'Content-Type': 'application/json'}
+    
+    # Send the POST request to your Flask API
+    try:
+        response = requests.post(url, data=json.dumps(vulnerability_data), headers=headers)
+        
+        if response.status_code == 200:
+            print(f"Successfully sent data to API for scan {scan_id}")
+            return response.json()
+        else:
+            print(f"Error from API: {response.status_code}, {response.text}")
+            return None
+    except Exception as e:
+        print(f"Exception sending data to API: {str(e)}")
+        return None
 
 if __name__ == "__main__":
     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()
