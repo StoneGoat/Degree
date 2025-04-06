@@ -4,127 +4,37 @@
   <meta charset="UTF-8">
   <title>Automated Vulnerability Scanner</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <!-- Include jQuery for AJAX functionality -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Include Marked.js for Markdown parsing -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      // Get scan ID from URL parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const currentScanId = urlParams.get('scan_id');
-      
-      console.log("Current scan ID from URL: " + currentScanId);
-      
-      // Function to load and display Markdown content
-      function loadMarkdown() {
-        if (!currentScanId) {
-          $("#markdown-container").hide();
-          return;
-        }
-        
-        $("#markdown-container").show();
-        let url = "{{ url_for('get_markdown') }}?scan_id=" + currentScanId;
-        
-        $.ajax({
-          url: url,
-          type: "GET",
-          success: function(response) {
-            if (response.markdown) {
-              // Parse markdown and insert into the container
-              $("#markdown-display").html(marked.parse(response.markdown));
-            }
-          },
-          error: function(xhr, status, error) {
-            console.error("Error loading markdown:", error);
-            $("#markdown-display").html("<p>Failed to load markdown content.</p>");
-          }
-        });
-      }
-
-      // Load markdown on page load if scan ID exists
-      if (currentScanId) {
-        loadMarkdown();
-        // Reload markdown every 5 seconds to see updates
-        setInterval(loadMarkdown, 5000);
-      } else {
-        $("#markdown-container").hide();
-      }
-    });
-  </script>
-  <style>
-    /* Additional styles for the markdown display box */
-    #markdown-container {
-      margin-top: 30px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 20px;
-      background-color: #f9f9f9;
-    }
-    
-    #markdown-display {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
-    
-    #markdown-display h1, #markdown-display h2, #markdown-display h3 {
-      margin-top: 1em;
-      margin-bottom: 0.5em;
-    }
-    
-    #markdown-display ul, #markdown-display ol {
-      padding-left: 2em;
-    }
-    
-    #markdown-display pre {
-      background-color: #f0f0f0;
-      padding: 10px;
-      border-radius: 4px;
-      overflow-x: auto;
-    }
-    
-    #markdown-display code {
-      background-color: #f0f0f0;
-      padding: 2px 4px;
-      border-radius: 3px;
-    }
-    
-    #markdown-display blockquote {
-      border-left: 4px solid #ddd;
-      padding-left: 1em;
-      margin-left: 0;
-      color: #666;
-    }
-  </style>
 </head>
 <body>
-  <h1>Automated Vulnerability Scanner</h1>
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="flashes">
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
-  <form method="post">
-    <label for="domain">Enter Domain:</label>
-    <input type="text" id="domain" name="domain" placeholder="example.com" required>
-    <button type="submit">Scan</button>
-  </form>
-  
-  <!-- Div to display the loading message or errors -->
-  <div id="result"></div>
-  
-  <!-- New markdown display container -->
-  <div id="markdown-container">
-    <h2>Vulnerability Analysis</h2>
-    {% if scan_id %}
-      <p>Scan ID: {{ scan_id }}</p>
-    {% endif %}
-    <div id="markdown-display">
-      <p>Loading scan results...</p>
+  <div class="container">
+    <h1>Automated Vulnerability Scanner</h1>
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    
+    <div class="scan-form">
+      <form method="post">
+        <label for="domain">Enter Domain:</label>
+        <input type="text" id="domain" name="domain" placeholder="example.com" required>
+        <button type="submit">Scan</button>
+      </form>
+    </div>
+    
+    <div class="info-section">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Enter a domain name to scan</li>
+        <li>Our scanner checks for common vulnerabilities</li>
+        <li>Results are analyzed by AI for comprehensive insights</li>
+        <li>View detailed vulnerability information and remediation steps</li>
+      </ol>
     </div>
   </div>
 </body>

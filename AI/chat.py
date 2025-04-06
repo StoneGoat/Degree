@@ -239,7 +239,7 @@ def clean_response(response):
     return response
 
 def test_nmap_object(xml_file_path="../scan-report2.xml", 
-                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0"):
+                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None):
     """
     Loads Nmap scan results from the XML file and sends each as a message to the AI.
     The AI response is expected to be a brief overview of the scan results in clear markdown format,
@@ -253,6 +253,7 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
     prompt = """
         You are a cybersecurity expert. Given the following Nmap scan results extracted from an XML report, provide a brief overview in clear markdown format.
         Do not include any introductory, meta, or explanatory text. Start directly with your analysis (using markdown bullet lists or headers).
+        Avoid any concluding statements or meta-commentary about the overview being simplified or requiring further analysis.
     """
     # Initialize the chat session with the system prompt.
     chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
@@ -284,6 +285,8 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         
         # Store the cleaned response as the overview.
         scan_results["nmap"][host_tag] = {"overview": cleaned_response}
+        vulnerability_data = {"overview": cleaned_response}
+        send_vulnerability_to_api(vulnerability_data, scan_id)
         print("-" * 80)
 
 def send_vulnerability_to_api(vulnerability_data, scan_id=None):
@@ -294,6 +297,10 @@ def send_vulnerability_to_api(vulnerability_data, scan_id=None):
     # Define the API endpoint URL
     url = f"http://localhost:5000/update?scan_id={scan_id}"
     
+    # Add more detailed debugging
+    print(f"Debugging vulnerability_data:")
+    print(f"Type of vulnerability_data: {type(vulnerability_data)}")
+    print(f"Contents of vulnerability_data: {vulnerability_data}")
     print(f"Sending vulnerability data to {url}")
     
     # Set headers for JSON content
@@ -301,7 +308,11 @@ def send_vulnerability_to_api(vulnerability_data, scan_id=None):
     
     # Send the POST request to your Flask API
     try:
-        response = requests.post(url, data=json.dumps(vulnerability_data), headers=headers)
+        # Ensure the data is JSON serializable
+        json_data = json.dumps(vulnerability_data)
+        print(f"JSON-serialized data: {json_data}")
+        
+        response = requests.post(url, data=json_data, headers=headers)
         
         if response.status_code == 200:
             print(f"Successfully sent data to API for scan {scan_id}")
@@ -312,6 +323,14 @@ def send_vulnerability_to_api(vulnerability_data, scan_id=None):
     except Exception as e:
         print(f"Exception sending data to API: {str(e)}")
         return None
+    
+
+def run_AI(xml_file_path="../scan-report2.xml", 
+                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0",
+                     scan_id=""):
+    print("Running AI")
+    test_alert_items(xml_file_path, model_id, scan_id)
+    test_nmap_object(xml_file_path, model_id, scan_id)
 
 if __name__ == "__main__":
     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()

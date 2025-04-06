@@ -81,4 +81,4 @@ def run_full_scan(target, nmap_results, nikto_results, id):
     target = 'https://' + target
     spider_scan(target)
     active_scan(target)
-    save_report(nmap_results, nikto_results)
+    save_report(nmap_results, nikto_results, id)
