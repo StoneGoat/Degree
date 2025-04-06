@@ -7,6 +7,7 @@ import xml.dom.minidom as minidom
 # Config
 API_KEY = '126gp7bpv1rfgf5aqbious8cpb'
 PROXY = 'http://localhost:8080'
+scan_id = 1
 
 zap = ZAPv2(apikey=API_KEY, proxies={'http': PROXY, 'https': PROXY})
 
@@ -73,7 +74,7 @@ def save_report(nmap_results_xml, nikto_results_xml):
     # Convert the final XML tree to a string
     xml_string = ET.tostring(final_root, encoding='unicode', method='xml')
     
-    with open("scan-report.xml", "w") as f:
+    with open(f"scan-report{scan_id}.xml", "w") as f:
         f.write(xml_string)
 
 
