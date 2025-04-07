@@ -7,12 +7,8 @@ def run_scan(domain, id):
     # Get the IPs for the provided domain
     ips = dig_module.get_IP(domain)
     
-    portmin = "0"
-    portmax = "50"
-    portrange = f"{portmin}-{portmax}"
-    
     # Run nmap scan on the IPs within the given port range
-    nmap_results = nmap_module.scan(ips, portrange)
+    nmap_results = nmap_module.scan(ips)
     nikto_results = nikto_module.nikto_scan_to_xml(domain)
     
     # Run the full scan with OWASP ZAP using the domain and nmap results
