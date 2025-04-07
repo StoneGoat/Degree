@@ -1,4 +1,4 @@
-<ScanReport><OWASPZAPReport programName="ZAP" version="2.16.0" generated="Sun, 6 Apr 2025 14:54:56">
+<ScanReport><OWASPZAPReport programName="ZAP" version="2.16.1" generated="Mon, 7 Apr 2025 14:01:16">
 	
 		<site name="https://flamman.se" host="flamman.se" port="443" ssl="true">
 			<alerts>
@@ -51,7 +51,7 @@
 						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework&lt;/p&gt;&lt;p&gt;https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html&lt;/p&gt;</reference>
 						<cweid>497</cweid>
 						<wascid>13</wascid>
-						<sourceid>25</sourceid>
+						<sourceid>6</sourceid>
 					</alertitem>
 				
 				
@@ -68,16 +68,6 @@
 						<instances>
 							
 								<instance>
-									<uri>https://flamman.se</uri>
-									<method>GET</method>
-									<param />
-									<attack />
-									<evidence />
-									<otherinfo />
-								</instance>
-							
-							
-								<instance>
 									<uri>https://flamman.se/robots.txt</uri>
 									<method>GET</method>
 									<param />
@@ -86,57 +76,14 @@
 									<otherinfo />
 								</instance>
 							
-							
-								<instance>
-									<uri>https://flamman.se/sitemap.xml</uri>
-									<method>GET</method>
-									<param />
-									<attack />
-									<evidence />
-									<otherinfo />
-								</instance>
-							
 						</instances>
-						<count>3</count>
+						<count>1</count>
 						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.&lt;/p&gt;</solution>
 						<otherinfo />
 						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html&lt;/p&gt;&lt;p&gt;https://owasp.org/www-community/Security_Headers&lt;/p&gt;&lt;p&gt;https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security&lt;/p&gt;&lt;p&gt;https://caniuse.com/stricttransportsecurity&lt;/p&gt;&lt;p&gt;https://datatracker.ietf.org/doc/html/rfc6797&lt;/p&gt;</reference>
 						<cweid>319</cweid>
 						<wascid>15</wascid>
-						<sourceid>25</sourceid>
-					</alertitem>
-				
-				
-					<alertitem>
-						<pluginid>10004</pluginid>
-						<alertRef>10004</alertRef>
-						<alert>Tech Detected - Nginx</alert>
-						<name>Tech Detected - Nginx</name>
-						<riskcode>0</riskcode>
-						<confidence>2</confidence>
-						<riskdesc>Informational (Medium)</riskdesc>
-						<confidencedesc>Medium</confidencedesc>
-						<desc>&lt;p&gt;The following "Web servers, Reverse proxies" technology was identified: Nginx.&lt;/p&gt;&lt;p&gt;Described as:&lt;/p&gt;&lt;p&gt;Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.&lt;/p&gt;</desc>
-						<instances>
-							
-								<instance>
-									<uri>https://flamman.se/robots.txt</uri>
-									<method>GET</method>
-									<param />
-									<attack />
-									<evidence>nginx</evidence>
-									<otherinfo>The following CPE is associated with the identified tech: cpe:2.3:a:f5:nginx:*:*:*:*:*:*:*:*
-</otherinfo>
-								</instance>
-							
-						</instances>
-						<count>1</count>
-						<solution />
-						<otherinfo>&lt;p&gt;The following CPE is associated with the identified tech: cpe:2.3:a:f5:nginx:*:*:*:*:*:*:*:*&lt;/p&gt;&lt;p&gt;&lt;/p&gt;</otherinfo>
-						<reference>&lt;p&gt;https://nginx.org/en&lt;/p&gt;</reference>
-						<cweid>-1</cweid>
-						<wascid>13</wascid>
-						<sourceid>23</sourceid>
+						<sourceid>4</sourceid>
 					</alertitem>
 				
 				
@@ -355,7 +302,7 @@
 								<instance>
 									<uri>https://flamman.se/robots.txt</uri>
 									<method>GET</method>
-									<param>Header User-Anmap_rootgent</param>
+									<param>Header User-Agent</param>
 									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
 									<evidence />
 									<otherinfo />
@@ -518,7 +465,7 @@
 						<reference>&lt;p&gt;https://owasp.org/wstg&lt;/p&gt;</reference>
 						<cweid>0</cweid>
 						<wascid>0</wascid>
-						<sourceid>123</sourceid>
+						<sourceid>121</sourceid>
 					</alertitem>
 				
 			</alerts>
@@ -535,8 +482,8 @@
                 </tcp>
             </scaninfo>
             <scanstats>
-                <timestr>Sun Apr  6 14:51:21 2025</timestr>
-                <elapsed>12.61</elapsed>
+                <timestr>Mon Apr  7 13:58:48 2025</timestr>
+                <elapsed>1.66</elapsed>
                 <uphosts>1</uphosts>
                 <downhosts>0</downhosts>
                 <totalhosts>1</totalhosts>
@@ -592,18 +539,20 @@
         </scan>
     </tag_35_228_57_67>
 </NmapScanResults><NiktoScanResults>
-    <raw_output>- Nikto v2.5.0
+    <raw_output>- Nikto v2.1.5
 ---------------------------------------------------------------------------
 + Target IP:          35.228.57.67
 + Target Hostname:    flamman.se
 + Target Port:        80
-+ Start Time:         2025-04-06 14:51:21 (GMT2)
++ Start Time:         2025-04-07 13:58:48 (GMT2)
 ---------------------------------------------------------------------------
 + Server: nginx
++ Retrieved x-powered-by header: Templ.io
++ The anti-clickjacking X-Frame-Options header is not present.
 + Root page / redirects to: https://www.flamman.se/
 + No CGI Directories found (use '-C all' to force check all possible dirs)
-+ 7961 requests: 0 error(s) and 3 item(s) reported on remote host
-+ End Time:           2025-04-06 14:54:42 (GMT2) (201 seconds)
++ 6544 items checked: 0 error(s) and 2 item(s) reported on remote host
++ End Time:           2025-04-07 14:00:52 (GMT2) (124 seconds)
 ---------------------------------------------------------------------------
 + 1 host(s) tested
 </raw_output>

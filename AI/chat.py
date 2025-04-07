@@ -14,7 +14,7 @@ model_list = {
 scan_results = {}
 
 def send_chat_request(prompt, chat_id=None, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0",
-                      token_limit=2048, temperature=1, top_p=1, role="user"):
+                      token_limit=4096, temperature=1, top_p=1, role="user"):
     payload = {
         "prompt": prompt,
         "model_id": model_id,
@@ -251,9 +251,21 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
     
     # Updated prompt instructing no meta text.
     prompt = """
-        You are a cybersecurity expert. Given the following Nmap scan results extracted from an XML report, provide a brief overview in clear markdown format.
-        Do not include any introductory, meta, or explanatory text. Start directly with your analysis (using markdown bullet lists or headers).
-        Avoid any concluding statements or meta-commentary about the overview being simplified or requiring further analysis.
+        You are a cybersecurity expert analyzing Nmap scan results. Provide a structured analysis with these specific sections:
+
+        ### Network Exposure Summary
+        Summarize the overall network exposure based on open ports and services.
+
+        ### Open Ports & Services
+        List all open ports and running services discovered, including versions if available.
+
+        ### Security Observations
+        Identify potential security concerns based on exposed services.
+
+        ### Recommended Actions
+        Suggest specific hardening measures based on the scan findings.
+
+        IMPORTANT: Only analyze information explicitly present in the scan results. Use concise bullet points within each section. Do not add introductory text or concluding statements.
     """
     # Initialize the chat session with the system prompt.
     chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
@@ -323,14 +335,109 @@ def send_vulnerability_to_api(vulnerability_data, scan_id=None):
     except Exception as e:
         print(f"Exception sending data to API: {str(e)}")
         return None
+  
+def get_nikto_results_from_xml(file_path):
+    """
+    Parse the XML file and retrieve Nikto scan details.
+    Returns a list of string messages formatted for the AI.
+    """
+    tree = ET.parse(file_path)
+    root = tree.getroot()
     
+    # Locate the NiktoScanResults element
+    nikto_results = root.find('NiktoScanResults')
+    if nikto_results is None:
+        print("No NiktoScanResults element found in the XML.")
+        return []
+
+    results = []
+    # Extract the raw output
+    raw_output = nikto_results.findtext('raw_output')
+    if raw_output:
+        message = f"Nikto Scan Results\n\n{raw_output}"
+        results.append(message)
+    else:
+        print("No raw_output found in NiktoScanResults.")
+    
+    return results
+
+def test_nikto_object(xml_file_path="../scan-report2.xml", 
+                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None):
+    """
+    Loads Nikto scan results from the XML file and sends each as a message to the AI.
+    The AI response is expected to be a structured analysis of the scan results in clear markdown format.
+    """
+    nikto_messages = get_nikto_results_from_xml(xml_file_path)
+    print(f"DEBUG: Retrieved {len(nikto_messages)} Nikto messages from XML.")
+    
+    if not nikto_messages:
+        print("DEBUG: No Nikto scan results found in the XML.")
+        return
+    
+    # System prompt for Nikto analysis
+    prompt = """
+        You are a cybersecurity expert. Given the security scan results, provide a comprehensive analysis in clear markdown format. For each distinct vulnerability found, include these five sections with headers formatted exactly as shown:
+
+        ### Issue Explanation
+        Describe what the vulnerability is and why it matters.
+
+        ### Impact Analysis
+        Explain the potential risks and security impact if this vulnerability is exploited.
+
+        ### Exploitation Details
+        Outline how an attacker might exploit this vulnerability.
+
+        ### Step-by-Step Remediation
+        Provide a detailed, sequential list of numbered steps to mitigate or resolve the issue.
+
+        ### References & Best Practices
+        Include links to relevant documentation or established best practices.
+
+        IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the scan results. Do not invent additional vulnerabilities. If only a few issues are found, focus on providing thorough analysis of those specific findings.
+    """
+    
+    # Initialize the chat session with the system prompt
+    chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
+    if chat_id is None:
+        print("DEBUG: Failed to initialize chat session.")
+        return
+    print("DEBUG: Initialized chat session with ID:", chat_id)
+    
+    # Initialize nikto section in scan_results if not already present
+    if "nikto" not in scan_results:
+        scan_results["nikto"] = {}
+    
+    for i, message in enumerate(nikto_messages):
+        print("\nDEBUG: Processing Nikto message index", i)
+        print("DEBUG: Message content:\n", message)
+        
+        # Send the message to the AI and get a structured analysis
+        chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id)
+        print("DEBUG: Raw response received:")
+        print(response)
+        
+        # Clean up the response by removing any unwanted introductory text
+        cleaned_response = clean_response(response)
+        print("DEBUG: Cleaned response:")
+        print(cleaned_response)
+        
+        # Store the cleaned response as the analysis
+        scan_results["nikto"]["analysis"] = cleaned_response
+        
+        # Send the vulnerability data to the API if scan_id is provided
+        if scan_id:
+            vulnerability_data = {"nikto_analysis": cleaned_response}
+            send_vulnerability_to_api(vulnerability_data, scan_id)
+        
+        print("-" * 80)
 
 def run_AI(xml_file_path="../scan-report2.xml", 
                      model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0",
                      scan_id=""):
     print("Running AI")
-    test_alert_items(xml_file_path, model_id, scan_id)
+    #test_alert_items(xml_file_path, model_id, scan_id)
     test_nmap_object(xml_file_path, model_id, scan_id)
+    test_nikto_object(xml_file_path, model_id, scan_id)
 
 if __name__ == "__main__":
     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()

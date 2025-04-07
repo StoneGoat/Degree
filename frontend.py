@@ -21,8 +21,8 @@ def index():
             return redirect(url_for("index"))
         try:
             # Generate a unique scan ID
-            scan_id = str(uuid.uuid4())
-            # scan_id = "1397e477-3899-43d3-b673-16bdb4dbaaf9"
+            # scan_id = str(uuid.uuid4())
+            scan_id = "c583fcce-8478-4c59-984d-53c1c21270f2"
 
             print(f"Generated new scan ID: {scan_id}")
             
@@ -65,7 +65,7 @@ def run_scan_process(scan_id, domain):
             f.write("\n## Scanning in progress\n\n")
             f.write("The scan is now running. Results will appear here as they are processed.\n\n")
         
-        scan.run_scan(domain, scan_id)
+        # scan.run_scan(domain, scan_id)
 
         # Run your scan and AI analysis
         send_to_AI(scan_id)
