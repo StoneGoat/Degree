@@ -354,7 +354,7 @@ def get_nikto_results_from_xml(file_path):
     # Extract the raw output
     raw_output = nikto_results.findtext('raw_output')
     if raw_output:
-        message = f"Nikto Scan Results\n\n{raw_output}"
+        message = f"Nikto Scan Results\n\n{raw_output}\n\n This is the end of the context."
         results.append(message)
     else:
         print("No raw_output found in NiktoScanResults.")
@@ -435,7 +435,7 @@ def run_AI(xml_file_path="../scan-report2.xml",
                      model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0",
                      scan_id=""):
     print("Running AI")
-    #test_alert_items(xml_file_path, model_id, scan_id)
+    test_alert_items(xml_file_path, model_id, scan_id)
     test_nmap_object(xml_file_path, model_id, scan_id)
     test_nikto_object(xml_file_path, model_id, scan_id)
 
