@@ -3,7 +3,7 @@
 + Target IP:          35.228.57.67
 + Target Hostname:    flamman.se
 + Target Port:        80
-+ Start Time:         2025-04-07 16:04:04 (GMT2)
++ Start Time:         2025-04-09 14:37:55 (GMT2)
 ---------------------------------------------------------------------------
 + Server: nginx
 + Retrieved x-powered-by header: Templ.io

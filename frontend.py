@@ -16,12 +16,21 @@ os.makedirs(app.config['SCAN_RESULTS_DIR'], exist_ok=True)
 def index():
     if request.method == "POST":
         domain = request.form.get("domain")
+        level = request.form.get("level")
+
+        if level == "Noob":
+            level = 0
+        elif level == "Not Noob":
+            level = 1
+        elif level == "Guru":
+            level = 2
+
         if not domain:
             flash("Please enter a domain.")
             return redirect(url_for("index"))
         try:
             # Generate a unique scan ID
-            # scan_id = str(uuid.uuid4())
+            scan_id = str(uuid.uuid4())
             scan_id = "6c303744-b134-4ffb-82fa-cada0b9bc074"
 
             print(f"Generated new scan ID: {scan_id}")
@@ -41,7 +50,7 @@ def index():
             
             # Start the scan process in a background thread to avoid blocking
             import threading
-            scan_thread = threading.Thread(target=run_scan_process, args=(scan_id, domain))
+            scan_thread = threading.Thread(target=run_scan_process, args=(scan_id, domain, level))
             scan_thread.daemon = True
             scan_thread.start()
             
@@ -54,7 +63,7 @@ def index():
     # For GET requests, just show the index page
     return render_template("index.html")
 
-def run_scan_process(scan_id, domain):
+def run_scan_process(scan_id, domain, level):
     """Run the scan in a separate thread"""
     try:
         print(f"Starting scan process for {domain} with ID {scan_id}")
@@ -68,7 +77,7 @@ def run_scan_process(scan_id, domain):
         # scan.run_scan(domain, scan_id)
 
         # Run your scan and AI analysis
-        send_to_AI(scan_id)
+        send_to_AI(scan_id, level)
         
         # Mark scan as complete
         with open(os.path.join(scan_dir, 'vulnerability.md'), 'a') as f:
@@ -100,10 +109,10 @@ def scan_results():
     
     return render_template("results.html", scan_id=scan_id, domain=domain)
 
-def send_to_AI(scan_id):
+def send_to_AI(scan_id, level):
     try:
         print(f"Starting AI analysis with scan ID: {scan_id}")
-        chat.run_AI(xml_file_path=f"scan-report{scan_id}.xml", scan_id=scan_id)
+        chat.run_AI(xml_file_path=f"scan-report{scan_id}.xml", scan_id=scan_id, level=level)
         print(f"AI analysis completed for scan: {scan_id}")
     except Exception as e:
         print(f"Error in send_to_AI: {str(e)}")

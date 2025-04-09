@@ -89,7 +89,7 @@ def parse_markdown_response_ordered(response):
     # Pattern: start of line, optional spaces, 1-6 '#' characters, optional number and period,
     # then the header text, followed by a colon, then end of line.
     header_pattern = re.compile(
-        r'^(?:\s*#{1,6}\s*)(?:\d+\.\s*)?(.*?)\s*:\s*$',
+        r'^(?:\s*#{1,6}\s*)(?:\d+\.\s*)?(.*?)(?:\s*:)?\s*$',
         re.MULTILINE
     )
     headers = list(header_pattern.finditer(response))
@@ -110,7 +110,7 @@ def save_json(data, filename):
         json.dump(data, f, indent=4)
     print(f"JSON saved as {filename}")
 
-def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=""):
+def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id="", level=1):
     """
     Loads alert items from the XML file and sends each as a message to the AI.
     It parses the markdown response and checks that it contains exactly 5 sections.
@@ -120,27 +120,57 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
     alert_messages = get_alert_items_from_xml(xml_file_path)
     
     prompt = """
-        You are a cybersecurity expert. Given the following vulnerability alert details extracted from an OWASP ZAP report, please provide a comprehensive analysis in clear markdown format. For each section, ensure the header starts with exactly "###". The sections should be:
+        You are a cybersecurity expert communicating with non-technical stakeholders. Given the following vulnerability alert details extracted from an OWASP ZAP report, please provide an accessible analysis in clear markdown format that anyone can understand. For each section, ensure the header starts with exactly "###". The sections should be:
 
-        1. **Issue Explanation:** Describe what the vulnerability is and why it matters.
-        2. **Impact Analysis:** Explain the potential risks and security impact if this vulnerability is exploited.
-        3. **Exploitation Details:** Outline how an attacker might exploit this vulnerability.
-        4. **Step-by-Step Remediation:** Provide a detailed, sequential list of numbered steps to mitigate or resolve the issue.
-        5. **References & Best Practices:** Include links to relevant documentation or established best practices.
+        1. **Issue Explanation:** Explain the vulnerability using simple analogies and everyday examples. Avoid technical jargon and focus on why this matters to the business and users in real-world terms.
+        2. **Impact Analysis:** Describe what could go wrong in plain language, focusing on business consequences, user trust issues, and potential financial or reputational impacts.
+        3. **Exploitation Simplified:** Use a simple story or scenario to illustrate how an attacker might take advantage of this vulnerability, similar to explaining a home security issue.
+        4. **Step-by-Step Remediation:** Provide practical, jargon-free steps that can be understood by management and conveyed to technical teams. Focus on the "what" more than the "how."
+        5. **References & Resources:** Include beginner-friendly resources and explain why each resource is helpful.
 
-        Please ensure every section header starts with exactly "###".
+        Please ensure every section header starts with exactly "###". Use visual metaphors, real-world comparisons, and avoid technical terminology wherever possible. If technical terms must be used, briefly explain them.
     """
-    # Initialize the chat session with the system prompt.
-    chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
-    if chat_id is None:
-        print("Failed to initialize chat session.")
-        return
-    print("Initialized chat session with ID:", chat_id)
+
+    if level == 1:
+        prompt = """
+            You are a cybersecurity expert communicating with IT professionals who have intermediate technical knowledge. Given the following vulnerability alert details extracted from an OWASP ZAP report, please provide a balanced technical analysis in clear markdown format. For each section, ensure the header starts with exactly "###". The sections should be:
+
+            1. **Issue Explanation:** Describe the vulnerability's technical mechanisms and security principles involved, while connecting them to practical business implications. Include context about when and where this vulnerability typically appears.
+            2. **Impact Analysis:** Analyze specific security risks with concrete examples of what attackers could achieve, including data compromise scenarios, access control failures, or system disruptions.
+            3. **Exploitation Details:** Outline specific methodologies an attacker might use, including tools, techniques, and prerequisites needed for successful exploitation.
+            4. **Step-by-Step Remediation:** Provide detailed implementation instructions with appropriate code snippets, configuration examples, and testing procedures to verify the fix. Include both immediate fixes and long-term preventive measures.
+            5. **References & Best Practices:** Include technical documentation links, relevant standards (OWASP/CWE), and industry best practices that are specifically applicable to this vulnerability.
+
+            Please ensure every section header starts with exactly "###". Include practical examples and enough technical detail for implementation while avoiding excessive complexity that would only be relevant to security specialists.
+        """
+    elif level == 2:
+        prompt = """
+            You are a cybersecurity expert writing for security engineers and developers. Given the following vulnerability details from an OWASP ZAP report, provide an expert-level technical analysis in markdown format. For each section, ensure the header starts with exactly "###". The sections should be:
+
+            1. **Issue Explanation:** Provide a technical analysis of the vulnerability including HTTP header mechanics, information disclosure vectors, and implementation details across common web technologies.
+
+            2. **Impact Analysis:** Analyze the security implications including potential for fingerprinting, precise version enumeration, and how this vulnerability can be combined with other reconnaissance techniques in a sophisticated attack.
+
+            3. **Exploitation Details:** Include specific technical methods for exploiting this vulnerability, with a code example demonstrating automated header collection and analysis.
+
+            4. **Technical Remediation:** Provide configuration examples for at least TWO of the following platforms: Apache, Nginx, IIS, Express.js, or PHP. Include both server-level and application-level remediation approaches.
+
+            5. **Security Resources:** Include technically-relevant references to documentation, security advisories, and implementation guides.
+
+            Please ensure every section header starts with exactly "###" and focus on providing technically precise guidance that would be valuable to experienced security professionals.
+        """
 
     fixed_keys = ["issue", "impact", "exploit", "solution", "reference"]
     scan_results["zap"] = {}
     
     for i, message in enumerate(alert_messages):
+            # Initialize the chat session with the system prompt.
+        chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
+        if chat_id is None:
+            print("Failed to initialize chat session.")
+            return
+        print("Initialized chat session with ID:", chat_id)
+
         print("Sending alert message:")
         print(message)
         max_attempts = 3
@@ -173,58 +203,59 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
 
 def get_nmap_results_from_xml(file_path):
     """
-    Parse the XML file and retrieve Nmap scan details.
+    Parse the XML file and retrieve Nmap scan details based on the actual XML structure.
     Returns a list of string messages formatted for the AI.
     """
     tree = ET.parse(file_path)
     root = tree.getroot()
-    # Locate the NmapScanResults element (it might now be nested under <ScanReport>)
+    
+    # Locate the NmapScanResults element
     nmap_results = root.find('NmapScanResults')
     if nmap_results is None:
         print("No NmapScanResults element found in the XML.")
         return []
 
     results = []
-    # Iterate over each host element inside NmapScanResults.
+    # Iterate over each host element inside NmapScanResults
     for host_element in nmap_results:
         host_tag = host_element.tag  # e.g. tag_35_228_57_67
         message = f"Nmap Scan Results for {host_tag}\n"
-        # Extract overall scan details from the <nmap> element.
-        nmap_elem = host_element.find('nmap')
-        if nmap_elem is not None:
-            command_line = nmap_elem.findtext('command_line', default="N/A")
-            tcp_method = nmap_elem.findtext('scaninfo/tcp/method', default="N/A")
-            tcp_services = nmap_elem.findtext('scaninfo/tcp/services', default="N/A")
-            timestr = nmap_elem.findtext('scanstats/timestr', default="N/A")
-            elapsed = nmap_elem.findtext('scanstats/elapsed', default="N/A")
-            uphosts = nmap_elem.findtext('scanstats/uphosts', default="N/A")
-            downhosts = nmap_elem.findtext('scanstats/downhosts', default="N/A")
-            totalhosts = nmap_elem.findtext('scanstats/totalhosts', default="N/A")
-            message += f"Command Line: {command_line}\n"
-            message += f"Scan Info: Method: {tcp_method}, Services: {tcp_services}\n"
-            message += (f"Scan Stats: Time: {timestr}, Elapsed: {elapsed} seconds, "
-                        f"Up: {uphosts}, Down: {downhosts}, Total: {totalhosts}\n")
-        # Extract host and port details from the <scan> element.
-        scan_elem = host_element.find('scan')
-        if scan_elem is not None:
-            host_scan_elem = scan_elem.find(host_tag)
-            if host_scan_elem is not None:
-                hostname = host_scan_elem.findtext('hostnames/name', default="N/A")
-                ipv4 = host_scan_elem.findtext('addresses/ipv4', default="N/A")
-                state = host_scan_elem.findtext('status/state', default="N/A")
-                reason = host_scan_elem.findtext('status/reason', default="N/A")
-                message += f"Host: {hostname}, IP: {ipv4}, Status: {state} ({reason})\n"
-                tcp_elem = host_scan_elem.find('tcp')
-                if tcp_elem is not None:
-                    message += "Port Details:\n"
-                    for port_elem in tcp_elem:
-                        port_tag = port_elem.tag
-                        port_number = port_tag.split('_')[1] if '_' in port_tag else port_tag
-                        port_state = port_elem.findtext('state', default="N/A")
-                        port_reason = port_elem.findtext('reason', default="N/A")
-                        port_name = port_elem.findtext('name', default="N/A")
-                        message += f"  Port {port_number}: {port_name} is {port_state} (Reason: {port_reason})\n"
+        
+        # Find the nested host element that contains the actual data
+        nested_host = host_element.find(host_tag)
+        if nested_host is not None:
+            # Extract host details
+            hostname = nested_host.findtext('hostnames/name', default="N/A")
+            ipv4 = nested_host.findtext('addresses/ipv4', default="N/A")
+            state = nested_host.findtext('status/state', default="N/A")
+            reason = nested_host.findtext('status/reason', default="N/A")
+            
+            message += f"Host: {hostname}, IP: {ipv4}, Status: {state} ({reason})\n"
+            
+            # Extract port details from the open_ports element
+            open_ports = nested_host.find('open_ports')
+            if open_ports is not None:
+                message += "Open Ports and Services:\n"
+                for port_elem in open_ports:
+                    port_tag = port_elem.tag
+                    port_number = port_tag.split('_')[1] if '_' in port_tag else port_tag
+                    port_state = port_elem.findtext('state', default="N/A")
+                    port_reason = port_elem.findtext('reason', default="N/A")
+                    port_name = port_elem.findtext('name', default="N/A")
+                    port_product = port_elem.findtext('product', default="")
+                    port_version = port_elem.findtext('version', default="")
+                    
+                    # Build a more detailed port information string
+                    service_info = f"{port_name}"
+                    if port_product or port_version:
+                        service_info += f" ({port_product} {port_version})".strip()
+                    
+                    message += f"  Port {port_number}: {service_info} is {port_state} (Reason: {port_reason})\n"
+            else:
+                message += "No open ports found.\n"
+                
         results.append(message)
+    
     return results
 
 def clean_response(response):
@@ -239,7 +270,7 @@ def clean_response(response):
     return response
 
 def test_nmap_object(xml_file_path="../scan-report2.xml", 
-                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None):
+                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
     Loads Nmap scan results from the XML file and sends each as a message to the AI.
     The AI response is expected to be a brief overview of the scan results in clear markdown format,
@@ -251,22 +282,69 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
     
     # Updated prompt instructing no meta text.
     prompt = """
-        You are a cybersecurity expert analyzing Nmap scan results. Provide a structured analysis with these specific sections:
+        You are a cybersecurity expert analyzing Nmap scan results for non-technical stakeholders. Provide an easy-to-understand analysis with these specific sections:
 
         ### Network Exposure Summary
-        Summarize the overall network exposure based on open ports and services.
+        Explain in simple terms what the scan found about the system's visibility to the outside world, using everyday comparisons.
 
         ### Open Ports & Services
-        List all open ports and running services discovered, including versions if available.
+        List what's "open" or accessible on the system in non-technical language, similar to explaining which doors and windows are unlocked.
 
-        ### Security Observations
-        Identify potential security concerns based on exposed services.
+        ### Security Concerns
+        Describe potential risks in business terms, focusing on what these findings might mean for the organization's data and operations.
 
         ### Recommended Actions
-        Suggest specific hardening measures based on the scan findings.
+        Suggest practical steps that management should consider, avoiding technical jargon and focusing on business priorities.
 
-        IMPORTANT: Only analyze information explicitly present in the scan results. Use concise bullet points within each section. Do not add introductory text or concluding statements.
+        IMPORTANT: Only analyze information explicitly present in the scan results. Use simple language and avoid technical terminology wherever possible. If technical terms must be used, briefly explain them.
     """
+
+    if level == 1:
+        prompt = """
+            You are a cybersecurity expert analyzing Nmap scan results for IT professionals. Provide a balanced technical analysis with these specific sections:
+
+            ### Network Exposure Summary
+            Summarize the exposure profile including total open ports, most significant services, and overall attack surface assessment.
+
+            ### Open Ports & Services
+            List all discovered open ports, their associated services, and version information where available. Include a brief explanation of each service's function.
+
+            ### Security Observations
+            Identify specific security concerns based on the exposed services, including known risky configurations and potential vulnerabilities associated with detected service versions.
+
+            ### Recommended Actions
+            Provide practical remediation steps that include specific configurations and hardening measures. Include both immediate fixes and longer-term security improvements.
+
+            IMPORTANT: Only analyze information explicitly present in the scan results. Provide technically accurate information with enough context for IT professionals to understand the implications without requiring advanced security expertise.
+        """
+    elif level == 2:
+        prompt = """
+            You are a cybersecurity expert analyzing Nmap scan results for security engineers and developers. Provide a detailed technical analysis with these specific sections:
+
+            ### Network Exposure Analysis
+            Analyze exposure including TCP sequence prediction difficulty, firewall/filtering detection, and service state analysis.
+
+            ### Service Vulnerability Assessment
+            For each service identified, provide:
+            - Specific version-based vulnerabilities (if versions are detected)
+            - Common misconfigurations for these services
+            - Default credentials concerns
+            - Protocol weaknesses
+
+            ### Defense-in-Depth Recommendations
+            Provide specific multi-layered security controls including:
+            - Firewall rules with proper allow/deny logic. For example:
+              # Allow SSH only from trusted network and deny all other SSH connections
+              iptables -A INPUT -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
+              iptables -A INPUT -p tcp --dport 22 -j DROP
+
+            - Service-specific hardening configurations (example snippets for SSH, web servers)
+            - Network segmentation recommendations
+            - Monitoring commands and log analysis strategies for detecting attacks
+
+            IMPORTANT: Focus on providing specific, actionable technical guidance with concrete examples. Include command-line examples where appropriate. Ensure firewall rules follow proper security logic with specific source/destination constraints.
+        """
+
     # Initialize the chat session with the system prompt.
     chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
     if chat_id is None:
@@ -362,7 +440,7 @@ def get_nikto_results_from_xml(file_path):
     return results
 
 def test_nikto_object(xml_file_path="../scan-report2.xml", 
-                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None):
+                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
     Loads Nikto scan results from the XML file and sends each as a message to the AI.
     The AI response is expected to be a structured analysis of the scan results in clear markdown format.
@@ -376,38 +454,88 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
     
     # System prompt for Nikto analysis
     prompt = """
-        You are a cybersecurity expert. Given the security scan results, provide a comprehensive analysis in clear markdown format. For each distinct vulnerability found, include these five sections with headers formatted exactly as shown:
+        You are a cybersecurity expert analyzing Nikto web security scan results for non-technical stakeholders. Provide an easy-to-understand analysis with these specific sections for each distinct vulnerability found:
 
-        ### Issue Explanation
-        Describe what the vulnerability is and why it matters.
+        ### Issue Summary
+        Explain the vulnerability in simple terms using everyday analogies. Avoid technical jargon and focus on why this matters to the business.
 
-        ### Impact Analysis
-        Explain the potential risks and security impact if this vulnerability is exploited.
+        ### Business Impact
+        Describe what could go wrong in plain language, focusing on how this could affect customers, reputation, and operations.
 
-        ### Exploitation Details
-        Outline how an attacker might exploit this vulnerability.
+        ### Risk Scenario
+        Use a simple story or real-world comparison to illustrate how this vulnerability might be exploited.
 
-        ### Step-by-Step Remediation
-        Provide a detailed, sequential list of numbered steps to mitigate or resolve the issue.
+        ### Action Steps
+        Suggest practical steps that management should prioritize, explained in business terms rather than technical instructions.
 
-        ### References & Best Practices
-        Include links to relevant documentation or established best practices.
+        ### Additional Resources
+        List beginner-friendly resources where stakeholders can learn more about this type of security issue.
 
-        IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the scan results. Do not invent additional vulnerabilities. If only a few issues are found, focus on providing thorough analysis of those specific findings.
+        IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the scan results. Use simple language and everyday comparisons. If technical terms must be used, briefly explain them.
     """
     
-    # Initialize the chat session with the system prompt
-    chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
-    if chat_id is None:
-        print("DEBUG: Failed to initialize chat session.")
-        return
-    print("DEBUG: Initialized chat session with ID:", chat_id)
+    if level == 1:
+        prompt = """
+            You are a cybersecurity expert analyzing Nikto web security scan results for IT professionals. Provide a balanced technical analysis with these specific sections for each distinct vulnerability found:
+
+            ### Issue Explanation
+            Describe the vulnerability's technical mechanisms while connecting them to practical business implications. Include context about when and where this vulnerability typically appears.
+
+            ### Impact Assessment
+            Analyze specific security risks with concrete examples of what attackers could achieve, including data compromise scenarios and system disruptions.
+
+            ### Exploitation Methods
+            Outline specific methodologies an attacker might use, including common tools and techniques needed for successful exploitation.
+
+            ### Implementation Plan
+            Provide detailed remediation instructions with appropriate configuration examples and testing procedures to verify the fix. Include both immediate mitigation and long-term solutions.
+
+            ### Technical References
+            Include documentation links, relevant standards (OWASP/CWE), and industry best practices specific to this vulnerability.
+
+            IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the scan results. Provide technically accurate information with enough context for IT professionals to understand and address the issues without requiring advanced security expertise.
+        """
+    elif level == 2:
+        prompt = """
+            You are a cybersecurity expert analyzing Nikto web security scan results for security engineers and developers. For each distinct vulnerability found, provide a technical analysis with these EXACT section headers:
+
+            ### Technical Vulnerability Analysis
+            Provide detailed technical analysis of the vulnerability including affected components, root causes, and exploitation requirements.
+
+            ### Security Implications
+            Describe attack vectors, potential exploit chains, and how this vulnerability might combine with others in sophisticated attacks.
+
+            ### Exploitation Techniques
+            Show specific code or commands that demonstrate exploitation. For example:
+            curl -H "X-Frame-Options: ALLOWALL" -v http://example.com
+
+            ### Remediation Implementation
+            Provide specific configuration examples. For example:
+            # Apache configuration to prevent clickjacking
+            Header always append X-Frame-Options SAMEORIGIN
+
+            # Nginx configuration to prevent clickjacking
+            add_header X-Frame-Options "SAMEORIGIN";
+
+            ### Security Resources
+            Include links to CVEs, advisories and implementation guides specific to this vulnerability.
+
+            IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the scan results. You MUST use the exact section headers listed above and include code examples in your response.
+        """
+  
     
     # Initialize nikto section in scan_results if not already present
     if "nikto" not in scan_results:
         scan_results["nikto"] = {}
     
     for i, message in enumerate(nikto_messages):
+        # Initialize the chat session with the system prompt
+        chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
+        if chat_id is None:
+            print("DEBUG: Failed to initialize chat session.")
+            return
+        print("DEBUG: Initialized chat session with ID:", chat_id)
+
         print("\nDEBUG: Processing Nikto message index", i)
         print("DEBUG: Message content:\n", message)
         
@@ -433,17 +561,23 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
 
 def run_AI(xml_file_path="../scan-report2.xml", 
                      model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0",
-                     scan_id=""):
+                     scan_id="",
+                     level=2):
     print("Running AI")
-    test_alert_items(xml_file_path, model_id, scan_id)
-    test_nmap_object(xml_file_path, model_id, scan_id)
-    test_nikto_object(xml_file_path, model_id, scan_id)
+    test_alert_items(xml_file_path, model_id, scan_id, level=level)
+    test_nmap_object(xml_file_path, model_id, scan_id, level)
+    test_nikto_object(xml_file_path, model_id, scan_id, level)
 
 if __name__ == "__main__":
     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()
     if mode == 'test':
-        test_alert_items()
-        test_nmap_object()
-        save_json(scan_results, "scan_results.json")
+        # level = int(input("Input Level"))
+
+        for i in range(1, 3):
+          print("Testing for Level: " + str(i))
+          # test_alert_items(level=i)
+          # test_nmap_object(level=i)  
+          test_nikto_object(level=i)
+          # save_json(scan_results, "scan_results.json")
     else:
         interactive_chat()
