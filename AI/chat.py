@@ -133,31 +133,27 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
 
     if level == 1:
         prompt = """
-            You are a cybersecurity expert communicating with IT professionals who have intermediate technical knowledge. Given the following vulnerability alert details extracted from an OWASP ZAP report, please provide a balanced technical analysis in clear markdown format. For each section, ensure the header starts with exactly "###". The sections should be:
+            You are a cybersecurity expert writing for technical implementers (developers, sysadmins, DevOps engineers). Given the following vulnerability alert details extracted from an OWASP ZAP report, please provide a practical, implementation-focused analysis in clear markdown format. For each section, ensure the header starts with exactly "###". The sections should be:
 
-            1. **Issue Explanation:** Describe the vulnerability's technical mechanisms and security principles involved, while connecting them to practical business implications. Include context about when and where this vulnerability typically appears.
-            2. **Impact Analysis:** Analyze specific security risks with concrete examples of what attackers could achieve, including data compromise scenarios, access control failures, or system disruptions.
-            3. **Exploitation Details:** Outline specific methodologies an attacker might use, including tools, techniques, and prerequisites needed for successful exploitation.
-            4. **Step-by-Step Remediation:** Provide detailed implementation instructions with appropriate code snippets, configuration examples, and testing procedures to verify the fix. Include both immediate fixes and long-term preventive measures.
-            5. **References & Best Practices:** Include technical documentation links, relevant standards (OWASP/CWE), and industry best practices that are specifically applicable to this vulnerability.
+            1. ### Issue Explanation: Describe the vulnerability's technical mechanism, common root causes in code or configuration, and where it typically occurs within the web stack (frontend, backend, server config, etc.). Explain the direct security principle being violated.
+            2. ### Impact Analysis: Detail the specific, direct technical consequences of exploitation. Provide concrete examples like "attacker could read file X," "attacker could execute command Y," "user sessions could be hijacked," or "sensitive data Z could be exposed in transit/at rest."
+            3. ### Exploitation Details & Proof-of-Concept: Outline the steps an attacker might take to exploit this vulnerability. If applicable and safe, provide a simple command-line example (e.g., using `curl`) or a conceptual code snippet demonstrating the exploit technique. Mention common tools used for this specific type of finding.
+            4. ### Step-by-Step Remediation & Verification: Provide detailed, actionable instructions for fixing the vulnerability. Include specific code examples, configuration snippets for relevant platforms (e.g., Apache, Nginx, IIS, framework-specific settings), required library updates, or necessary API usage changes. Crucially, describe how to test and verify that the fix has been successfully implemented. Address both immediate corrections and long-term prevention (e.g., input validation, output encoding, secure defaults). Offer configuration examples for at least ONE common platform if applicable (e.g., Apache, Nginx, IIS, Express.js, Spring Boot, PHP).
+            5. ### Technical References & Best Practices: Include links to official documentation for the affected technologies, relevant OWASP Cheat Sheets, specific CWE (Common Weakness Enumeration) entries, and applicable secure coding or secure configuration best practices directly related to the fix.
 
-            Please ensure every section header starts with exactly "###". Include practical examples and enough technical detail for implementation while avoiding excessive complexity that would only be relevant to security specialists.
+            Please ensure every section header starts with exactly "###". Provide sufficient technical detail for direct implementation and validation, focusing on practical steps and verifiable outcomes.
         """
     elif level == 2:
         prompt = """
-            You are a cybersecurity expert writing for security engineers and developers. Given the following vulnerability details from an OWASP ZAP report, provide an expert-level technical analysis in markdown format. For each section, ensure the header starts with exactly "###". The sections should be:
+            You are a senior cybersecurity analyst communicating with fellow security professionals (engineers, analysts, pentesters). Given the following vulnerability details from an OWASP ZAP report, provide an expert-level cybersecurity analysis in markdown format. Focus on risk, threat context, and strategic mitigation. For each section, ensure the header starts with exactly "###". The sections should be:
 
-            1. **Issue Explanation:** Provide a technical analysis of the vulnerability including HTTP header mechanics, information disclosure vectors, and implementation details across common web technologies.
+            1. ### Technical Deep Dive: Provide a detailed technical breakdown of the vulnerability mechanism, including relevant protocols, common misconfigurations across different technology stacks, and how it manifests in the context of the application's architecture. Discuss the nuances of detection and potential false positives/negatives.
+            2. ### Risk & Threat Context Analysis: Analyze the security implications in depth. Discuss potential attack chains (how this vulnerability could be combined with others), relevance to specific threat actor TTPs (Tactics, Techniques, and Procedures), impact on reconnaissance/fingerprinting, potential for bypassing existing security controls, and alignment with risk management frameworks or compliance requirements (e.g., PCI-DSS, HIPAA if applicable).
+            3. ### Advanced Exploitation Vectors: Discuss sophisticated or less common methods for exploiting this vulnerability. Analyze the prerequisites, feasibility, and potential indicators of compromise (IoCs) associated with exploitation attempts. Mention relevant tools or frameworks often used by attackers for this type of vulnerability beyond basic exploitation.
+            4. ### Strategic Mitigation & Defense-in-Depth: Outline comprehensive mitigation strategies. Focus on secure design principles, architectural changes, recommended configurations from a security best-practice standpoint (less about specific syntax, more about the 'why'), detection engineering opportunities (e.g., relevant logging, monitoring, WAF rule concepts), and how to integrate the fix into the broader vulnerability management program. Discuss compensating controls if immediate remediation isn't feasible.
+            5. ### Advanced Security Resources & Intelligence: Include references to relevant CVEs, detailed technical write-ups, research papers, exploit databases (Exploit-DB), MITRE ATT&CK or CAPEC mappings, and threat intelligence reports discussing the exploitation of this vulnerability class in the wild.
 
-            2. **Impact Analysis:** Analyze the security implications including potential for fingerprinting, precise version enumeration, and how this vulnerability can be combined with other reconnaissance techniques in a sophisticated attack.
-
-            3. **Exploitation Details:** Include specific technical methods for exploiting this vulnerability, with a code example demonstrating automated header collection and analysis.
-
-            4. **Technical Remediation:** Provide configuration examples for at least TWO of the following platforms: Apache, Nginx, IIS, Express.js, or PHP. Include both server-level and application-level remediation approaches.
-
-            5. **Security Resources:** Include technically-relevant references to documentation, security advisories, and implementation guides.
-
-            Please ensure every section header starts with exactly "###" and focus on providing technically precise guidance that would be valuable to experienced security professionals.
+            Please ensure every section header starts with exactly "###". Focus on providing analytical depth, strategic insights, and actionable intelligence valuable to experienced security professionals. Avoid overly generic advice and focus on the specific vulnerability context.
         """
 
     fixed_keys = ["issue", "impact", "exploit", "solution", "reference"]
@@ -285,64 +281,66 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         You are a cybersecurity expert analyzing Nmap scan results for non-technical stakeholders. Provide an easy-to-understand analysis with these specific sections:
 
         ### Network Exposure Summary
-        Explain in simple terms what the scan found about the system's visibility to the outside world, using everyday comparisons.
+        Explain in simple terms what the scan found about the system's visibility (like which 'digital doors and windows' seem to be open or visible), using everyday comparisons.
 
-        ### Open Ports & Services
-        List what's "open" or accessible on the system in non-technical language, similar to explaining which doors and windows are unlocked.
+        ### Open Ports & Services Explained
+        List what's "open" or accessible on the system in non-technical language (e.g., "Web Server Access," "Remote Login Access," "File Sharing Access"). Explain briefly what purpose these openings might serve, similar to explaining the function of different doors on a building. (Formerly 'Open Ports & Services')
 
         ### Security Concerns
-        Describe potential risks in business terms, focusing on what these findings might mean for the organization's data and operations.
+        Describe potential risks in business terms, focusing on what these open 'doors' might mean for the organization's data security, customer privacy, and operational continuity.
 
         ### Recommended Actions
-        Suggest practical steps that management should consider, avoiding technical jargon and focusing on business priorities.
+        Suggest practical steps that management should consider (e.g., "Review if all open access points are necessary," "Ensure security settings are up-to-date"). Avoid technical jargon and focus on business priorities and instructing technical teams.
 
-        IMPORTANT: Only analyze information explicitly present in the scan results. Use simple language and avoid technical terminology wherever possible. If technical terms must be used, briefly explain them.
+        IMPORTANT: Only analyze information explicitly present in the Nmap scan results. Use simple language and avoid technical terminology wherever possible. If technical terms must be used, briefly explain them. Ensure every section header starts with exactly "###".
     """
 
     if level == 1:
         prompt = """
-            You are a cybersecurity expert analyzing Nmap scan results for IT professionals. Provide a balanced technical analysis with these specific sections:
+            You are a cybersecurity expert analyzing Nmap scan results for technical implementers. Provide a practical, implementation-focused analysis in clear markdown format. For each distinct host scanned, use these specific sections:
 
             ### Network Exposure Summary
-            Summarize the exposure profile including total open ports, most significant services, and overall attack surface assessment.
+            Summarize the host's exposure profile based on the scan: IP address, hostname (if available), state (up/down), total open/filtered/closed ports found, and operating system guess (if Nmap provided one). Assess the immediate attack surface presented.
 
-            ### Open Ports & Services
-            List all discovered open ports, their associated services, and version information where available. Include a brief explanation of each service's function.
+            ### Open Ports & Services Details
+            List all discovered open and potentially open (open|filtered) ports. For each port, include: Port number, protocol (TCP/UDP), state (open, open|filtered), service name, and version information if detected by Nmap. Briefly explain the standard function of each identified service. (Combines L1 'Open Ports & Services' and adds OS info)
 
-            ### Security Observations
-            Identify specific security concerns based on the exposed services, including known risky configurations and potential vulnerabilities associated with detected service versions.
+            ### Security Findings & Vulnerabilities
+            Identify specific security concerns based on the open ports, services, and versions detected. List potential vulnerabilities associated with detected service versions (mentioning CVEs if easily identifiable from version numbers), common misconfigurations for these services, risks associated with the detected OS, and default credential possibilities. (Adapting L1 'Security Observations' & L2 'Service Vulnerability Assessment')
 
-            ### Recommended Actions
-            Provide practical remediation steps that include specific configurations and hardening measures. Include both immediate fixes and longer-term security improvements.
+            ### Step-by-Step Remediation & Verification
+            Provide detailed, actionable instructions for hardening the host based on the findings:
+            * Instructions to close unnecessary ports (e.g., using firewall rules).
+            * Steps to update vulnerable services to patched versions.
+            * Specific configuration examples for hardening exposed services (e.g., SSH hardening directives, web server security headers).
+            * Firewall rule examples (e.g., `iptables`, `ufw`, `firewalld`, or Windows Firewall commands) to restrict access to necessary source IPs/networks.
+            * Describe how to test and verify the fixes (e.g., re-running Nmap with specific options, using netcat/telnet to test ports, checking service status and configuration). (Adapting L1 'Recommended Actions' & L2 'Defense-in-Depth Recommendations')
 
-            IMPORTANT: Only analyze information explicitly present in the scan results. Provide technically accurate information with enough context for IT professionals to understand the implications without requiring advanced security expertise.
+            ### Technical References & Best Practices
+            Include links to official documentation for identified services/OS, CVE databases (like MITRE CVE or NIST NVD), OS hardening guides (e.g., CIS Benchmarks), firewall documentation, and relevant secure configuration best practices.
+
+            IMPORTANT: Only analyze information explicitly present in the Nmap scan results. Provide sufficient technical detail for direct implementation and validation. Ensure every section header starts with exactly "###".
         """
     elif level == 2:
         prompt = """
-            You are a cybersecurity expert analyzing Nmap scan results for security engineers and developers. Provide a detailed technical analysis with these specific sections:
+            You are a senior cybersecurity analyst communicating with fellow security professionals regarding Nmap scan results. Provide an expert-level analysis in markdown format using these specific sections:
 
-            ### Network Exposure Analysis
-            Analyze exposure including TCP sequence prediction difficulty, firewall/filtering detection, and service state analysis.
+            ### Attack Surface Analysis
+            Interpret Nmap outputs (port states, OS/service detection, NSE results, scan artifacts) to assess the host/network's detailed exposure profile and potential scan limitations.
 
-            ### Service Vulnerability Assessment
-            For each service identified, provide:
-            - Specific version-based vulnerabilities (if versions are detected)
-            - Common misconfigurations for these services
-            - Default credentials concerns
-            - Protocol weaknesses
+            ### Risk & Threat Context
+            Analyze the strategic risk posed by the findings, their relevance to potential attack paths and threat actor TTPs, and prioritization within the overall security posture.
 
-            ### Defense-in-Depth Recommendations
-            Provide specific multi-layered security controls including:
-            - Firewall rules with proper allow/deny logic. For example:
-              # Allow SSH only from trusted network and deny all other SSH connections
-              iptables -A INPUT -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
-              iptables -A INPUT -p tcp --dport 22 -j DROP
+            ### Advanced Assessment & Exploitation Potential
+            Discuss potential follow-on assessment actions (manual testing, vuln scanning), exploitability of identified services, and interpretation of advanced Nmap indicators (e.g., timing, TCP/IPID).
 
-            - Service-specific hardening configurations (example snippets for SSH, web servers)
-            - Network segmentation recommendations
-            - Monitoring commands and log analysis strategies for detecting attacks
+            ### Strategic Hardening & Detection
+            Recommend defense-in-depth strategies including network architecture considerations (segmentation), service hardening principles, advanced detection/monitoring approaches, and configuration management integration.
 
-            IMPORTANT: Focus on providing specific, actionable technical guidance with concrete examples. Include command-line examples where appropriate. Ensure firewall rules follow proper security logic with specific source/destination constraints.
+            ### Advanced Security Resources & Intelligence
+            Provide links to relevant advanced technical resources (protocol/service specifics, CVEs), applicable threat intelligence, and related security frameworks or best practices (MITRE ATT&CK, NIST).
+
+            IMPORTANT: Focus on deep interpretation of the provided Nmap data, strategic implications, and actionable intelligence for security professionals. Ensure every section header starts with exactly "###".
         """
 
     # Initialize the chat session with the system prompt.
@@ -476,53 +474,46 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
     
     if level == 1:
         prompt = """
-            You are a cybersecurity expert analyzing Nikto web security scan results for IT professionals. Provide a balanced technical analysis with these specific sections for each distinct vulnerability found:
+            You are a cybersecurity expert analyzing Nikto web security scan results for technical implementers (developers, sysadmins, DevOps engineers). Provide a practical, implementation-focused analysis in clear markdown format. For each distinct vulnerability found, use these specific sections:
 
             ### Issue Explanation
-            Describe the vulnerability's technical mechanisms while connecting them to practical business implications. Include context about when and where this vulnerability typically appears.
+            Describe the vulnerability's technical mechanism (e.g., outdated component, specific misconfiguration identified by Nikto), common root causes, and where it typically occurs within the web stack. Explain the direct security principle being violated.
 
-            ### Impact Assessment
-            Analyze specific security risks with concrete examples of what attackers could achieve, including data compromise scenarios and system disruptions.
+            ### Impact Analysis
+            Detail the specific, direct technical consequences of exploitation based on the Nikto finding. Provide concrete examples like "allows directory listing," "exposes specific software version enabling known exploits," or "indicates weak SSL/TLS configuration." (Formerly 'Impact Assessment')
 
-            ### Exploitation Methods
-            Outline specific methodologies an attacker might use, including common tools and techniques needed for successful exploitation.
+            ### Exploitation Details & Proof-of-Concept
+            Outline the steps an attacker might take, leveraging the information from the Nikto scan. If applicable and safe, provide a simple command-line example (e.g., using `curl`, `nmap` scripts, or specific tool commands related to the finding) demonstrating the vulnerability. (Adapting 'Exploitation Methods' & 'Exploitation Techniques')
 
-            ### Implementation Plan
-            Provide detailed remediation instructions with appropriate configuration examples and testing procedures to verify the fix. Include both immediate mitigation and long-term solutions.
+            ### Step-by-Step Remediation & Verification
+            Provide detailed, actionable instructions for fixing the vulnerability identified by Nikto. Include specific configuration snippets (e.g., for Apache, Nginx, IIS based on the finding), required software updates/patches, or necessary configuration changes. Crucially, describe how to test and verify that the fix has been successfully implemented (e.g., re-running a specific Nikto check, using `openssl s_client`, checking headers). Offer configuration examples for at least ONE common platform if applicable. (Adapting 'Implementation Plan' & 'Remediation Implementation')
 
-            ### Technical References
-            Include documentation links, relevant standards (OWASP/CWE), and industry best practices specific to this vulnerability.
+            ### Technical References & Best Practices
+            Include links to official documentation for the affected software/protocols, relevant CVEs if version information is found, specific CWE entries, OWASP guides, and applicable secure configuration best practices directly related to the fix. (Adapting 'Technical References' & 'Security Resources')
 
-            IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the scan results. Provide technically accurate information with enough context for IT professionals to understand and address the issues without requiring advanced security expertise.
+            IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the Nikto scan results. Provide sufficient technical detail for direct implementation and validation. Ensure every section header starts with exactly "###".
         """
     elif level == 2:
         prompt = """
-            You are a cybersecurity expert analyzing Nikto web security scan results for security engineers and developers. For each distinct vulnerability found, provide a technical analysis with these EXACT section headers:
+            You are a senior cybersecurity analyst communicating with fellow security professionals (engineers, analysts, pentesters) regarding Nikto web security scan results. Provide an expert-level cybersecurity analysis in markdown format for each distinct vulnerability found. Focus on risk, threat context, and strategic mitigation using these specific sections:
 
-            ### Technical Vulnerability Analysis
-            Provide detailed technical analysis of the vulnerability including affected components, root causes, and exploitation requirements.
+            ### Technical Deep Dive
+            Provide a detailed technical breakdown of the vulnerability mechanism as identified or suggested by the Nikto finding. Discuss relevant protocols, underlying component weaknesses, potential variations not explicitly tested by Nikto, and nuances of accurate detection versus potential false positives associated with the Nikto check.
 
-            ### Security Implications
-            Describe attack vectors, potential exploit chains, and how this vulnerability might combine with others in sophisticated attacks.
+            ### Risk & Threat Context Analysis
+            Analyze the security implications in depth. Discuss how this finding contributes to the overall attack surface, potential attack chains (how this could be leveraged with other weaknesses), relevance to specific threat actor TTPs targeting this type of vulnerability/component, value for reconnaissance/fingerprinting, potential for bypassing security controls, and alignment with risk management or compliance frameworks.
 
-            ### Exploitation Techniques
-            Show specific code or commands that demonstrate exploitation. For example:
-            curl -H "X-Frame-Options: ALLOWALL" -v http://example.com
+            ### Advanced Exploitation Vectors
+            Discuss sophisticated or less common methods for exploiting the weakness indicated by the Nikto finding, going beyond the basic check. Analyze prerequisites, feasibility, potential impact variations, and indicators of compromise (IoCs) associated with exploitation attempts targeting this vulnerability. Mention relevant advanced tools or manual techniques.
 
-            ### Remediation Implementation
-            Provide specific configuration examples. For example:
-            # Apache configuration to prevent clickjacking
-            Header always append X-Frame-Options SAMEORIGIN
+            ### Strategic Mitigation & Defense-in-Depth
+            Outline comprehensive mitigation strategies related to the finding. Focus on secure design principles, architectural considerations (e.g., network segmentation, WAF placement), security configuration hardening principles (the 'why' behind specific settings), detection engineering opportunities (specific logging, monitoring alerts, WAF rule logic), and integrating the fix into vulnerability management. Discuss compensating controls.
 
-            # Nginx configuration to prevent clickjacking
-            add_header X-Frame-Options "SAMEORIGIN";
+            ### Advanced Security Resources & Intelligence
+            Include references to relevant CVEs (especially for version-specific findings), detailed technical write-ups on the vulnerability class, exploit databases (Exploit-DB), relevant research papers, MITRE ATT&CK or CAPEC mappings, and threat intelligence reports discussing the exploitation of this type of finding in the wild.
 
-            ### Security Resources
-            Include links to CVEs, advisories and implementation guides specific to this vulnerability.
-
-            IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the scan results. You MUST use the exact section headers listed above and include code examples in your response.
-        """
-  
+            IMPORTANT: Only analyze vulnerabilities explicitly mentioned in the Nikto scan results. Focus on providing analytical depth, strategic insights, and actionable intelligence valuable to experienced security professionals. Ensure every section header starts with exactly "###".
+        """  
     
     # Initialize nikto section in scan_results if not already present
     if "nikto" not in scan_results:
@@ -565,19 +556,19 @@ def run_AI(xml_file_path="../scan-report2.xml",
                      level=2):
     print("Running AI")
     test_alert_items(xml_file_path, model_id, scan_id, level=level)
-    test_nmap_object(xml_file_path, model_id, scan_id, level)
-    test_nikto_object(xml_file_path, model_id, scan_id, level)
+    test_nmap_object(xml_file_path, model_id, scan_id, level=level)
+    test_nikto_object(xml_file_path, model_id, scan_id, level=level)
 
 if __name__ == "__main__":
     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()
     if mode == 'test':
         # level = int(input("Input Level"))
 
-        for i in range(1, 3):
+        for i in range(2, 3):
           print("Testing for Level: " + str(i))
           # test_alert_items(level=i)
-          # test_nmap_object(level=i)  
-          test_nikto_object(level=i)
+          test_nmap_object(level=i)  
+          # test_nikto_object(level=i)
           # save_json(scan_results, "scan_results.json")
     else:
         interactive_chat()

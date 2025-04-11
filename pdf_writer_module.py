@@ -10,4 +10,4 @@ def writeToPDF(MDfilename):
     pdf.add_section(Section(md_content, toc=False))
     pdf.save(f'{title}.pdf')
 
-writeToPDF("scan_results/ae73977f-4a31-4d57-b6ea-cd2eaa944bcc/vulnerability.md")
+writeToPDF("scan_results/7aab0d7d-40a5-4c6a-add4-b07130bd96dd/vulnerability.md")

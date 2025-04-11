@@ -31,7 +31,7 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
-            scan_id = "6c303744-b134-4ffb-82fa-cada0b9bc074"
+            # scan_id = "6c303744-b134-4ffb-82fa-cada0b9bc074"
 
             print(f"Generated new scan ID: {scan_id}")
             
@@ -74,7 +74,7 @@ def run_scan_process(scan_id, domain, level):
             f.write("\n## Scanning in progress\n\n")
             f.write("The scan is now running. Results will appear here as they are processed.\n\n")
         
-        # scan.run_scan(domain, scan_id)
+        scan.run_scan(domain, scan_id)
 
         # Run your scan and AI analysis
         send_to_AI(scan_id, level)
