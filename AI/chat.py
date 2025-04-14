@@ -559,6 +559,164 @@ def run_AI(xml_file_path="../scan-report2.xml",
     test_nmap_object(xml_file_path, model_id, scan_id, level=level)
     test_nikto_object(xml_file_path, model_id, scan_id, level=level)
 
+def get_scan_overview(file_path):
+    """
+    Extracts a concise overview from the XML scan report.
+    
+    Args:
+        file_path (str): Path to the XML file
+        
+    Returns:
+        str: Formatted summary text for LLM input
+    """
+    tree = ET.parse(file_path)
+    root = tree.getroot()
+    
+    summary_text = "SECURITY SCAN OVERVIEW\n\n"
+    
+    # 1. Extract target information
+    site_element = root.find(".//site")
+    if site_element is not None:
+        target_name = site_element.get("name", "Unknown")
+        target_host = site_element.get("host", "Unknown")
+        target_port = site_element.get("port", "Unknown")
+        target_ssl = site_element.get("ssl", "Unknown")
+        
+        summary_text += f"TARGET: {target_name}\n"
+        summary_text += f"Host: {target_host}\n"
+        summary_text += f"Port: {target_port}\n"
+        summary_text += f"SSL Enabled: {target_ssl}\n\n"
+    
+    # 2. Extract ZAP alert summary
+    summary_text += "ZAP FINDINGS:\n"
+    alert_items = root.findall(".//alertitem")
+    
+    # Group alerts by risk level
+    risk_levels = {"High": [], "Medium": [], "Low": [], "Informational": []}
+    
+    for alert in alert_items:
+        alert_name = alert.findtext("alert", "Unknown")
+        risk_desc = alert.findtext("riskdesc", "Unknown")
+        
+        # Map risk level from description
+        if "High" in risk_desc:
+            risk_levels["High"].append(alert_name)
+        elif "Medium" in risk_desc:
+            risk_levels["Medium"].append(alert_name)
+        elif "Low" in risk_desc:
+            risk_levels["Low"].append(alert_name)
+        else:
+            risk_levels["Informational"].append(alert_name)
+    
+    # Add counts by risk level
+    for level, alerts in risk_levels.items():
+        if alerts:
+            summary_text += f"{level} Risk Issues: {len(alerts)}\n"
+            for alert in alerts:
+                summary_text += f"- {alert}\n"
+            summary_text += "\n"
+    
+    # 3. Extract Nmap findings
+    nmap_results = root.find(".//NmapScanResults")
+    if nmap_results is not None:
+        summary_text += "NMAP FINDINGS:\n"
+        
+        for host_element in nmap_results:
+            host_tag = host_element.tag
+            nested_host = host_element.find(f"./{host_tag}")
+            
+            if nested_host is not None:
+                hostname = nested_host.findtext(".//hostnames/name", "Unknown")
+                ipv4 = nested_host.findtext(".//addresses/ipv4", "Unknown")
+                state = nested_host.findtext(".//status/state", "Unknown")
+                
+                summary_text += f"Host: {hostname} ({ipv4}), Status: {state}\n"
+                
+                # Count open ports
+                open_ports = []
+                for port_elem in nested_host.findall(".//tcp/*"):
+                    port_state = port_elem.findtext("state", "")
+                    if port_state == "open":
+                        port_tag = port_elem.tag
+                        port_number = port_tag.split('_')[1] if '_' in port_tag else port_tag
+                        port_name = port_elem.findtext("name", "Unknown service")
+                        open_ports.append(f"{port_number}/{port_name}")
+                
+                if open_ports:
+                    summary_text += f"Open ports: {', '.join(open_ports)}\n"
+                else:
+                    summary_text += "No open ports detected\n"
+        
+        summary_text += "\n"
+    
+    # 4. Extract Nikto findings
+    nikto_results = root.find(".//NiktoScanResults")
+    if nikto_results is not None:
+        summary_text += "NIKTO FINDINGS:\n"
+        raw_output = nikto_results.findtext("raw_output", "")
+        
+        # Extract just the important lines from Nikto output
+        findings = []
+        for line in raw_output.split("\n"):
+            if line.startswith("+ ") and not line.startswith("+ Target") and not "requests:" in line and not "host(s) tested" in line:
+                findings.append(line.strip())
+        
+        if findings:
+            for finding in findings:
+                summary_text += f"{finding}\n"
+        else:
+            summary_text += "No significant findings reported\n"
+    
+    # 5. Request for overview
+    summary_text += "\nPlease provide a concise executive summary of this security scan. Include:\n"
+    summary_text += "1. Overall security posture assessment\n"
+    summary_text += "2. Most significant security issues identified\n"
+    summary_text += "3. Key recommendations in order of priority\n"
+    summary_text += "Format the response in clear markdown with appropriate headers."
+    
+    return summary_text
+
+def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None):
+    """
+    Extracts scan data and sends it to the LLM for an overview analysis.
+    
+    Args:
+        xml_file_path (str): Path to the XML file
+        model_id (str): ID of the LLM to use
+        scan_id (str, optional): Scan ID for API updates
+        
+    Returns:
+        str: LLM's overview analysis
+    """
+    # Extract formatted overview text
+    overview_text = get_scan_overview(xml_file_path)
+    print(f"Extracted overview from {xml_file_path}")
+    
+    # Initialize chat session with system prompt
+    system_prompt = """You are a senior cybersecurity expert providing executive summaries of security scan findings.
+    Focus on clarity, brevity, and actionable insights. Format your overview with markdown headings.
+    Prioritize issues based on risk level and highlight only the most significant findings."""
+    
+    chat_id, _ = send_chat_request(system_prompt, role="system", model_id=model_id)
+    if chat_id is None:
+        print("Failed to initialize chat session for overview.")
+        return "Failed to generate overview."
+    
+    # Send the overview text to get analysis
+    chat_id, response = send_chat_request(overview_text, chat_id=chat_id, model_id=model_id)
+    if response is None:
+        print("Failed to receive overview response.")
+        return "Failed to generate overview."
+    
+    print("Successfully generated scan overview")
+    
+    # Send to API if scan_id is provided
+    if scan_id:
+        overview_data = {"scan_overview": response}
+        send_vulnerability_to_api(overview_data, scan_id)
+    
+    return response
+
 if __name__ == "__main__":
     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()
     if mode == 'test':
@@ -567,8 +725,9 @@ if __name__ == "__main__":
         for i in range(2, 3):
           print("Testing for Level: " + str(i))
           # test_alert_items(level=i)
-          test_nmap_object(level=i)  
+          # test_nmap_object(level=i)  
           # test_nikto_object(level=i)
+          print("\n\n\nResponse:\n\n\n" + test_scan_overview(xml_file_path="../scan-report694b5f6b-dade-45ac-84eb-9021ccc6b172.xml"))
           # save_json(scan_results, "scan_results.json")
     else:
         interactive_chat()

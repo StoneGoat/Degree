@@ -624,6 +624,6 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         xml_file = sys.argv[1]
     else:
-        xml_file = "scan-report.xml"  # Default filename
+        xml_file = "scan-report3d3ec8d7-dffc-44dc-aade-55e290f2a1cb.xml"  # Default filename
     
     main(xml_file)
