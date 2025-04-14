@@ -1,9 +1,9 @@
 from markdown_pdf import MarkdownPdf, Section
 
-def writeToPDF(MDfilename):
-    with open(MDfilename) as f:
+def writeToPDF(MDfilepath):
+    with open(MDfilepath) as f:
         title = f.readline()
-    with open(MDfilename, "r") as file:
+    with open(MDfilepath, "r") as file:
         md_content = file.read()
     pdf = MarkdownPdf(toc_level=2)
     pdf.meta["title"] = title
