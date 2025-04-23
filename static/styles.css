@@ -1,11 +1,81 @@
-/* Results page additions */
-
+/* Global */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
+  color: #333;
+  line-height: 1.6;
+}
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* Flashed messages */
+.flashes {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+.flashes li {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+/* Scan form */
+.scan-form {
+  text-align: center;
+  margin: 20px 0;
+}
+.scan-form label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.scan-form input[type="text"],
+.scan-form select {
+  width: 300px;
+  padding: 8px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+.scan-form button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+}
+.scan-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Info section */
+.info-section {
+  margin-top: 30px;
+}
+.info-section h2 {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+.info-section ol {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 20px;
+}
+.info-section li {
+  margin-bottom: 8px;
+}
+
+/* Results page */
 .header {
   display: flex;
   justify-content: space-between;
@@ -14,34 +84,30 @@
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
 }
-
 .header-buttons {
   display: flex;
   align-items: center;
 }
-
 .download-button {
   margin-right: 10px;
   font-size: 1.5em;
-  color: #e74c3c; /* PDF red */
+  color: #e74c3c;
   text-decoration: none;
 }
 .download-button:hover {
   color: #c0392b;
 }
-
 .back-button {
   display: inline-block;
   padding: 8px 15px;
   background-color: #3498db;
-  color: white;
+  color: #fff;
   text-decoration: none;
   border-radius: 4px;
 }
 .back-button:hover {
   background-color: #2980b9;
 }
-
 .scan-info {
   background-color: #f5f5f5;
   padding: 15px;
@@ -49,21 +115,18 @@
   margin-bottom: 20px;
   border-left: 4px solid #3498db;
 }
-
 #results-container {
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 5px;
   border: 1px solid #ddd;
   min-height: 300px;
 }
-
 #loading-indicator {
   text-align: center;
   padding: 20px;
   color: #666;
 }
-
 .spinner {
   display: inline-block;
   width: 40px;
@@ -74,15 +137,13 @@
   animation: spin 1s ease-in-out infinite;
   margin-bottom: 10px;
 }
-
 img {
   display: block;
-  float: none;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 75%;
 }
-
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
