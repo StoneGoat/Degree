@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Scan Results for {{ domain }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <link rel="shortcut icon" href="static/JAWS-Icon-transparent.ico" /> 
+  <link rel="shortcut icon" href="{{ url_for('static', filename='JAWS-Icon-transparent.ico') }}" />
 
   <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -21,7 +21,7 @@
       <div class="header-buttons">
         <a href="{{ url_for('download_pdf', scan_id=scan_id) }}"
            class="download-button"
-           title="Download full report as PDF">
+           title="Download vulnerability report as PDF">
           <i class="fa fa-file-pdf"></i>
         </a>
         <a href="{{ url_for('index') }}" class="back-button">New Scan</a>
@@ -38,8 +38,11 @@
       <p id="loading-text">Scanning in progress...</p>
     </div>
 
+    <div id="status-container">
+        <p>Loading scan status...</p>
+    </div>
     <div id="results-container">
-      <p>Initializing scan... Results will appear here automatically.</p>
+      <p>Loading vulnerability report...</p>
     </div>
   </div>
 
@@ -48,34 +51,70 @@
       const scanId = "{{ scan_id }}";
       let scanComplete = false;
 
-      function loadResults() {
-        $.get("{{ url_for('get_markdown') }}", { scan_id: scanId })
-         .done(function(response) {
-            if (response.markdown) {
-              $("#results-container").html(marked.parse(response.markdown));
-              if (response.markdown.includes("## Scan Complete") ||
-                  response.markdown.includes("## Error During Scan")) {
-                scanComplete = true;
-                clearInterval(poll);
-                $("#loading-indicator").hide();
-              }
+      // === MODIFIED: Function to load both status and results ===
+      function loadData() {
+        // Use $.when to fetch both markdown files concurrently
+        $.when(
+            $.get("{{ url_for('get_status_markdown') }}", { scan_id: scanId }), // Fetch status
+            $.get("{{ url_for('get_markdown') }}", { scan_id: scanId })      // Fetch vulnerability report
+        )
+        .done(function(statusResponseArray, vulnResponseArray) {
+            // Responses are arrays: [data, textStatus, jqXHR]
+            const statusResponse = statusResponseArray[0];
+            const vulnResponse = vulnResponseArray[0];
+
+            // Update Status Container
+            if (statusResponse && statusResponse.markdown) {
+                $("#status-container").html(marked.parse(statusResponse.markdown));
+
+                // *** IMPORTANT: Check STATUS for completion/error ***
+                // Adjust these keywords based on your actual status.md content
+                if (statusResponse.markdown.includes("## Scan Process Complete") ||
+                    statusResponse.markdown.includes("## Critical Scan Error") ||
+                    statusResponse.markdown.includes("## Scan Data Error") || // Example terminal states
+                    statusResponse.markdown.includes("## Critical Error"))
+                {
+                    scanComplete = true;
+                    clearInterval(poll); // Stop polling
+                    $("#loading-indicator").hide(); // Hide spinner
+                    console.log("Scan complete or critical error detected in status. Polling stopped.");
+                }
+            } else {
+                 $("#status-container").html("<p>Could not load status.</p>");
             }
-         })
-         .fail(function() {
-           $("#results-container").html("<p>Failed to load results.</p>");
-         });
+
+            // Update Vulnerability Results Container
+            if (vulnResponse && vulnResponse.markdown) {
+                 $("#results-container").html(marked.parse(vulnResponse.markdown));
+            } else {
+                 // Keep previous results or show error? Showing error for now.
+                 $("#results-container").html("<p>Could not load vulnerability report.</p>");
+            }
+        })
+        .fail(function() {
+            // Handle failure of either request
+            $("#status-container").html("<p>Failed to load status updates.</p>");
+            $("#results-container").html("<p>Failed to load vulnerability report.</p>");
+            scanComplete = true; // Stop trying on failure
+            clearInterval(poll);
+            $("#loading-indicator").hide();
+            console.log("Polling stopped due to fetch error.");
+        });
       }
+      // === END MODIFIED ===
 
       // initial load + polling
-      loadResults();
-      const poll = setInterval(loadResults, 3000);
+      loadData(); // Call the modified function
+      const poll = setInterval(loadData, 5000); // Poll the modified function
 
-      // animate dots
+      // animate dots (no change needed here, relies on scanComplete flag)
       let dots = 0;
-      setInterval(function() {
+      const loadingDotsInterval = setInterval(function() { // Give this interval a name
         if (!scanComplete) {
           dots = (dots + 1) % 4;
           $("#loading-text").text("Scanning in progress" + ".".repeat(dots));
+        } else {
+           clearInterval(loadingDotsInterval); // Clear this specific interval
         }
       }, 500);
     });
