@@ -289,6 +289,9 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
     prompt = """
         You are a cybersecurity expert analyzing Nmap scan results for non-technical stakeholders. Provide an easy-to-understand analysis with these specific sections:
 
+        ## Nmap Overview
+        This is the main Nmap Header.
+
         ### Network Exposure Summary
         Explain in simple terms what the scan found about the system's visibility (like which 'digital doors and windows' seem to be open or visible), using everyday comparisons.
 

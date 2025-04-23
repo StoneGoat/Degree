@@ -148,55 +148,78 @@ def parse_nmap_data(nmap_results_root):
     """Extract Nmap scan data from the custom XML structure."""
     hosts_data = []
     try:
-        for host_ip_tag in nmap_results_root:
-            # Assuming the structure is <HostIP><HostData>...</HostData></HostIP> or similar direct nesting
-            host_data_tag = host_ip_tag.find('.//host') # More robust search for <host> tag within
+        # Iterate through the first level tags (e.g., <tag_35_228_57_67>)
+        for outer_host_tag in nmap_results_root:
+            # Find the nested tag with the same name which seems to contain the data
+            host_data_tag = outer_host_tag.find(f'.//{outer_host_tag.tag}')
             if host_data_tag is None:
-                 # Fallback if structure is different, e.g. directly under <HostIP>
-                 if host_ip_tag.find('.//address') is not None: host_data_tag = host_ip_tag
-                 else: print(f"  - Warning: Skipping Nmap entry - Could not find host data within <{host_ip_tag.tag}>."); continue
+                 # If the nested tag isn't found, maybe the structure is flat sometimes?
+                 # Try using the outer tag itself. If still no address, skip.
+                if outer_host_tag.find('.//addresses/ipv4') is None and outer_host_tag.find('.//addresses/ipv6') is None:
+                     print(f"   - Warning: Skipping Nmap entry - Could not find host data within <{outer_host_tag.tag}> or its children.")
+                     continue
+                host_data_tag = outer_host_tag # Use the outer tag as the data source
 
             host_info = {'hostname': 'Unknown', 'ip': 'Unknown IP', 'status': 'Unknown State', 'ports': []}
 
-            # Extract IP address (more robustly checking different types)
-            ip_addr = 'Unknown IP'
-            for addr in host_data_tag.findall('.//address'):
-                 if addr.get('addrtype') == 'ipv4': ip_addr = addr.get('addr'); break
-                 elif addr.get('addrtype') == 'ipv6': ip_addr = addr.get('addr'); break # Take IPv6 if no IPv4
-            host_info['ip'] = ip_addr
+            # Extract IP address
+            ip_elem_v4 = host_data_tag.find('.//addresses/ipv4')
+            ip_elem_v6 = host_data_tag.find('.//addresses/ipv6')
+            if ip_elem_v4 is not None:
+                host_info['ip'] = ip_elem_v4.text
+            elif ip_elem_v6 is not None:
+                 host_info['ip'] = ip_elem_v6.text # Fallback to IPv6
 
             # Extract Hostname
-            hostname_elem = host_data_tag.find(".//hostnames/hostname[@type='user']/@name") # Prefer user-set hostname
-            if hostname_elem is None: hostname_elem = host_data_tag.find(".//hostnames/hostname/@name") # Any hostname
-            host_info['hostname'] = hostname_elem if hostname_elem is not None else 'Unknown'
+            hostname_elem = host_data_tag.find('.//hostnames/name')
+            if hostname_elem is not None:
+                host_info['hostname'] = hostname_elem.text
 
             # Extract Status
-            status_elem = host_data_tag.find(".//status/@state")
-            host_info['status'] = status_elem if status_elem is not None else 'Unknown State'
+            status_elem = host_data_tag.find('.//status/state')
+            if status_elem is not None:
+                host_info['status'] = status_elem.text
 
-            # Extract Ports
-            for port_tag in host_data_tag.findall('.//ports/port'):
-                 portid = port_tag.get('portid')
-                 protocol = port_tag.get('protocol')
-                 state_tag = port_tag.find('state')
-                 service_tag = port_tag.find('service')
-                 if portid and protocol and state_tag is not None:
-                     port_info = {
-                         'number': portid,
-                         'protocol': protocol,
-                         'state': state_tag.get('state', 'Unknown'),
-                         'name': service_tag.get('name', 'Unknown') if service_tag is not None else 'Unknown',
-                         'product': service_tag.get('product', '') if service_tag is not None else '',
-                         'version': service_tag.get('version', '') if service_tag is not None else '',
-                         'extrainfo': service_tag.get('extrainfo', '') if service_tag is not None else ''
-                     }
-                     host_info['ports'].append(port_info)
-                 else: print(f"  - Warning: Skipping incomplete port data under host {host_info['ip']}")
+            # Extract Ports from <open_ports>
+            open_ports_tag = host_data_tag.find('.//open_ports')
+            if open_ports_tag is not None:
+                for port_tag in open_ports_tag:
+                    # Tag name is like 'tag_22', 'tag_80'
+                    port_id_str = port_tag.tag.replace('tag_', '')
+                    if not port_id_str.isdigit():
+                         print(f"   - Warning: Skipping port with non-numeric tag name '{port_tag.tag}' under host {host_info['ip']}")
+                         continue
+
+                    portid = port_id_str
+                    protocol = 'tcp' # Assuming tcp, as protocol isn't specified per port in this structure
+
+                    state_elem = port_tag.find('state')
+                    name_elem = port_tag.find('name')
+                    product_elem = port_tag.find('product')
+                    version_elem = port_tag.find('version')
+                    extrainfo_elem = port_tag.find('extrainfo')
+                    # You might want to extract script output too if needed, e.g., port_tag.find('script/vulners')
+
+                    if state_elem is not None:
+                        port_info = {
+                            'number': portid,
+                            'protocol': protocol,
+                            'state': state_elem.text or 'Unknown',
+                            'name': name_elem.text if name_elem is not None else 'Unknown',
+                            'product': product_elem.text if product_elem is not None else '',
+                            'version': version_elem.text if version_elem is not None else '',
+                            'extrainfo': extrainfo_elem.text if extrainfo_elem is not None else ''
+                            # Add script output parsing here if necessary
+                        }
+                        host_info['ports'].append(port_info)
+                    else:
+                         print(f"   - Warning: Skipping incomplete port data for port tag '{port_tag.tag}' under host {host_info['ip']}")
 
             hosts_data.append(host_info)
         return hosts_data if hosts_data else None
     except Exception as e:
-        print(f"    - Error parsing individual Nmap host item: {e}"); traceback.print_exc(limit=1)
+        print(f"      - Error parsing Nmap data section: {e}")
+        traceback.print_exc(limit=1)
         return hosts_data if hosts_data else None
 
 def parse_nikto_data_from_output(raw_output):
@@ -206,8 +229,8 @@ def parse_nikto_data_from_output(raw_output):
     try:
         # Improved pattern to better exclude headers and summarize lines
         finding_pattern = re.compile(
-             r"^\+\s+(?!Server:|Target IP:|Target Hostname:|Target Port:|Start Time:|End Time:|Nikto version|\d+\s+hosts? tested|\d+\s+requests?|\d+ error\(s\) and \d+ item\(s) reported|Retrieved x-powered-by|Allowed HTTP Methods:|The anti-clickjacking|X-Content-Type-Options|Cookie .+ created without|Strict-Transport-Security|X-Frame-Options)(.*)",
-             re.MULTILINE | re.IGNORECASE
+            r"^\+\s+(?!Server:|Target IP:|Target Hostname:|Target Port:|Start Time:|End Time:|Nikto version|\d+\s+hosts? tested|\d+\s+requests?|\d+ error\(s\) and \d+ item\(s\) reported|Retrieved x-powered-by|Allowed HTTP Methods:|The anti-clickjacking|X-Content-Type-Options|Cookie .+ created without|Strict-Transport-Security|X-Frame-Options)(.*)",
+            re.MULTILINE | re.IGNORECASE
         )
         for match in finding_pattern.finditer(raw_output):
             if match.group(1):
