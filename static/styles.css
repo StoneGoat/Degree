@@ -1,81 +1,80 @@
-/* styles.css */
+/* Results page additions */
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  form {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  .flashes {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 15px 0;
-    max-width: 400px;
-    margin: 10px auto;
-  }
-  
-  .flashes li {
-    background-color: #f2dede;
-    color: #a94442;
-    border: 1px solid #ebccd1;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-  }
-  
-  #result {
-    max-width: 400px;
-    margin: 20px auto;
-    text-align: center;
-    font-size: 16px;
-    color: #333;
-  }
-  
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.download-button {
+  margin-right: 10px;
+  font-size: 1.5em;
+  color: #e74c3c; /* PDF red */
+  text-decoration: none;
+}
+.download-button:hover {
+  color: #c0392b;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.back-button:hover {
+  background-color: #2980b9;
+}
+
+.scan-info {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  border-left: 4px solid #3498db;
+}
+
+#results-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  min-height: 300px;
+}
+
+#loading-indicator {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

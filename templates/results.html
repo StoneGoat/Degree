@@ -4,151 +4,80 @@
   <meta charset="UTF-8">
   <title>Scan Results for {{ domain }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <!-- Include jQuery for AJAX functionality -->
+
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Include Marked.js for Markdown parsing -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      // Get scan ID from the template
-      const scanId = "{{ scan_id }}";
-      console.log("Scan ID:", scanId);
-      
-      // Track if scan is complete
-      let scanComplete = false;
-      
-      function loadResults() {
-        let url = "{{ url_for('get_markdown') }}?scan_id=" + scanId;
-        
-        $.ajax({
-          url: url,
-          type: "GET",
-          success: function(response) {
-            if (response.markdown) {
-              $("#results-container").html(marked.parse(response.markdown));
-              
-              // Check if scan is complete
-              if (response.markdown.includes("## Scan Complete") || 
-                  response.markdown.includes("## Error During Scan")) {
-                scanComplete = true;
-                // If scan is complete, stop polling
-                clearInterval(resultInterval);
-                
-                // Hide loading indicator
-                $("#loading-indicator").hide();
-              }
-            }
-          },
-          error: function() {
-            $("#results-container").html("<p>Failed to load results.</p>");
-          }
-        });
-      }
-      
-      // Load results immediately
-      loadResults();
-      
-      // Start polling for updates
-      const resultInterval = setInterval(loadResults, 3000);
-      
-      // Update the progress spinner
-      let dots = 0;
-      setInterval(function() {
-        if (!scanComplete) {
-          dots = (dots + 1) % 4;
-          const loadingText = "Scanning in progress" + ".".repeat(dots);
-          $("#loading-text").text(loadingText);
-        }
-      }, 500);
-    });
-  </script>
-  <style>
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 10px;
-    }
-    
-    .scan-info {
-      background-color: #f5f5f5;
-      padding: 15px;
-      border-radius: 5px;
-      margin-bottom: 20px;
-      border-left: 4px solid #3498db;
-    }
-    
-    #results-container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      min-height: 300px;
-    }
-    
-    .back-button {
-      display: inline-block;
-      padding: 8px 15px;
-      background-color: #3498db;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    
-    .back-button:hover {
-      background-color: #2980b9;
-    }
-    
-    #loading-indicator {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-    }
-    
-    .spinner {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(0, 0, 0, 0.1);
-      border-radius: 50%;
-      border-top-color: #3498db;
-      animation: spin 1s ease-in-out infinite;
-      margin-bottom: 10px;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <h1>Scan Results</h1>
-      <a href="{{ url_for('index') }}" class="back-button">New Scan</a>
+      <div class="header-buttons">
+        <a href="{{ url_for('download_pdf', scan_id=scan_id) }}"
+           class="download-button"
+           title="Download full report as PDF">
+          <i class="fa fa-file-pdf"></i>
+        </a>
+        <a href="{{ url_for('index') }}" class="back-button">New Scan</a>
+      </div>
     </div>
-    
+
     <div class="scan-info">
       <p><strong>Domain:</strong> {{ domain }}</p>
       <p><strong>Scan ID:</strong> {{ scan_id }}</p>
     </div>
-    
+
     <div id="loading-indicator">
       <div class="spinner"></div>
       <p id="loading-text">Scanning in progress...</p>
     </div>
-    
+
     <div id="results-container">
       <p>Initializing scan... Results will appear here automatically.</p>
     </div>
   </div>
+
+  <script>
+    $(document).ready(function(){
+      const scanId = "{{ scan_id }}";
+      let scanComplete = false;
+
+      function loadResults() {
+        $.get("{{ url_for('get_markdown') }}", { scan_id: scanId })
+         .done(function(response) {
+            if (response.markdown) {
+              $("#results-container").html(marked.parse(response.markdown));
+              if (response.markdown.includes("## Scan Complete") ||
+                  response.markdown.includes("## Error During Scan")) {
+                scanComplete = true;
+                clearInterval(poll);
+                $("#loading-indicator").hide();
+              }
+            }
+         })
+         .fail(function() {
+           $("#results-container").html("<p>Failed to load results.</p>");
+         });
+      }
+
+      // initial load + polling
+      loadResults();
+      const poll = setInterval(loadResults, 3000);
+
+      // animate dots
+      let dots = 0;
+      setInterval(function() {
+        if (!scanComplete) {
+          dots = (dots + 1) % 4;
+          $("#loading-text").text("Scanning in progress" + ".".repeat(dots));
+        }
+      }, 500);
+    });
+  </script>
 </body>
 </html>

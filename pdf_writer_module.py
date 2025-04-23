@@ -1,13 +1,10 @@
 from markdown_pdf import MarkdownPdf, Section
 
-def writeToPDF(MDfilepath):
-    with open(MDfilepath) as f:
-        title = f.readline()
-    with open(MDfilepath, "r") as file:
-        md_content = file.read()
+def writeToPDF(md_path, output_pdf_path):
+    with open(md_path, 'r') as f:
+        raw_title = f.readline().lstrip('# ').strip()
+        md_content = f.read()
     pdf = MarkdownPdf(toc_level=2)
-    pdf.meta["title"] = title
+    pdf.meta["title"] = raw_title
     pdf.add_section(Section(md_content, toc=False))
-    pdf.save(f'{title}.pdf')
-
-writeToPDF("scan_results/guru/vulnerability.md")
+    pdf.save(output_pdf_path)

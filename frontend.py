@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
+from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, send_file
 from AI import chat
 import scan
 import uuid
 import os
 import datetime
+import pdf_writer_module
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # required for flash messages
@@ -214,6 +215,27 @@ def convert_to_markdown(vulnerability_data):
         markdown += "---\n\n"
     
     return markdown
+
+@app.route("/download_pdf/<scan_id>")
+def download_pdf(scan_id):
+    scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
+    md_file = os.path.join(scan_dir, 'vulnerability.md')
+
+    if not os.path.exists(md_file):
+        flash("PDF not ready yet – markdown missing.")
+        return redirect(url_for('scan_results', scan_id=scan_id))
+
+    output_pdf = os.path.join(scan_dir, f"{scan_id}.pdf")
+    
+    pdf_writer_module.writeToPDF(md_file, output_pdf)
+
+    return send_file(
+        output_pdf,
+        as_attachment=True,
+        download_name=f"scan_{scan_id}.pdf",
+        mimetype='application/pdf'
+    )
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

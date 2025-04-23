@@ -30,6 +30,3 @@ def scan(ips):
         results[ip] = filtered_result
     pretty_xml_str = convert_dict_to_pretty_xml("NmapScanResults", results)
     return pretty_xml_str
-
-xml = scan("35.228.57.67")
-print(xml)
