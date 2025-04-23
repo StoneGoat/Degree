@@ -3,6 +3,7 @@ import time
 from zapv2 import ZAPv2
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
+import os
 
 # Config
 API_KEY = '126gp7bpv1rfgf5aqbious8cpb'
@@ -72,8 +73,8 @@ def save_report(nmap_results_xml, nikto_results_xml, id):
     
     # Convert the final XML tree to a string
     xml_string = ET.tostring(final_root, encoding='unicode', method='xml')
-    
-    with open(f"scan-report{id}.xml", "w") as f:
+    os.makedirs(str(id), exist_ok=True)
+    with open(f"{id}/scan-report{id}.xml", "w") as f:
         f.write(xml_string)
 
 
