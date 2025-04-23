@@ -294,7 +294,7 @@ def visualize_zap_risk_distribution(zap_data, output_file='1_zap_risk_distributi
         plt.tight_layout(rect=[0, 0, 0.85, 1])
         try:
             # --- MODIFICATION: Added dpi ---
-            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI)
+            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved ZAP unique risk distribution chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving ZAP unique risk distribution chart: {e_save}")
         plt.close()
@@ -328,7 +328,7 @@ def visualize_alert_counts(zap_data, output_file='2_zap_alert_counts.png'):
         plt.tight_layout(pad=1.0); plt.xlim(right=max_val * 1.15)
         try:
             # --- MODIFICATION: Added dpi and bbox_inches ---
-            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI)
+            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved ZAP alert counts by occurrence chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving ZAP alert counts by occurrence chart: {e_save}")
         plt.close()
@@ -374,7 +374,7 @@ def visualize_nmap_port_status(nmap_data, output_file='4_nmap_port_status.png'):
         plt.tight_layout(rect=[0, 0.05, 1, 1]); plt.ylim(top=max_count * 1.15)
         try:
              # --- MODIFICATION: Added dpi and bbox_inches ---
-            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI)
+            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved Nmap port status chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving Nmap port status chart: {e_save}")
         plt.close()
@@ -413,7 +413,7 @@ def visualize_nikto_findings(nikto_data, output_file='5_nikto_findings.png'):
         plt.tight_layout(rect=[0, 0, 0.80, 1])
         try:
              # --- MODIFICATION: Added dpi ---
-            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI)
+            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved Nikto findings chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving Nikto findings chart: {e_save}")
         plt.close()
@@ -498,7 +498,7 @@ def visualize_summary_findings(security_data, output_file='0_summary_findings.pn
 
         try:
             # --- MODIFICATION: Added dpi ---
-            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI)
+            plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved Overall Summary chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving Overall Summary chart: {e_save}")
         plt.close()
