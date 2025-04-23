@@ -467,7 +467,7 @@ def download_pdf(scan_id):
         print(f"[{scan_id}] Generating PDF from {md_file} to {output_pdf}")
         # Ensure pdf_writer_module can handle image paths correctly
         # It might need the base directory (scan_dir) to resolve relative image paths
-        pdf_writer_module.writeToPDF(md_file, output_pdf, base_path=scan_dir) # Pass base_path if needed
+        pdf_writer_module.writeToPDF(md_file, output_pdf) # Pass base_path if needed
         print(f"[{scan_id}] PDF generation complete.")
 
         # Check if PDF was actually created
