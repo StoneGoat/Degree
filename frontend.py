@@ -18,11 +18,11 @@ def index():
         domain = request.form.get("domain")
         level = request.form.get("level")
 
-        if level == "Noob":
+        if level == "Manager":
             level = 0
-        elif level == "Not Noob":
+        elif level == "Developer":
             level = 1
-        elif level == "Guru":
+        elif level == "CyberSec":
             level = 2
 
         if not domain:
