@@ -22,7 +22,6 @@ class ChatSession:
     def start_inactivity_timer(self):
         if self.timer:
             self.timer.cancel()
-        # Set timer for 60 seconds of inactivity.
         self.timer = threading.Timer(600, self.shutdown)
         self.timer.start()
 
@@ -93,7 +92,7 @@ class ChatManager:
         if "timer" in self.loaded_models[model_id] and self.loaded_models[model_id]["timer"]:
             self.loaded_models[model_id]["timer"].cancel()
         # Start a timer to unload the model after 60 seconds of inactivity.
-        timer = threading.Timer(60, lambda: self._unload_model_if_inactive(model_id))
+        timer = threading.Timer(600, lambda: self._unload_model_if_inactive(model_id))
         self.loaded_models[model_id]["timer"] = timer
         timer.start()
 

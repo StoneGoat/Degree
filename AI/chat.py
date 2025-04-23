@@ -555,6 +555,7 @@ def run_AI(xml_file_path="../scan-report2.xml",
                      scan_id="",
                      level=2):
     print("Running AI")
+    test_scan_overview(xml_file_path, model_id, scan_id)
     test_alert_items(xml_file_path, model_id, scan_id, level=level)
     test_nmap_object(xml_file_path, model_id, scan_id, level=level)
     test_nikto_object(xml_file_path, model_id, scan_id, level=level)

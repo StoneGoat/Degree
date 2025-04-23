@@ -5,6 +5,8 @@ import uuid
 import os
 import datetime
 import pdf_writer_module
+import generate_graphs
+from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, send_from_directory
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # required for flash messages
@@ -77,10 +79,10 @@ def run_scan_process(scan_id, domain, level):
         
         scan.run_scan(domain, scan_id)
 
-        # Run your scan and AI analysis
+        add_graphs_to_markdown(scan_id=scan_id, scan_dir=scan_dir)
+
         send_to_AI(scan_id, level)
         
-        # Mark scan as complete
         with open(os.path.join(scan_dir, 'vulnerability.md'), 'a') as f:
             f.write("\n## Scan Complete\n\n")
             f.write(f"Scan completed at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
@@ -236,6 +238,77 @@ def download_pdf(scan_id):
         mimetype='application/pdf'
     )
 
+
+def add_graphs_to_markdown(scan_id, scan_dir):
+    """Generates graphs and appends them to the markdown report."""
+    print(f"--- Attempting to generate graphs and update markdown for scan {scan_id} ---")
+    markdown_path = os.path.join(scan_dir, 'vulnerability.md')
+    graph_section = "\n\n## Visual Summary\n\n"
+    graphs_added = 0
+
+    try:
+        # Call the function from generate_graphs.py
+        # It handles finding the XML and saving graphs inside scan_results/{scan_id}/
+        graph_output_dir = generate_graphs.generate_all_graphs_for_scan(scan_id)
+
+        if graph_output_dir:
+            # Define expected graph filenames (relative to output_dir)
+            graph_files = {
+                "0_summary_findings.png": "Overall Findings Summary",
+                "1_zap_risk_distribution.png": "ZAP Unique Alerts by Risk",
+                "2_zap_alert_counts.png": "ZAP Top Alerts by Occurrence",
+                "4_nmap_port_status.png": "Nmap Port Status Summary",
+                "5_nikto_findings.png": "Nikto Findings by Category"
+            }
+
+            for filename, title in graph_files.items():
+                # Check if the file actually exists in the expected output directory
+                full_image_path = os.path.join(graph_output_dir, filename)
+                if os.path.exists(full_image_path):
+                    # Use relative path (just filename) for markdown embedding
+                    # Assumes images served relative to the scan directory context
+                    graph_section += f"### {title}\n"
+                    graph_section += f"![{title}]({filename})\n\n" # Embed using relative path
+                    graphs_added += 1
+                else:
+                    print(f"  - Graph file not found, skipping: {filename}")
+            graph_section += "---\n\n"
+        else:
+            graph_section += "Graph generation failed or skipped (e.g., input XML not found).\n\n"
+
+    except Exception as e:
+        print(f"Error during graph generation or markdown update for scan {scan_id}: {e}")
+        graph_section += f"An error occurred while generating graphs: {e}\n\n"
+
+    # Append the graph section to the markdown file
+    try:
+        with open(markdown_path, 'a', encoding='utf-8') as f: # Add encoding
+            if graphs_added > 0:
+                 print(f"  - Adding {graphs_added} graphs to markdown.")
+                 f.write(graph_section)
+            else:
+                 print("  - No graphs generated or found to add to markdown.")
+                 f.write("\n\n## Visual Summary\n\nNo visual summary graphs were generated for this scan.\n\n")
+
+    except Exception as e:
+        print(f"Error writing graphs to markdown file {markdown_path}: {e}")
+
+@app.route('/scan_results/<scan_id>/<filename>')
+def serve_scan_image(scan_id, filename):
+    """Serves image files from the specific scan results directory"""
+    # Construct the directory path relative to the app's root
+    # Make sure SCAN_RESULTS_DIR is correctly configured (relative or absolute)
+    directory = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
+    print(f"Attempting to serve image: {filename} from directory: {directory}") # Debug print
+    try:
+        # Use Flask's send_from_directory for security
+        return send_from_directory(directory, filename)
+    except FileNotFoundError:
+         print(f"Image not found: {os.path.join(directory, filename)}")
+         return "File not found", 404
+    except Exception as e:
+        print(f"Error serving file {filename} from {directory}: {e}")
+        return "Error serving file", 500
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
