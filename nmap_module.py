@@ -25,11 +25,11 @@ def scan(ips):
     if isinstance(ips, str):
         ips = [ips]
     for ip in ips:
-        raw_result = nmapScan.scan(ip, arguments='-Pn --top-ports 1000')
+        raw_result = nmapScan.scan(ip, arguments='-sV -Pn --top-ports 1000 --script vuln')
         filtered_result = filter_nmap_result(raw_result)
         results[ip] = filtered_result
     pretty_xml_str = convert_dict_to_pretty_xml("NmapScanResults", results)
     return pretty_xml_str
 
-# xml = scan("35.228.57.67")
-# print(xml)
+xml = scan("35.228.57.67")
+print(xml)
