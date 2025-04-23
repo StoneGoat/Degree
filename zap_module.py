@@ -74,7 +74,7 @@ def save_report(nmap_results_xml, nikto_results_xml, id):
     # Convert the final XML tree to a string
     xml_string = ET.tostring(final_root, encoding='unicode', method='xml')
     os.makedirs(str(id), exist_ok=True)
-    with open(f"{id}/scan-report{id}.xml", "w") as f:
+    with open(f"scan_results/{id}/scan-report{id}.xml", "w") as f:
         f.write(xml_string)
 
 

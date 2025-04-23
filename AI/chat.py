@@ -120,15 +120,24 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
     alert_messages = get_alert_items_from_xml(xml_file_path)
     
     prompt = """
-        You are a cybersecurity expert communicating with non-technical stakeholders. Given the following vulnerability alert details extracted from an OWASP ZAP report, please provide an accessible analysis in clear markdown format that anyone can understand. For each section, ensure the header starts with exactly "###". The sections should be:
+        You are a cybersecurity expert writing specifically for **non-technical managers and stakeholders**. Your absolute primary goal is **clarity and making complex topics feel simple and relatable using everyday language**. Pretend you are explaining this to someone with no tech background.
 
-        1. **Issue Explanation:** Explain the vulnerability using simple analogies and everyday examples. Avoid technical jargon and focus on why this matters to the business and users in real-world terms.
-        2. **Impact Analysis:** Describe what could go wrong in plain language, focusing on business consequences, user trust issues, and potential financial or reputational impacts.
-        3. **Exploitation Simplified:** Use a simple story or scenario to illustrate how an attacker might take advantage of this vulnerability, similar to explaining a home security issue.
-        4. **Step-by-Step Remediation:** Provide practical, jargon-free steps that can be understood by management and conveyed to technical teams. Focus on the "what" more than the "how."
-        5. **References & Resources:** Include beginner-friendly resources and explain why each resource is helpful.
+        Analyze the provided OWASP ZAP vulnerability details and generate a report in clear markdown format.
 
-        Please ensure every section header starts with exactly "###". Use visual metaphors, real-world comparisons, and avoid technical terminology wherever possible. If technical terms must be used, briefly explain them.
+        **Report Structure:** It is essential that your response is structured into **exactly the following five sections**, presented in this order. Ensure **all five sections are included** and contain helpful information tailored for this non-technical audience. Use Markdown H3 (starting with ###) for each section header.
+
+        1.  ### Issue Explanation:
+            * **Style Requirement:** Your explanation **must use simple analogies and relatable, everyday examples**. Focus entirely on *why* this matters in real-world terms. **Strictly avoid technical jargon**. (Example tone: Like explaining why leaving your house keys under the doormat is risky).
+        2.  ### Impact Analysis:
+            * **Style Requirement:** Describe potential negative outcomes using only **plain language**. Focus specifically on tangible **business consequences** (e.g., costs, service downtime), damage to **user trust**, and potential **financial or reputational harm**. Quantify if possible (e.g., "could cost X", "affect Y users").
+        3.  ### Exploitation Simplified:
+            * **Style Requirement:** Tell a **simple story or scenario** showing how an attacker might misuse this. **Use a real-world comparison** (like explaining how a simple scam works). Keep it easy to visualize and **strictly non-technical**.
+        4.  ### Step-by-Step Remediation:
+            * **Style Requirement:** Provide **practical, completely jargon-free action steps**. Focus on the 'what' (e.g., "ask the tech team to check setting X", "prioritize updating software Y") in terms a manager can understand and communicate. Think "instructions for a smart friend".
+        5.  ### References & Resources:
+            * **Style Requirement:** Provide 1-3 links ONLY to **genuinely beginner-friendly resources** (e.g., simple articles, short explanatory videos - avoid dense technical docs). For each link, briefly explain in **simple terms why it's helpful** for someone non-technical.
+
+        **Final Instructions:** Review your entire response before finishing. Ensure it strictly follows the **five-section structure** AND maintains the **consistently non-technical, analogy-rich, story-driven style** requested throughout. **The non-technical, easy-to-understand style is just as crucial as the five-section structure.** Do not include any other sections.
     """
 
     if level == 1:
@@ -555,7 +564,6 @@ def run_AI(xml_file_path="../scan-report2.xml",
                      scan_id="",
                      level=2):
     print("Running AI")
-    test_scan_overview(xml_file_path, model_id, scan_id)
     test_alert_items(xml_file_path, model_id, scan_id, level=level)
     test_nmap_object(xml_file_path, model_id, scan_id, level=level)
     test_nikto_object(xml_file_path, model_id, scan_id, level=level)
