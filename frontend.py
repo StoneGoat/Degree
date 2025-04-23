@@ -45,7 +45,7 @@ def index():
 
         try:
             # Generate a unique scan ID
-            scan_id = "e53beb41-bc77-4416-b0b4-ae7866a723a1"
+            scan_id = "53ce5383-ad07-4caa-9920-f5de31772f8e"
             # scan_id = str(uuid.uuid4())
 
             print(f"Generated new scan ID: {scan_id}")
@@ -414,12 +414,12 @@ def convert_to_markdown(data):
             if isinstance(details, dict):
                 for sub_key, value in details.items():
                     section_title = sub_key.replace('_', ' ').title()
-                    markdown += f"**{section_title}:**\n```\n{value}\n```\n\n"
+                    markdown += f"**{section_title}:**\n\n{value}\n\n\n"
             elif isinstance(details, list):
                 markdown += "**Items:**\n"
                 for item in details: markdown += f"- {item}\n"
                 markdown += "\n"
-            else: markdown += f"```\n{details}\n```\n\n"
+            else: markdown += f"\n{details}\n\n\n"
             markdown += "---\n\n"
         return markdown
     elif isinstance(data, str):
