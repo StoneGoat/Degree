@@ -1,32 +1,47 @@
+# nmap_module.py
+
 import nmap
+import os
 from xml_util import convert_dict_to_pretty_xml
 
-nmapScan = nmap.PortScanner()
+RESULTS_DIR = 'scan_results'
+nmap_scanner = nmap.PortScanner()
 
 def filter_nmap_result(result):
     filtered = {}
-    scan_data = result.get('scan', {})
-    for host, host_data in scan_data.items():
-        filtered[host] = {
+    for host, host_data in result.get('scan', {}).items():
+        entry = {
             "hostnames": host_data.get("hostnames", []),
             "addresses": host_data.get("addresses", {}),
             "status": host_data.get("status", {})
         }
         if "tcp" in host_data:
-            open_ports = {}
-            for port, details in host_data["tcp"].items():
-                if details.get("state") == "open":
-                    open_ports[port] = details
-            filtered[host]["open_ports"] = open_ports
+            # only keep open ports
+            entry["open_ports"] = {
+                port: info
+                for port, info in host_data["tcp"].items()
+                if info.get("state") == "open"
+            }
+        filtered[host] = entry
     return filtered
 
-def scan(ips):
-    results = {}
+def scan_scan_to_xml(ips, scan_id):
     if isinstance(ips, str):
         ips = [ips]
+
+    results = {}
     for ip in ips:
-        raw_result = nmapScan.scan(ip, arguments='-sV -Pn --top-ports 1000 --script vuln')
-        filtered_result = filter_nmap_result(raw_result)
-        results[ip] = filtered_result
-    pretty_xml_str = convert_dict_to_pretty_xml("NmapScanResults", results)
-    return pretty_xml_str
+        raw = nmap_scanner.scan(hosts=ip,
+                                arguments='-sV -Pn --top-ports 1000 --script vuln')
+        results[ip] = filter_nmap_result(raw)
+
+    xml_str = convert_dict_to_pretty_xml("NmapScanResults", results)
+
+    out_dir = os.path.join(RESULTS_DIR, scan_id)
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, f'nmap-report-{scan_id}.xml')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(xml_str)
+    print(f"→ Saved Nmap report: {path}")
+
+    return xml_str

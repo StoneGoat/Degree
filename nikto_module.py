@@ -1,22 +1,26 @@
+# nikto_module.py
+
 import subprocess
 import os
 from xml_util import convert_dict_to_pretty_xml
 
-def nikto_scan(target):
-    output_file = 'nikto_output.txt'
-    command = ['nikto', '-host', target, '-Display', 'E4']
-    with open(output_file, 'w') as f:
-        subprocess.run(command, stdout=f, stderr=subprocess.PIPE, text=True)
-    with open(output_file, 'r') as f:
-        scan_results = f.read()
-    return scan_results
+RESULTS_DIR = 'scan_results'
 
-def parse_nikto_output(output):
-    return {"raw_output": output}
+def nikto_scan_to_xml(target, scan_id):
+    cmd = ['nikto', '-host', target, '-Display', 'E4']
+    proc = subprocess.run(cmd, capture_output=True, text=True)
+    raw = proc.stdout or ''
+    if proc.returncode != 0:
+        raw += "\n\n[nikto stderr]\n" + proc.stderr
 
-def nikto_scan_to_xml(target):
-    output = nikto_scan(target)
-    os.remove('nikto_output.txt')
-    parsed_output = parse_nikto_output(output)
-    return convert_dict_to_pretty_xml("NiktoScanResults", parsed_output)
+    parsed = {"raw_output": raw}
+    xml_str = convert_dict_to_pretty_xml("NiktoScanResults", parsed)
 
+    out_dir = os.path.join(RESULTS_DIR, scan_id)
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, f'nikto-report-{scan_id}.xml')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(xml_str)
+    print(f"→ Saved Nikto report: {path}")
+
+    return xml_str

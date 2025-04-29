@@ -45,7 +45,6 @@ def index():
 
         try:
             # Generate a unique scan ID
-            # scan_id = "53ce5383-ad07-4caa-9920-f5de31772f8e"
             scan_id = str(uuid.uuid4())
 
             print(f"Generated new scan ID: {scan_id}")
@@ -109,123 +108,53 @@ def index():
 
 
 def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_path):
-    """Run the full scan, graph generation, and AI analysis, logging status updates."""
     start_time = datetime.datetime.now()
     print(f"[{scan_id}] Background scan process started for {domain} (Level: {level})")
 
-    # Helper function to append status updates safely to status.md
-    def append_status(message):
-        try:
-            # Use a simpler format for appending subsequent messages
-            with open(status_md_path, 'a', encoding='utf-8') as f:
-                 # Adding timestamp within the message might be noisy, keep sections clear
-                 f.write(f"---\n\n{message}\n\n") # Use markdown separator
-            print(f"[{scan_id}] Status Updated: {message.splitlines()[0]}...")
-        except IOError as e:
-            print(f"[{scan_id}] CRITICAL ERROR: Could not write status update to {status_md_path}: {e}")
-        except Exception as e_stat:
-             print(f"[{scan_id}] UNEXPECTED ERROR writing status update: {e_stat}")
+    def append_status(msg):
+        with open(status_md_path, 'a', encoding='utf-8') as f:
+            f.write(f"---\n\n{msg}\n\n")
+        print(f"[{scan_id}] Status Updated: {msg.splitlines()[0]}...")
 
-    # Initialize variable
-    xml_file_path_for_ai = None
+    # 1) notify start
+    append_status(
+        "## Scanning in Progress...\n\n"
+        "Nmap and Nikto scans will start immediately and their AI analyses will fire as each XML completes."
+    )
 
-    try:
-        # --- Add "Scanning in Progress" status update ---
-        # Match user's second example section
-        append_status("## Scanning in Progress...\n\nThe scan tools (Nmap, Nikto, ZAP, etc.) are now running. Results will be appended below as they become available.")
-        # --- End Status Update ---
+    # 2) run all scans (Nmap & Nikto parallel → AI, then ZAP)
+    print(f"[{scan_id}] Starting scan.run_scan...")
+    scan.run_scan(domain, scan_id, level)
+    append_status(
+        "## Scan Tool Execution Complete\n\n"
+        "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."
+    )
 
-        # --- Run the actual scans (e.g., Nmap, Nikto, ZAP via scan.py) ---
-        print(f"[{scan_id}] Starting scan.run_scan...")
-        # Assumes scan.run_scan triggers updates via the /update endpoint or similar mechanism
-        # which writes to VULNERABILITY_FILENAME
-        scan.run_scan(domain, scan_id)
-        print(f"[{scan_id}] scan.run_scan finished.")
-        # Optionally add a status update after scan tools finish, before analysis
-        append_status("## Scan Tool Execution Complete\n\nMain scanning tools have finished. Proceeding with data analysis and report generation.")
+    append_status("## ZAP AI Analysis Starting")
+    zap_xml = os.path.join(scan_dir, f"zap-report-{scan_id}.xml")
+    if os.path.exists(zap_xml):
+        send_zap_to_AI(scan_id, zap_xml, status_md_path, level)
+    else:
+        append_status("### ZAP AI Skipped: zap-report XML not found")
 
+    # 3) generate visual summaries
+    append_status("## Generating Visual Summaries...")
+    add_graphs_to_markdown(
+        scan_id=scan_id,
+        scan_dir=scan_dir,
+        md_file_path=md_file_path,
+        status_md_path=status_md_path
+    )
 
-        # --- Find the XML Report (Needed for Graphs and AI) ---
-        print(f"[{scan_id}] Looking for XML report...")
-        xml_report_filename = f"scan-report{scan_id}.xml"
-        potential_xml_path_scan_dir = os.path.join(scan_dir, xml_report_filename)
-        potential_xml_path_root = xml_report_filename # Relative path check
-
-        if os.path.exists(potential_xml_path_scan_dir):
-                xml_file_path_for_ai = potential_xml_path_scan_dir
-                print(f"[{scan_id}] Found XML report at: {xml_file_path_for_ai}")
-        elif os.path.exists(potential_xml_path_root):
-                xml_file_path_for_ai = potential_xml_path_root
-                print(f"[{scan_id}] Found XML report at: {xml_file_path_for_ai}")
-        else:
-            error_msg = f"ERROR: Cannot find XML report '{xml_report_filename}' in {scan_dir} or application root."
-            print(f"[{scan_id}] {error_msg}")
-            append_status(f"## Scan Data Error\n\nCould not find the necessary XML report ('`{xml_report_filename}`') required for graph generation and full AI analysis. Subsequent steps needing this file will be skipped.")
-            # xml_file_path_for_ai remains None
-
-
-        # --- Perform AI Analysis and Graph Generation (only if XML found) ---
-        if xml_file_path_for_ai:
-            append_status("## Post-Scan Processing Started\n\nFound scan data. Starting AI analysis and graph generation.")
-
-            # 1. AI Overview (Original Position)
-            try:
-                print(f"[{scan_id}] Running chat.test_scan_overview...")
-                # Assumes this writes findings to vulnerability.md
-                chat.test_scan_overview(xml_file_path=xml_file_path_for_ai, scan_id=scan_id)
-                print(f"[{scan_id}] chat.test_scan_overview finished.")
-                append_status("### AI Overview Generation Completed.")
-            except Exception as e_overview:
-                error_msg = f"Error during AI Scan Overview generation: `{e_overview}`"
-                print(f"[{scan_id}] {error_msg}")
-                # Write this specific *process* error to status markdown
-                append_status(f"### AI Overview Error\n\nAn error occurred during the AI overview step: `{e_overview}`\n\nOverview might be missing or incomplete in the main report.")
-
-            # 2. Generate and Add Graphs (Original Position)
-            print(f"[{scan_id}] Starting graph generation...")
-            # This function now writes links to md_file_path and status/errors to status_md_path
-            add_graphs_to_markdown(scan_id=scan_id, scan_dir=scan_dir, md_file_path=md_file_path, status_md_path=status_md_path)
-            print(f"[{scan_id}] Graph generation and markdown update finished.")
-            # Status updates for graphs are handled *inside* add_graphs_to_markdown
-
-            # 3. Main AI Analysis (Original Position)
-            try:
-                print(f"[{scan_id}] Running main AI analysis (send_to_AI)...")
-                # Assumes this writes findings to vulnerability.md
-                # Pass status path for potential *process* errors during the call
-                send_to_AI(scan_id=scan_id, level=level, xml_file_path=xml_file_path_for_ai, md_file_path=md_file_path, status_md_path=status_md_path)
-                print(f"[{scan_id}] Main AI analysis function finished.")
-                append_status("### Main AI Analysis Completed.")
-            except Exception as e_main_ai:
-                # This outer catch might be redundant if send_to_AI is robust, but safe to keep.
-                # send_to_AI writes specific *process* errors to status_md_path.
-                print(f"[{scan_id}] Error caught after calling send_to_AI: {e_main_ai}")
-                append_status(f"### AI Analysis Error\n\nAn unexpected error occurred related to the main AI analysis call: `{e_main_ai}`")
-
-        else:
-            # This case is handled where xml_file_path_for_ai is checked above.
-            # The status message about skipping is already added there.
-            print(f"[{scan_id}] Skipping AI processing and Graph generation due to missing XML report.")
-
-
-        # --- Final Status Update ---
-        end_time = datetime.datetime.now()
-        duration = end_time - start_time
-        completion_message = "## Scan Process Complete\n\n"
-        completion_message += f"Scan process finished at: {end_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-        completion_message += f"Total duration: {str(duration).split('.')[0]}\n\n"
-        if not xml_file_path_for_ai:
-            completion_message += "*Note: AI analysis and graph generation were skipped due to missing scan data.*\n"
-        completion_message += "Vulnerability details (if any) are in the main report (`vulnerability.md`).\nYou can now download the report as a PDF (based on the vulnerability data).\n"
-        append_status(completion_message)
-        print(f"[{scan_id}] Scan process finished.")
-
-    except Exception as e:
-        error_msg = f"CRITICAL ERROR in background scan process: {str(e)}"
-        print(f"[{scan_id}] {error_msg}")
-        traceback.print_exc()
-        # Record critical error in status markdown
-        append_status(f"## Critical Scan Error\n\nA critical error occurred during the scan execution:\n```\n{traceback.format_exc()}\n```\nThe scan may be incomplete.")
+    # 5) final summary
+    end_time = datetime.datetime.now()
+    duration = str(end_time - start_time).split('.')[0]
+    append_status(
+        "## Scan Process Complete\n\n"
+        f"Finished at: {end_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f"Total duration: {duration}"
+    )
+    print(f"[{scan_id}] Scan process finished.")
 
 
 # --- The rest of the functions remain largely the same as the previous version ---
@@ -258,28 +187,48 @@ def scan_results():
     return render_template("results.html", scan_id=scan_id, domain=domain, level=level)
 
 
-def send_to_AI(scan_id, level, xml_file_path, md_file_path, status_md_path):
-    """Sends data to the AI module. Assumes AI results are written to vulnerability.md. Writes PROCESS errors to status.md."""
-    try:
-        print(f"[{scan_id}] Starting AI analysis call with XML: {xml_file_path}")
-        # Assumes chat.run_AI writes findings to vulnerability.md (e.g., via /update)
-        chat.run_AI(xml_file_path=xml_file_path, scan_id=scan_id, level=level)
-        print(f"[{scan_id}] AI analysis function call completed (results should be in vulnerability report).")
+def append_status(status_md_path, message):
+    with open(status_md_path, 'a', encoding='utf-8') as f:
+        f.write(f"---\n\n{message}\n\n")
 
-    except Exception as e:
-        error_msg = f"Error during AI Analysis processing call: {str(e)}"
-        print(f"[{scan_id}] {error_msg}")
-        traceback.print_exc()
-        # Append PROCESS error to status markdown
-        try:
-            with open(status_md_path, 'a', encoding='utf-8') as f:
-                # Use a clear section header for this error
-                f.write(f"---\n\n### AI Analysis Process Error\n\n")
-                f.write("An error occurred while trying to run the main AI analysis phase:\n")
-                f.write(f"```\n{traceback.format_exc()}\n```\n")
-                f.write("AI-generated findings in the main report might be missing or incomplete.\n\n")
-        except IOError as e_inner:
-            print(f"[{scan_id}] CRITICAL ERROR: Could not write AI process error to status file {status_md_path}: {e_inner}")
+def send_zap_to_AI(scan_id, xml_file_path, status_md_path, level):
+    try:
+        print(f"[{scan_id}] Starting ZAP analysis")
+        chat.run_zap_analysis(xml_file_path, scan_id, level)
+        append_status(status_md_path, "### ZAP AI Analysis Completed.")
+    except Exception:
+        err = traceback.format_exc()
+        print(f"[{scan_id}] ZAP analysis error:\n{err}")
+        append_status(status_md_path,
+            "### ZAP AI Analysis Error\n\n"
+            "```" + err + "```"
+        )
+
+def send_nmap_to_AI(scan_id, xml_file_path, status_md_path, level):
+    try:
+        print(f"[{scan_id}] Starting Nmap analysis")
+        chat.run_nmap_analysis(xml_file_path, scan_id, level)
+        append_status(status_md_path, "### Nmap AI Analysis Completed.")
+    except Exception:
+        err = traceback.format_exc()
+        print(f"[{scan_id}] Nmap analysis error:\n{err}")
+        append_status(status_md_path,
+            "### Nmap AI Analysis Error\n\n"
+            "```" + err + "```"
+        )
+
+def send_nikto_to_AI(scan_id, xml_file_path, status_md_path, level):
+    try:
+        print(f"[{scan_id}] Starting Nikto analysis")
+        chat.run_nikto_analysis(xml_file_path, scan_id, level)
+        append_status(status_md_path, "### Nikto AI Analysis Completed.")
+    except Exception:
+        err = traceback.format_exc()
+        print(f"[{scan_id}] Nikto analysis error:\n{err}")
+        append_status(status_md_path,
+            "### Nikto AI Analysis Error\n\n"
+            "```" + err + "```"
+        )
 
 
 @app.route("/get_markdown")

@@ -571,6 +571,17 @@ def run_AI(xml_file_path="../scan-report2.xml",
     test_nmap_object(xml_file_path, model_id, scan_id, level=level)
     test_nikto_object(xml_file_path, model_id, scan_id, level=level)
 
+
+
+def run_zap_analysis(xml_file_path, scan_id, level):
+    test_alert_items(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
+
+def run_nmap_analysis(xml_file_path, scan_id, level):
+    test_nmap_object(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
+
+def run_nikto_analysis(xml_file_path, scan_id, level):
+    test_nikto_object(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
+
 def get_scan_overview(file_path):
     """
     Extracts a concise overview from the XML scan report.

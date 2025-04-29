@@ -8,6 +8,7 @@ import os
 # Config
 API_KEY = '126gp7bpv1rfgf5aqbious8cpb'
 PROXY = 'http://localhost:8080'
+RESULTS_DIR = 'scan_results'
 
 zap = ZAPv2(apikey=API_KEY, proxies={'http': PROXY, 'https': PROXY})
 
@@ -43,39 +44,14 @@ def active_scan(target_url):
     print("Active scan completed.")
 
 
-def save_report(nmap_results_xml, nikto_results_xml, id):
-    # Get the ZAP report as an XML string
-    zap_xml_str = zap.core.xmlreport(apikey=API_KEY)
-    try:
-        zap_root = ET.fromstring(zap_xml_str)
-    except ET.ParseError as e:
-        zap_root = ET.Element("zapReport")
-        zap_root.text = "Error parsing ZAP report: " + str(e)
-    
-    # Parse the nmap results XML
-    try:
-        nmap_root = ET.fromstring(nmap_results_xml)
-    except ET.ParseError as e:
-        nmap_root = ET.Element("nmapResults")
-        nmap_root.text = "Error parsing nmap report: " + str(e)
-
-    try:
-        nikto_root = ET.fromstring(nikto_results_xml)
-    except ET.ParseError as e:
-        nikto_root = ET.Element("nmapResults")
-        nikto_root.text = "Error parsing nmap report: " + str(e)
-    
-    # Create a final root element
-    final_root = ET.Element("ScanReport")
-    final_root.append(zap_root)
-    final_root.append(nmap_root)
-    final_root.append(nikto_root)
-    
-    # Convert the final XML tree to a string
-    xml_string = ET.tostring(final_root, encoding='unicode', method='xml')
-    os.makedirs(str(id), exist_ok=True)
-    with open(f"scan_results/{id}/scan-report{id}.xml", "w") as f:
-        f.write(xml_string)
+def save_report(id):
+    xml = zap.core.xmlreport(apikey=API_KEY)
+    out_dir = os.path.join(RESULTS_DIR, str(id))
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, f"zap-report-{id}.xml")
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(xml)
+    print(f"Saved ZAP XML report to {path}")
 
 
 def run_full_scan(target, nmap_results, nikto_results, id):
