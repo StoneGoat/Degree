@@ -2,6 +2,8 @@ import threading
 import time
 import uuid
 import torch
+import json
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -34,41 +36,96 @@ class ChatSession:
         if self.on_shutdown:
             self.on_shutdown(self.chat_id)
 
+    def check_json(self, prompt):
+        filename = "history.json"
+
+        # 1. If the file doesn't exist, create it with an empty "prompts" dict
+        if not os.path.exists(filename):
+            with open(filename, "w") as f:
+                json.dump({"prompts": {}}, f)
+
+        # 2. Now open for read+write; handle the case where it's empty or invalid JSON
+        with open(filename, "r+") as f:
+            try:
+                file_data = json.load(f)
+            except json.JSONDecodeError:
+                # file was empty or invalid → reinitialize
+                file_data = {"prompts": {}}
+                f.seek(0)
+                json.dump(file_data, f)
+                f.truncate()
+
+            # 3. Perform your lookup
+            if prompt in file_data["prompts"]:
+                return file_data["prompts"][prompt]
+
+        return ""
+    
+    def update_json(self, prompt, response, filename="history.json"):
+        # 1. If the file doesn't exist, create it with an empty "prompts" dict
+        if not os.path.exists(filename):
+            with open(filename, "w") as f:
+                json.dump({"prompts": {}}, f, indent=4)
+
+        # 2. Open for read+write
+        with open(filename, "r+") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                # Empty or invalid JSON → reinitialize
+                data = {"prompts": {}}
+
+            # 3. Update the mapping
+            data["prompts"][prompt] = response
+
+            # 4. Write back, then truncate any leftover
+            f.seek(0)
+            json.dump(data, f, indent=4)
+            f.truncate()
+        
+
     def generate_response(self, prompt, token_limit=256, temperature=0.7, top_p=0.75, role="user"):
         # Append the new message to the chat history.
         self.chat_history.append({"role": role, "content": prompt})
-        
-        # Format the conversation.
-        if hasattr(self.tokenizer, "apply_chat_template"):
-            formatted_chat = self.tokenizer.apply_chat_template(
-                self.chat_history,
-                tokenize=False,
-                add_generation_prompt=True
+
+        response = self.check_json(prompt)
+
+        if response == "":
+            # Format the conversation.
+            if hasattr(self.tokenizer, "apply_chat_template"):
+                formatted_chat = self.tokenizer.apply_chat_template(
+                    self.chat_history,
+                    tokenize=False,
+                    add_generation_prompt=True
+                )
+            else:
+                formatted_chat = "\n".join([f"{msg['role']}: {msg['content']}" for msg in self.chat_history])
+            
+            # Tokenize the input.
+            inputs = self.tokenizer(
+                formatted_chat,
+                return_tensors="pt",
+                add_special_tokens=True
+            ).to(self.model.device)
+            
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=token_limit,
+                temperature=temperature,
+                top_p=top_p,
+                pad_token_id=self.tokenizer.eos_token_id,
+                do_sample=False
             )
-        else:
-            formatted_chat = "\n".join([f"{msg['role']}: {msg['content']}" for msg in self.chat_history])
-        
-        # Tokenize the input.
-        inputs = self.tokenizer(
-            formatted_chat,
-            return_tensors="pt",
-            add_special_tokens=True
-        ).to(self.model.device)
-        
-        outputs = self.model.generate(
-            **inputs,
-            max_new_tokens=token_limit,
-            temperature=temperature,
-            top_p=top_p,
-            pad_token_id=self.tokenizer.eos_token_id,
-            do_sample=False
-        )
-        # Only decode the newly generated tokens.
-        generated = outputs[0][inputs['input_ids'].size(1):]
-        response = self.tokenizer.decode(generated, skip_special_tokens=True).strip()
+            # Only decode the newly generated tokens.
+            generated = outputs[0][inputs['input_ids'].size(1):]
+            response = self.tokenizer.decode(generated, skip_special_tokens=True).strip()
         
         # Append the assistant's response to the conversation.
         self.chat_history.append({"role": "assistant", "content": response})
+
+        if role != "system":
+          self.update_json(prompt, response)
+
         return response
 
 # --- ChatManager Class ---
