@@ -45,8 +45,8 @@ def index():
 
         try:
             # Generate a unique scan ID
-            scan_id = "53ce5383-ad07-4caa-9920-f5de31772f8e"
-            # scan_id = str(uuid.uuid4())
+            # scan_id = "53ce5383-ad07-4caa-9920-f5de31772f8e"
+            scan_id = str(uuid.uuid4())
 
             print(f"Generated new scan ID: {scan_id}")
 
@@ -139,7 +139,7 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
         print(f"[{scan_id}] Starting scan.run_scan...")
         # Assumes scan.run_scan triggers updates via the /update endpoint or similar mechanism
         # which writes to VULNERABILITY_FILENAME
-        # scan.run_scan(domain, scan_id)
+        scan.run_scan(domain, scan_id)
         print(f"[{scan_id}] scan.run_scan finished.")
         # Optionally add a status update after scan tools finish, before analysis
         append_status("## Scan Tool Execution Complete\n\nMain scanning tools have finished. Proceeding with data analysis and report generation.")
