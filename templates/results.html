@@ -60,27 +60,21 @@
       const scanId = "{{ scan_id }}";
       let scanComplete = false;
 
-      // === MODIFIED: Function to load both status and results ===
       function loadData() {
-        // Use $.when to fetch both markdown files concurrently
         $.when(
             $.get("{{ url_for('get_status_markdown') }}", { scan_id: scanId }), // Fetch status
             $.get("{{ url_for('get_markdown') }}", { scan_id: scanId })      // Fetch vulnerability report
         )
         .done(function(statusResponseArray, vulnResponseArray) {
-            // Responses are arrays: [data, textStatus, jqXHR]
             const statusResponse = statusResponseArray[0];
             const vulnResponse = vulnResponseArray[0];
 
-            // Update Status Container
             if (statusResponse && statusResponse.markdown) {
                 $("#status-container").html(marked.parse(statusResponse.markdown));
 
-                // *** IMPORTANT: Check STATUS for completion/error ***
-                // Adjust these keywords based on your actual status.md content
                 if (statusResponse.markdown.includes("## Scan Process Complete") ||
                     statusResponse.markdown.includes("## Critical Scan Error") ||
-                    statusResponse.markdown.includes("## Scan Data Error") || // Example terminal states
+                    statusResponse.markdown.includes("## Scan Data Error") ||
                     statusResponse.markdown.includes("## Critical Error"))
                 {
                     scanComplete = true;
@@ -96,7 +90,6 @@
             if (vulnResponse && vulnResponse.markdown) {
                  $("#results-container").html(marked.parse(vulnResponse.markdown));
             } else {
-                 // Keep previous results or show error? Showing error for now.
                  $("#results-container").html("<p>Could not load vulnerability report.</p>");
             }
         })
@@ -110,13 +103,11 @@
             console.log("Polling stopped due to fetch error.");
         });
       }
-      // === END MODIFIED ===
-
       // initial load + polling
       loadData(); // Call the modified function
       const poll = setInterval(loadData, 5000); // Poll the modified function
 
-      // animate dots (no change needed here, relies on scanComplete flag)
+      // animate dots
       let dots = 0;
       const loadingDotsInterval = setInterval(function() { // Give this interval a name
         if (!scanComplete) {

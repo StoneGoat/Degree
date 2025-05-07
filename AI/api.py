@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# --- ChatSession Class ---
+# ChatSession Class
 class ChatSession:
     def __init__(self, model, tokenizer, chat_id=None, on_shutdown=None, model_id=None, initial_history=None):
         self.chat_id = chat_id if chat_id else str(uuid.uuid4())
@@ -128,11 +128,11 @@ class ChatSession:
 
         return response
 
-# --- ChatManager Class ---
+# ChatManager Class
 class ChatManager:
     def __init__(self):
         self.sessions = {}  # Active chat sessions.
-        self.loaded_models = {}  # Mapping from model_id to a dict with keys: "model", "tokenizer", "timer".
+        self.loaded_models = {}
         self.model_lock = threading.Lock()
 
     def _load_model(self, model_id):
@@ -197,18 +197,18 @@ class ChatManager:
         response = session.generate_response(prompt, token_limit=token_limit, temperature=temperature, top_p=top_p, role=role)
         return session.chat_id, response
 
-# --- FastAPI Setup ---
+# FastAPI Setup
 app = FastAPI()
 manager = ChatManager()  # Global instance managing all chat sessions.
 
 class ChatRequest(BaseModel):
-    chat_id: str = None  # Optional: if not provided, a new session is created.
+    chat_id: str = None
     prompt: str
     model_id: str = "default"  # Specify which model to use.
     token_limit: int = 256
     temperature: float = 0
     top_p: float = 1
-    role: str = "user"  # E.g., "system", "user", "assistant"
+    role: str = "user"
 
 class ChatResponse(BaseModel):
     chat_id: str

@@ -1,8 +1,5 @@
-#!/usr/bin/env python3
 import time
 from zapv2 import ZAPv2
-import xml.etree.ElementTree as ET
-import xml.dom.minidom as minidom
 import os
 
 # Config

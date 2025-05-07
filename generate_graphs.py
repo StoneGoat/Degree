@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import xml.etree.ElementTree as ET
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,16 +6,10 @@ from collections import Counter
 import re
 import sys
 import os
-import traceback # For detailed error logging
+import traceback
 
-# Define DPI setting for output images
-OUTPUT_DPI = 75 # Set desired DPI (lower DPI = smaller pixel dimensions)
+OUTPUT_DPI = 75
 
-# ==============================================================================
-# === XML Parsing Functions ====================================================
-# ==============================================================================
-
-# --- No changes needed in parsing functions ---
 def parse_security_scan_xml(file_path):
     """Parse the security scan XML file and extract relevant data."""
     print(f"Parsing XML file: {file_path}")
@@ -42,7 +35,7 @@ def parse_security_scan_xml(file_path):
     data = {'zap': None, 'nmap': None, 'nikto': None}
     found_sections = []
 
-    # --- ZAP Parsing ---
+    # ZAP Parsing
     try:
         zap_report = root.find('.//OWASPZAPReport')
         if zap_report is not None:
@@ -59,7 +52,7 @@ def parse_security_scan_xml(file_path):
         print(f"  - Error during ZAP parsing: {e_zap}")
         traceback.print_exc(limit=1)
 
-    # --- Nmap Parsing ---
+    # Nmap Parsing
     try:
         nmap_results = root.find('.//NmapScanResults')
         if nmap_results is not None:
@@ -73,7 +66,6 @@ def parse_security_scan_xml(file_path):
             nmap_run_results = root.find('.//nmaprun')
             if nmap_run_results is not None:
                 print("  - Found standard <nmaprun> tag. Parsing standard Nmap format.")
-                # *** IMPORTANT: You need a standard Nmap parser here if this fallback is needed ***
                 print("    (Standard Nmap parser not implemented in this version)")
             else:
                 print("  - Nmap results section (<NmapScanResults> or <nmaprun>) not found in XML.")
@@ -81,7 +73,7 @@ def parse_security_scan_xml(file_path):
         print(f"  - Error during Nmap parsing: {e_nmap}")
         traceback.print_exc(limit=1)
 
-    # --- Nikto Parsing ---
+    # Nikto Parsing
     try:
         nikto_output_text = None; nikto_source = "Not Found"
         nikto_results_tag = root.find('.//NiktoScanResults/raw_output')
@@ -110,7 +102,6 @@ def parse_security_scan_xml(file_path):
 
     return data
 
-# --- No changes needed in sub-parsing functions ---
 def parse_zap_data(zap_report):
     """Extract OWASP ZAP data from the XML."""
     alerts = []
@@ -118,7 +109,6 @@ def parse_zap_data(zap_report):
         for alertitem in zap_report.findall('.//alertitem'):
             instance_count = len(alertitem.findall('.//instance'))
             alert_count = instance_count if instance_count > 0 else int(alertitem.findtext('count', '1'))
-            # Simplified site finding logic (assuming direct parent or grandparent is site)
             site_element = None
             parent = alertitem.find('..') # Direct parent
             if parent is not None and parent.tag == 'site' and 'name' in parent.attrib:
@@ -148,7 +138,7 @@ def parse_nmap_data(nmap_results_root):
     """Extract Nmap scan data from the custom XML structure."""
     hosts_data = []
     try:
-        # Iterate through the first level tags (e.g., <tag_35_228_57_67>)
+        # Iterate through the first level tags
         for outer_host_tag in nmap_results_root:
             # Find the nested tag with the same name which seems to contain the data
             host_data_tag = outer_host_tag.find(f'.//{outer_host_tag.tag}')
@@ -184,21 +174,19 @@ def parse_nmap_data(nmap_results_root):
             open_ports_tag = host_data_tag.find('.//open_ports')
             if open_ports_tag is not None:
                 for port_tag in open_ports_tag:
-                    # Tag name is like 'tag_22', 'tag_80'
                     port_id_str = port_tag.tag.replace('tag_', '')
                     if not port_id_str.isdigit():
                          print(f"   - Warning: Skipping port with non-numeric tag name '{port_tag.tag}' under host {host_info['ip']}")
                          continue
 
                     portid = port_id_str
-                    protocol = 'tcp' # Assuming tcp, as protocol isn't specified per port in this structure
+                    protocol = 'tcp' # Assuming tcp
 
                     state_elem = port_tag.find('state')
                     name_elem = port_tag.find('name')
                     product_elem = port_tag.find('product')
                     version_elem = port_tag.find('version')
                     extrainfo_elem = port_tag.find('extrainfo')
-                    # You might want to extract script output too if needed, e.g., port_tag.find('script/vulners')
 
                     if state_elem is not None:
                         port_info = {
@@ -209,7 +197,6 @@ def parse_nmap_data(nmap_results_root):
                             'product': product_elem.text if product_elem is not None else '',
                             'version': version_elem.text if version_elem is not None else '',
                             'extrainfo': extrainfo_elem.text if extrainfo_elem is not None else ''
-                            # Add script output parsing here if necessary
                         }
                         host_info['ports'].append(port_info)
                     else:
@@ -236,7 +223,7 @@ def parse_nikto_data_from_output(raw_output):
             if match.group(1):
                 finding_text = match.group(1).strip()
                 if finding_text: findings.append(finding_text)
-        # Fallback if regex misses things (less reliable)
+        # Fallback if regex misses things
         if not findings:
             lines = raw_output.strip().split('\n')
             for line in lines:
@@ -251,16 +238,12 @@ def parse_nikto_data_from_output(raw_output):
         print(f"    - Error parsing Nikto raw output: {e}"); traceback.print_exc(limit=1)
         return None
 
-# ==============================================================================
-# === Visualization Functions ==================================================
-# ==============================================================================
 
-# --- Visualize ZAP Risk Distribution (Unique Counts) ---
+# Visualize ZAP Risk Distribution
 def visualize_zap_risk_distribution(zap_data, output_file='1_zap_risk_distribution.png'):
     """Create a pie chart showing distribution of UNIQUE ZAP alert types by risk severity."""
     if not zap_data: print("  - Skipping ZAP Risk Distribution: No ZAP data."); return
     try:
-        # ... (risk levels, colors, counting logic remains the same) ...
         risk_levels = { 3: 'High', 2: 'Medium', 1: 'Low', 0: 'Informational', -1: 'Unknown'}
         risk_colors = { 'High': '#d9534f', 'Medium': '#f0ad4e', 'Low': '#5bc0de', 'Informational': '#5cb85c', 'Unknown': '#777777'}
         unique_alerts_by_risk = Counter(); processed_plugin_ids = set()
@@ -286,26 +269,24 @@ def visualize_zap_risk_distribution(zap_data, output_file='1_zap_risk_distributi
                 plot_explode.append(0.1 if code == max_risk_code_present else 0)
         if not plot_values: print("  - Skipping ZAP Risk Distribution: No data to plot."); return
 
-        plt.figure(figsize=(10, 7)) # Keep original figsize for now
+        plt.figure(figsize=(10, 7))
         wedges, texts = plt.pie(plot_values, labels=plot_labels_pie, explode=plot_explode, autopct=None, pctdistance=0.80, shadow=False, startangle=90, colors=plot_colors, textprops={'color':"w", 'weight':'bold'}, wedgeprops={'edgecolor': 'white'})
         plt.title(f'ZAP: Distribution of Unique Alert Types by Risk (Total Unique: {total_unique_alerts})')
         plt.axis('equal')
         if wedges: plt.legend(wedges, plot_labels_legend, title="Risk Levels (Unique Count)", loc="center left", bbox_to_anchor=(0.95, 0.5))
         plt.tight_layout(rect=[0, 0, 0.85, 1])
         try:
-            # --- MODIFICATION: Added dpi ---
             plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved ZAP unique risk distribution chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving ZAP unique risk distribution chart: {e_save}")
         plt.close()
     except Exception as e_viz: print(f"  - Error during ZAP unique risk distribution visualization: {e_viz}"); traceback.print_exc(limit=2); plt.close()
 
-# --- Visualize ZAP Alert Counts (Occurrences) ---
+# Visualize ZAP Alert Counts
 def visualize_alert_counts(zap_data, output_file='2_zap_alert_counts.png'):
     """Create a horizontal bar chart of ZAP alert TOTAL OCCURRENCES."""
     if not zap_data: print("  - Skipping ZAP Alert Counts: No ZAP data."); return
     try:
-        # ... (counting logic remains the same) ...
         alert_counts = Counter()
         for alert in zap_data: alert_counts[alert.get('name', 'Unknown Alert')] += alert.get('count', 1)
         top_alerts = alert_counts.most_common(15)
@@ -327,18 +308,16 @@ def visualize_alert_counts(zap_data, output_file='2_zap_alert_counts.png'):
         plt.title(f'Top {len(top_alerts)} Most Common Security Alerts by Occurrence Count (ZAP)')
         plt.tight_layout(pad=1.0); plt.xlim(right=max_val * 1.15)
         try:
-            # --- MODIFICATION: Added dpi and bbox_inches ---
             plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved ZAP alert counts by occurrence chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving ZAP alert counts by occurrence chart: {e_save}")
         plt.close()
     except Exception as e_viz: print(f"  - Error during ZAP alert counts visualization: {e_viz}"); traceback.print_exc(limit=2); plt.close()
 
-# --- Visualize Nmap Port Status ---
+# Visualize Nmap Port Status
 def visualize_nmap_port_status(nmap_data, output_file='4_nmap_port_status.png'):
     if not nmap_data: print("  - Skipping Nmap Port Status: No Nmap data."); return
     try:
-        # ... (counting logic remains the same) ...
         port_states = []; open_ports_summary = Counter()
         for host in nmap_data:
             host_ports = host.get('ports')
@@ -373,18 +352,16 @@ def visualize_nmap_port_status(nmap_data, output_file='4_nmap_port_status.png'):
             plt.text(0.5, -0.15, open_text, ha='center', va='top', transform=plt.gca().transAxes, fontsize=9, wrap=True)
         plt.tight_layout(rect=[0, 0.05, 1, 1]); plt.ylim(top=max_count * 1.15)
         try:
-             # --- MODIFICATION: Added dpi and bbox_inches ---
             plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved Nmap port status chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving Nmap port status chart: {e_save}")
         plt.close()
     except Exception as e_viz: print(f"  - Error during Nmap port status visualization: {e_viz}"); traceback.print_exc(limit=2); plt.close()
 
-# --- Visualize Nikto Findings ---
+# Visualize Nikto Findings
 def visualize_nikto_findings(nikto_data, output_file='5_nikto_findings.png'):
     if not nikto_data or not nikto_data.get('findings'): print("  - Skipping Nikto Findings: No findings."); return
     try:
-        # ... (categorization logic remains the same) ...
         findings = nikto_data['findings']
         if not findings: print("  - Skipping Nikto Findings: Findings list empty."); return
         categories = {
@@ -412,19 +389,17 @@ def visualize_nikto_findings(nikto_data, output_file='5_nikto_findings.png'):
         if wedges: plt.legend(wedges, legend_labels, title="Categories (Count)", loc="center left", bbox_to_anchor=(1, 0.5))
         plt.tight_layout(rect=[0, 0, 0.80, 1])
         try:
-             # --- MODIFICATION: Added dpi ---
             plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved Nikto findings chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving Nikto findings chart: {e_save}")
         plt.close()
     except Exception as e_viz: print(f"  - Error during Nikto findings visualization: {e_viz}"); traceback.print_exc(limit=2); plt.close()
 
-# --- Visualize Overall Summary (Unique ZAP Counts) ---
+# Visualize Overall Summary
 def visualize_summary_findings(security_data, output_file='0_summary_findings.png'):
     """Create a stacked bar chart summarizing UNIQUE findings by tool and risk level."""
     print("\n--- Generating Overall Summary Chart (Unique Counts) ---")
     try:
-        # ... (data aggregation logic remains the same) ...
         tool_names = []
         total_findings_display = []
         high_risk, medium_risk, low_risk, info_risk = [], [], [], []
@@ -473,7 +448,7 @@ def visualize_summary_findings(security_data, output_file='0_summary_findings.pn
         if not tool_names: print("  - Skipping Overall Summary: No tool data found."); return
 
         x = np.arange(len(tool_names)); width = 0.6
-        fig, ax = plt.subplots(figsize=(10, 6)) # Keep original figsize
+        fig, ax = plt.subplots(figsize=(10, 6))
         np_info=np.array(info_risk);np_low=np.array(low_risk);np_med=np.array(medium_risk);np_high=np.array(high_risk);totals_for_label=np.array(total_findings_display)
 
         if not (len(x) == len(np_info) == len(np_low) == len(np_med) == len(np_high) == len(totals_for_label)): print("  - Error: Mismatch in array lengths for summary plotting. Skipping."); plt.close(); return
@@ -497,19 +472,12 @@ def visualize_summary_findings(security_data, output_file='0_summary_findings.pn
         plt.tight_layout(rect=[0, 0, 0.88, 1]); plt.ylim(bottom=0, top=max_total * 1.1 if max_total>0 else 1)
 
         try:
-            # --- MODIFICATION: Added dpi ---
             plt.savefig(output_file, bbox_inches='tight', dpi=OUTPUT_DPI, transparent=True)
             print(f"  - Saved Overall Summary chart to {output_file} (DPI: {OUTPUT_DPI})")
         except Exception as e_save: print(f"  - Error saving Overall Summary chart: {e_save}")
         plt.close()
     except Exception as e_viz: print(f"  - Error during Overall Summary visualization: {e_viz}"); traceback.print_exc(limit=2); plt.close()
 
-
-# ==============================================================================
-# === Main Execution Logic =====================================================
-# ==============================================================================
-
-# --- No changes needed in main() or generate_all_graphs_for_scan() ---
 def main(xml_file_path, output_dir):
     """Main function to parse the XML and generate individual visualizations."""
     print(f"\nAttempting to analyze security scan data from: {xml_file_path}")

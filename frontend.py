@@ -1,24 +1,19 @@
-# -*- coding: utf-8 -*- # Add encoding declaration for safety
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, send_file, send_from_directory
-import threading # Import threading earlier
+import threading
 import uuid
 import os
 import datetime
-import traceback # Import traceback for detailed error logging
-
-# Assuming these are your custom modules
-import scan
-import AI.chat as chat # More explicit import if chat is a module inside AI
+import traceback
+import combined_scan_module
+import AI.chat as chat
 import pdf_writer_module
 import generate_graphs
 
+# Config
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_default_development_secret_key') # Use env var or default
-# Use absolute path for robustness, especially if running from different directories
 SCAN_RESULTS_BASE_DIR = os.path.abspath('scan_results')
 app.config['SCAN_RESULTS_DIR'] = SCAN_RESULTS_BASE_DIR
-
-# Filenames
 STATUS_FILENAME = 'status.md'
 VULNERABILITY_FILENAME = 'vulnerability.md'
 
@@ -30,10 +25,9 @@ print(f"Scan results will be stored in: {app.config['SCAN_RESULTS_DIR']}")
 def index():
     if request.method == "POST":
         domain = request.form.get("domain")
-        level_str = request.form.get("level") # Keep original string for clarity if needed
-
+        level_str = request.form.get("level")
         level_map = {"Manager": 0, "Developer": 1, "CyberSec": 2}
-        level = level_map.get(level_str) # Use .get for safer dictionary access
+        level = level_map.get(level_str)
 
         if level is None:
                 flash("Invalid level selected.")
@@ -54,11 +48,10 @@ def index():
             os.makedirs(scan_dir, exist_ok=True)
             print(f"Created scan directory: {scan_dir}")
 
-            # Initialize the VULNERABILITY markdown file (minimal header)
+            # Initialize the VULNERABILITY md file (minimal header)
             md_file_path = os.path.join(scan_dir, VULNERABILITY_FILENAME)
             try:
                 with open(md_file_path, 'w', encoding='utf-8') as f:
-                    # Only basic info here, findings will be appended
                     f.write(f"# Scan Results for {domain}\n\n")
                     f.write(f"*Scan ID: `{scan_id}`*\n")
                     f.write(f"*Scan requested: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n")
@@ -68,28 +61,22 @@ def index():
                 flash(f"Error initializing scan report file: {e}")
                 return redirect(url_for("index"))
 
-            # --- Initialize the STATUS markdown file with user-specified content ---
+            # Initialize the STATUS md file with user-specified content
             status_md_path = os.path.join(scan_dir, STATUS_FILENAME)
             try:
                 with open(status_md_path, 'w', encoding='utf-8') as f:
-                    f.write(f"# Scan Status for {domain}\n\n") # Adjusted header slightly for clarity
+                    f.write(f"# Scan Status for {domain}\n\n")
                     f.write(f"*Scan ID: `{scan_id}`*\n")
-                    # Match user's example time label
                     f.write(f"*Scan started: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n")
                     f.write("## Initializing Scan\n\n")
-                    # Match user's example message
                     f.write("Please wait while we analyze the target. This page will update automatically.\n\n")
                 print(f"Initialized Status Markdown file: {status_md_path}")
             except IOError as e:
                 print(f"Error writing initial status markdown: {e}")
                 flash(f"Error initializing scan status file: {e}")
-                # Allow proceeding even if status fails, but log it.
-            # --- End Status Initialization ---
 
-
-            # Redirect to results page immediately
+            # Redirect to results page
             response = redirect(url_for('scan_results', scan_id=scan_id, domain=domain, level=level_str))
-
             # Start the scan process in a background thread
             scan_thread = threading.Thread(target=run_scan_process, args=(scan_id, domain, level, scan_dir, md_file_path, status_md_path))
             scan_thread.daemon = True
@@ -103,9 +90,7 @@ def index():
             flash(f"An unexpected error occurred while starting the scan: {str(e)}")
             return redirect(url_for("index"))
 
-    # For GET requests, just show the index page
     return render_template("index.html")
-
 
 def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_path):
     start_time = datetime.datetime.now()
@@ -122,9 +107,9 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
         "Nmap and Nikto scans will start immediately and their AI analyses will fire as each XML completes."
     )
 
-    # 2) run all scans (Nmap & Nikto parallel → AI, then ZAP)
+    # 2) run all scans
     print(f"[{scan_id}] Starting scan.run_scan...")
-    scan.run_scan(domain, scan_id, level)
+    combined_scan_module.run_scan(domain, scan_id, level)
     append_status(
         "## Scan Tool Execution Complete\n\n"
         "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."
@@ -156,18 +141,12 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
     )
     print(f"[{scan_id}] Scan process finished.")
 
-
-# --- The rest of the functions remain largely the same as the previous version ---
-# --- (send_to_AI, add_graphs_to_markdown already modified for status path) ---
-# --- (get_markdown, get_status_markdown, update_results, convert_to_markdown, download_pdf, serve_scan_image) ---
-
-
 @app.route("/results")
 def scan_results():
     """Dedicated page for viewing scan results"""
     scan_id = request.args.get('scan_id')
     domain = request.args.get('domain', 'Unknown Domain')
-    level = request.args.get('level', 'Unknown Level') # Get level string back
+    level = request.args.get('level', 'Unknown Level')
 
     if not scan_id:
         flash("No scan ID provided.")
@@ -268,7 +247,6 @@ def get_status_markdown():
                 status_markdown_content = f.read()
             return jsonify({"markdown": status_markdown_content})
         else:
-            # Should exist, but handle gracefully
             return jsonify({"markdown": f"# Status Unavailable\n\nStatus file for scan `{scan_id}` not found (it should have been created at the start)."}), 404
     except Exception as e:
         print(f"Error getting status markdown for {scan_id}: {e}")
@@ -295,11 +273,11 @@ def update_results():
             return jsonify({"error": "No JSON data provided"}), 400
 
         print(f"[{scan_id}] Received update data via /update endpoint.")
-        markdown_chunk = convert_to_markdown(vulnerability_data) # Formats findings
+        markdown_chunk = convert_to_markdown(vulnerability_data)
 
         scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
         md_file_path = os.path.join(scan_dir, VULNERABILITY_FILENAME)
-        os.makedirs(scan_dir, exist_ok=True) # Ensure dir exists
+        os.makedirs(scan_dir, exist_ok=True)
 
         try:
             with open(md_file_path, 'a', encoding='utf-8') as f:
@@ -308,22 +286,15 @@ def update_results():
             return jsonify({"status": "success", "message": f"Results appended for scan {scan_id}"})
         except IOError as e:
             print(f"[{scan_id}] Error appending vulnerability data to {md_file_path}: {e}")
-            # Consider logging this error to status.md as well
-            # status_md_path = os.path.join(scan_dir, STATUS_FILENAME) # Need path
-            # append_status(f"## Error Processing Update\n\nFailed to write received data to vulnerability report: {e}", status_md_path) # requires helper
             return jsonify({"error": f"Failed to write update to report file: {e}"}), 500
 
     except Exception as e:
         print(f"Error processing /update request for {scan_id}: {str(e)}")
         traceback.print_exc()
-        # Consider logging this error to status.md as well
         return jsonify({"error": f"Internal server error processing update: {str(e)}"}), 500
 
 
 def convert_to_markdown(data):
-    """Converts vulnerability data (dict, list, str) to markdown format for VULNERABILITY report."""
-    # This function remains unchanged from the previous corrected version,
-    # focusing on formatting findings, not status messages.
     markdown = "\n\n"
     if isinstance(data, dict):
         if 'nmap_scan_summary' in data:
@@ -406,17 +377,12 @@ def download_pdf(scan_id):
 
     try:
         print(f"[{scan_id}] Generating PDF from {md_file} to {output_pdf}")
-        # Ensure pdf_writer_module can handle image paths correctly
-        # It might need the base directory (scan_dir) to resolve relative image paths
-        pdf_writer_module.writeToPDF(md_file, output_pdf) # Pass base_path if needed
+        pdf_writer_module.write_to_PDF(md_file, output_pdf)
         print(f"[{scan_id}] PDF generation complete.")
 
         if not os.path.exists(output_pdf):
             print(f"[{scan_id}] PDF generation failed - file not found: {output_pdf}")
             flash("PDF generation failed. Check server logs.")
-            # Log PDF failure to status.md?
-            # status_md_path = os.path.join(scan_dir, STATUS_FILENAME)
-            # append_status("## PDF Generation Error\n\nFailed to create the PDF file after generation attempt.", status_md_path)
             return redirect(url_for('scan_results', scan_id=scan_id))
 
         return send_file(
@@ -429,9 +395,6 @@ def download_pdf(scan_id):
         print(f"[{scan_id}] Error during PDF generation/sending: {e}")
         traceback.print_exc()
         flash(f"An error occurred during PDF generation: {str(e)}")
-        # Log PDF failure to status.md?
-        # status_md_path = os.path.join(scan_dir, STATUS_FILENAME)
-        # append_status(f"## PDF Generation Error\n\nAn exception occurred: {e}", status_md_path)
         return redirect(url_for('scan_results', scan_id=scan_id))
 
 
@@ -493,7 +456,7 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
         status_updates_for_graphs.append(msg)
         if graph_output_dir is None and 'graph_output_dir' not in locals(): graph_output_dir = None
 
-    # --- Append graph LINKS section to VULNERABILITY markdown ---
+    # Append graph LINKS section to VULNERABILITY markdown
     if graphs_added_to_vuln > 0:
         try:
             with open(md_file_path, 'a', encoding='utf-8') as f:
@@ -505,21 +468,15 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
             status_updates_for_graphs.append(msg) # Log this failure too
     else:
          print(f"[{scan_id}] No graph links generated to add to {VULNERABILITY_FILENAME}.")
-         # Optionally add placeholder to vulnerability.md if desired
-         # try:
-         #     with open(md_file_path, 'a', encoding='utf-8') as f:
-         #         f.write("\n\n## Visual Summary\n\n_No visual summary graphs were generated or found._\n\n---\n\n")
-         # except IOError as e: print(f"[{scan_id}] Error writing 'no graphs' to vuln md: {e}")
 
-    # --- Append graph STATUS/ERROR updates to STATUS markdown ---
+    # Append graph STATUS/ERROR updates to STATUS markdown
     if status_updates_for_graphs:
         try:
             with open(status_md_path, 'a', encoding='utf-8') as f:
                  print(f"[{scan_id}] Appending graph status updates to {STATUS_FILENAME}.")
-                 # Add a clear section header for all graph-related status messages
                  f.write(f"---\n\n### Graph Generation Status Updates\n\n")
                  for update in status_updates_for_graphs:
-                     f.write(f"{update}\n\n") # Add spacing between updates
+                     f.write(f"{update}\n\n")
         except IOError as e:
             print(f"[{scan_id}] CRITICAL ERROR: Could not write graph status updates to {status_md_path}: {e}")
 
@@ -534,7 +491,7 @@ def serve_scan_image(scan_id, filename):
 
     directory = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
     requested_path = os.path.join(directory, filename)
-    # Security check: Ensure path stays within the base scan directory
+    # Ensure path stays within the base scan directory
     if not os.path.abspath(requested_path).startswith(os.path.abspath(directory)):
         print(f"Forbidden path requested: {filename} for scan {scan_id}")
         return "Forbidden", 403
@@ -558,5 +515,4 @@ def serve_scan_image(scan_id, filename):
 if __name__ == "__main__":
     print("Starting Flask development server...")
     print(f"Access at: http://127.0.0.1:5000 or http://<your-ip>:5000")
-    # Use debug=False for production or when using external debuggers/reloaders
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -86,8 +86,6 @@ def parse_markdown_response_ordered(response):
         ### 1. Issue Explanation:
     and splits the response into the content sections following each header.
     """
-    # Pattern: start of line, optional spaces, 1-6 '#' characters, optional number and period,
-    # then the header text, followed by a colon, then end of line.
     header_pattern = re.compile(
         r'^(?:\s*#{1,6}\s*)(?:\d+\.\s*)?(.*?)(?:\s*:)?\s*$',
         re.MULTILINE
@@ -223,7 +221,7 @@ def get_nmap_results_from_xml(file_path):
     results = []
     # Iterate over each host element inside NmapScanResults
     for host_element in nmap_results:
-        host_tag = host_element.tag  # e.g. tag_35_228_57_67
+        host_tag = host_element.tag
         message = f"Nmap Scan Results for {host_tag}\n"
         
         # Find the nested host element that contains the actual data

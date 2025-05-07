@@ -1,8 +1,6 @@
-# nikto_module.py
-
 import subprocess
 import os
-from xml_util import convert_dict_to_pretty_xml
+from xml_module import convert_dict_to_pretty_xml
 
 RESULTS_DIR = 'scan_results'
 

@@ -26,14 +26,12 @@ html {
   scroll-behavior: smooth;
 }
 
-
 body {
   min-height: 100%;
   font-family: Arial, sans-serif;
   color: var(--color-text);
   line-height: 1.6;
 }
-
 
 .site-header .container {
 
@@ -66,7 +64,6 @@ body {
   
 }
 
-
 .site-subtitle {
   margin: 0.5rem 0 0;
   font-family: 'Oswald', sans-serif;
@@ -75,7 +72,6 @@ body {
   color: rgba(23, 54, 57, 0.85);
   letter-spacing: 0.05em;
 }
-
 
 .container {
   max-width: 900px;
@@ -249,7 +245,6 @@ img {
 .download-button {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
-
 
 @keyframes spin {
   to {

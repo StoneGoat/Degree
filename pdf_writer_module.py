@@ -45,7 +45,7 @@ def render_toc_table(toc_md: str) -> str:
         '</div>',
     ])
 
-def writeToPDF(md_path, output_pdf_path):
+def write_to_PDF(md_path, output_pdf_path):
     with open(md_path, 'r', encoding='utf-8') as f:
         raw_md = f.read()
     toc_md = generate_toc(raw_md, max_depth=2)
