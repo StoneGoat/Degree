@@ -46,7 +46,7 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
-            # scan_id = "abcf832f-58d0-476a-aef7-fdc455d7e2f3"
+            # scan_id = "test"
 
             print(f"Generated new scan ID: {scan_id}")
 
