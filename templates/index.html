@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <title>Automated Vulnerability Scanner</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <link rel="shortcut icon" href="static/JAWS-Icon-transparent.ico" /> 
+  <link rel="shortcut icon" href="{{ url_for('static', filename='JAWS-Icon-transparent.ico') }}" />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
-
 </head>
 <body>
 
@@ -30,6 +29,11 @@
       {% endif %}
     {% endwith %}
     
+    <!-- Disclaimer Section -->
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This tool is intended for security assessments on systems and domains you own or have explicit permission to test. Any unauthorized or malicious use is strictly prohibited.
+    </div>
+
     <div class="scan-form">
       <form method="post">
         <label for="domain">Enter Domain:</label>
@@ -47,6 +51,7 @@
       <h2>How It Works</h2>
       <ol>
         <li>Enter a domain name to scan</li>
+        <li>Select technical skill level from the drop down menu</li>
         <li>Our scanner checks for common vulnerabilities</li>
         <li>Results are analyzed by AI for comprehensive insights</li>
         <li>View detailed vulnerability information and remediation steps</li>

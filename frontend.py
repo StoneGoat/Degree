@@ -10,7 +10,6 @@ import traceback # Import traceback for detailed error logging
 import json
 
 # Assuming these are your custom modules
-import scan
 import AI.chat as chat # More explicit import if chat is a module inside AI
 import pdf_writer_module
 import generate_graphs
