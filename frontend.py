@@ -45,7 +45,7 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
-            # scan_id = "test"
+            scan_id = "abcf832f-58d0-476a-aef7-fdc455d7e2f3"
 
             print(f"Generated new scan ID: {scan_id}")
 
@@ -115,7 +115,7 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
 
     # 2) run all scans
     print(f"[{scan_id}] Starting scan.run_scan...")
-    combined_scan_module.run_scan(domain, scan_id, level)
+    # combined_scan_module.run_scan(domain, scan_id, level)
     append_status(
         "## Scan Tool Execution Complete\n\n"
         "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."
@@ -158,11 +158,11 @@ def scan_results():
         flash("No scan ID provided.")
         return redirect(url_for("index"))
 
-    try:
-        uuid.UUID(scan_id, version=4)
-    except ValueError:
-        flash("Invalid Scan ID format.")
-        return redirect(url_for("index"))
+    # try:
+    #     uuid.UUID(scan_id, version=4)
+    # except ValueError:
+    #     flash("Invalid Scan ID format.")
+    #     return redirect(url_for("index"))
 
     scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
     if not os.path.isdir(scan_dir):
@@ -267,13 +267,14 @@ def update_results():
     if not scan_id:
         print("Update request received without scan_id")
         return jsonify({"error": "No scan ID provided"}), 400
-    try: uuid.UUID(scan_id, version=4)
-    except ValueError:
-        print(f"Update request received with invalid scan_id format: {scan_id}")
-        return jsonify({"error": "Invalid Scan ID format"}), 400
+    # try: uuid.UUID(scan_id, version=4)
+    # except ValueError:
+    #     print(f"Update request received with invalid scan_id format: {scan_id}")
+    #     return jsonify({"error": "Invalid Scan ID format"}), 400
 
     try:
-        vulnerability_data = request.get_json()
+        vulnerability_data = request.get_json()["content"]
+        order = request.get_json()["order"]
         if not vulnerability_data:
             print(f"[{scan_id}] Update request received with no JSON data")
             return jsonify({"error": "No JSON data provided"}), 400
@@ -287,7 +288,7 @@ def update_results():
 
         if not os.path.exists(json_filepath):
             with open(json_filepath, "w") as f:
-                json.dump({0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}}, f, indent=4)
+                json.dump({0: (), 1: (), 2: (), 3: (), 4: (), 5: ()}, f, indent=4)
 
         md_file_path = os.path.join(scan_dir, VULNERABILITY_FILENAME)
         os.makedirs(scan_dir, exist_ok=True)
@@ -295,6 +296,22 @@ def update_results():
         try:
             with open(md_file_path, 'a', encoding='utf-8') as f:
                 f.write(markdown_chunk)
+
+            with open(json_filepath, "r+") as f:
+              try:
+                  data = json.load(f)
+              except json.JSONDecodeError:
+                  # Empty or invalid JSON → reinitialize
+                  data = {0: (), 1: (), 2: (), 3: (), 4: (), 5: ()}
+
+              # 3. Update the mapping
+              data[str(order)].append(markdown_chunk)
+
+              # 4. Write back, then truncate any leftover
+              f.seek(0)
+              json.dump(data, f, indent=4)
+              f.truncate()
+            
             print(f"[{scan_id}] Appended received vulnerability data to {md_file_path}")
             return jsonify({"status": "success", "message": f"Results appended for scan {scan_id}"})
         except IOError as e:

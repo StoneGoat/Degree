@@ -56,7 +56,7 @@ def interactive_chat():
         
         print("Assistant:", response_text, "\n")
 
-def get_alert_items_from_xml(file_path):
+def get_alert_items_from_xml(file_path, level=0):
     tree = ET.parse(file_path)
     root = tree.getroot()
     alert_items = []
@@ -69,6 +69,10 @@ def get_alert_items_from_xml(file_path):
         alerts = site.find('alerts')
         if alerts is not None:
             for alertitem in alerts.findall('alertitem'):
+                
+                if alertitem.find('riskcode').text == '0' and level<2:
+                    continue
+
                 alert = alertitem.find('alert').text if alertitem.find('alert') is not None else ''
                 desc = alertitem.find('desc').text if alertitem.find('desc') is not None else ''
                 solution = alertitem.find('solution').text if alertitem.find('solution') is not None else ''
@@ -119,7 +123,7 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
     Instead of saving each alert separately, all alerts in one scan are aggregated
     into one JSON file with alert numbers as keys.
     """
-    alert_messages = get_alert_items_from_xml(xml_file_path)
+    alert_messages = get_alert_items_from_xml(xml_file_path, level)
     
     prompt = """
         You are a cybersecurity expert writing specifically for **non-technical managers and stakeholders**. Your absolute primary goal is **clarity and making complex topics feel simple and relatable using everyday language**. Pretend you are explaining this to someone with no tech background.
@@ -210,7 +214,7 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
             print(f"Alert Name: {alert_name}")
             scan_results["zap"][f"{alert_name}"] = alert_data
             vulnerability_data = {alert_name: alert_data}
-            send_vulnerability_to_api(vulnerability_data, scan_id)
+            send_vulnerability_to_api(vulnerability_data, scan_id, 4)
 
         print("-" * 80)
 
@@ -393,10 +397,10 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         # Store the cleaned response as the overview.
         scan_results["nmap"][host_tag] = {"overview": cleaned_response}
         vulnerability_data = {"overview": cleaned_response}
-        send_vulnerability_to_api(vulnerability_data, scan_id)
+        send_vulnerability_to_api(vulnerability_data, scan_id, 3)
         print("-" * 80)
 
-def send_vulnerability_to_api(vulnerability_data, scan_id=None):
+def send_vulnerability_to_api(vulnerability_data, scan_id=None, order=0):
     if not scan_id:
         print("Warning: No scan_id provided when sending vulnerability data")
         return None
@@ -416,7 +420,8 @@ def send_vulnerability_to_api(vulnerability_data, scan_id=None):
     # Send the POST request to your Flask API
     try:
         # Ensure the data is JSON serializable
-        json_data = json.dumps(vulnerability_data)
+        content = {"content": vulnerability_data, "order": order}
+        json_data = json.dumps(content)
         print(f"JSON-serialized data: {json_data}")
         
         response = requests.post(url, data=json_data, headers=headers)
@@ -565,7 +570,7 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
         # Send the vulnerability data to the API if scan_id is provided
         if scan_id:
             vulnerability_data = {"nikto_analysis": cleaned_response}
-            send_vulnerability_to_api(vulnerability_data, scan_id)
+            send_vulnerability_to_api(vulnerability_data, scan_id, 2)
         
         print("-" * 80)
 
@@ -741,7 +746,7 @@ def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRab
     # Send to API if scan_id is provided
     if scan_id:
         overview_data = {"scan_overview": response}
-        send_vulnerability_to_api(overview_data, scan_id)
+        send_vulnerability_to_api(overview_data, scan_id, 0)
     
     return response
 
