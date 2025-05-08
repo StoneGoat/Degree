@@ -9,14 +9,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-<<<<<<< HEAD
-# ChatSession Class
-=======
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32   = True
 
 # --- ChatSession Class ---
->>>>>>> 7531b7e (Work on AI optimization)
 class ChatSession:
     def __init__(self, model, tokenizer, chat_id=None, on_shutdown=None, model_id=None, initial_history=None):
         self.chat_id = chat_id if chat_id else str(uuid.uuid4())
@@ -220,12 +216,8 @@ class ChatRequest(BaseModel):
     token_limit: int = 256
     temperature: float = 0
     top_p: float = 1
-<<<<<<< HEAD
-    role: str = "user"
-=======
     role: str = "user"  # E.g., "system", "user", "assistant"
     level: int = 0 # 0-1-2
->>>>>>> 7531b7e (Work on AI optimization)
 
 class ChatResponse(BaseModel):
     chat_id: str
