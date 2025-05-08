@@ -10,12 +10,29 @@ def run_scan(domain, scan_id, level):
 
     def do_nmap():
         xml = nmap_module.scan_scan_to_xml(ips, scan_id)
-        chat.run_nmap_analysis(xml, scan_id, level)
+        print("NMAP SCAN DONE")
+        print("NMAP SCAN DONE")
+        print("NMAP SCAN DONE")
+        print("NMAP SCAN DONE")
+        print("NMAP SCAN DONE")
+        print("NMAP SCAN DONE")
+        print("NMAP SCAN DONE")
+        print("NMAP SCAN DONE")
+        chat.run_nmap_analysis(f"scan_results/{scan_id}/nmap.xml", scan_id, level)
         return xml
 
     def do_nikto():
         xml = nikto_module.nikto_scan_to_xml(domain, scan_id)
-        chat.run_nikto_analysis(xml, scan_id, level)
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        print("NIKTO SCAN DONE")
+        chat.run_nikto_analysis(f"scan_results/{scan_id}/nikto.xml", scan_id, level)
         return xml
     
     def do_zap():

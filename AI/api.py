@@ -1,5 +1,6 @@
 import threading
 import time
+from datetime import datetime
 import uuid
 import torch
 import json
@@ -8,7 +9,14 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+<<<<<<< HEAD
 # ChatSession Class
+=======
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32   = True
+
+# --- ChatSession Class ---
+>>>>>>> 7531b7e (Work on AI optimization)
 class ChatSession:
     def __init__(self, model, tokenizer, chat_id=None, on_shutdown=None, model_id=None, initial_history=None):
         self.chat_id = chat_id if chat_id else str(uuid.uuid4())
@@ -36,13 +44,13 @@ class ChatSession:
         if self.on_shutdown:
             self.on_shutdown(self.chat_id)
 
-    def check_json(self, prompt):
+    def check_json(self, prompt, level=0):
         filename = "history.json"
 
         # 1. If the file doesn't exist, create it with an empty "prompts" dict
         if not os.path.exists(filename):
             with open(filename, "w") as f:
-                json.dump({"prompts": {}}, f)
+                json.dump({0: {}, 1: {}, 2: {}}, f, indent=4)
 
         # 2. Now open for read+write; handle the case where it's empty or invalid JSON
         with open(filename, "r+") as f:
@@ -52,20 +60,20 @@ class ChatSession:
                 # file was empty or invalid → reinitialize
                 file_data = {"prompts": {}}
                 f.seek(0)
-                json.dump(file_data, f)
+                json.dump(file_data, f, indent=4)
                 f.truncate()
 
             # 3. Perform your lookup
-            if prompt in file_data["prompts"]:
-                return file_data["prompts"][prompt]
+            if prompt in file_data[str(level)]:
+                return file_data[str(level)][prompt]
 
         return ""
     
-    def update_json(self, prompt, response, filename="history.json"):
+    def update_json(self, prompt, response, level=0, filename="history.json"):
         # 1. If the file doesn't exist, create it with an empty "prompts" dict
         if not os.path.exists(filename):
             with open(filename, "w") as f:
-                json.dump({"prompts": {}}, f, indent=4)
+                json.dump({0: {}, 1: {}, 2: {}}, f, indent=4)
 
         # 2. Open for read+write
         with open(filename, "r+") as f:
@@ -76,19 +84,19 @@ class ChatSession:
                 data = {"prompts": {}}
 
             # 3. Update the mapping
-            data["prompts"][prompt] = response
+            data[str(level)][prompt] = response
 
             # 4. Write back, then truncate any leftover
             f.seek(0)
             json.dump(data, f, indent=4)
             f.truncate()
         
-
-    def generate_response(self, prompt, token_limit=256, temperature=0.7, top_p=0.75, role="user"):
+    def generate_response(self, prompt, token_limit=256, temperature=0.7, top_p=0.75, role="user", level=0):
+        print("Time at start of generate_response: " + str(datetime.now()))
         # Append the new message to the chat history.
         self.chat_history.append({"role": role, "content": prompt})
 
-        response = self.check_json(prompt)
+        response = self.check_json(prompt, level)
 
         if response == "":
             # Format the conversation.
@@ -119,12 +127,16 @@ class ChatSession:
             # Only decode the newly generated tokens.
             generated = outputs[0][inputs['input_ids'].size(1):]
             response = self.tokenizer.decode(generated, skip_special_tokens=True).strip()
+        else:
+            print("\n\n\nUSING EXISTING RESPONSE\n\n\n")
         
         # Append the assistant's response to the conversation.
         self.chat_history.append({"role": "assistant", "content": response})
 
         if role != "system":
-          self.update_json(prompt, response)
+          self.update_json(prompt, response, level)
+
+        print("Time at end of generate_response: " + str(datetime.now()))
 
         return response
 
@@ -178,7 +190,7 @@ class ChatManager:
             print(f"Removing chat session {chat_id} using model {session.model_id}.")
             del self.sessions[chat_id]
 
-    def request_response(self, prompt, chat_id=None, model_id="default", token_limit=256, temperature=0.7, top_p=0.75, role="user"):
+    def request_response(self, prompt, chat_id=None, model_id="default", token_limit=256, temperature=0.7, top_p=0.75, role="user", level=0):
         # If a chat_id is provided and exists, check if its model matches the requested one.
         if chat_id and chat_id in self.sessions:
             session = self.sessions[chat_id]
@@ -194,7 +206,7 @@ class ChatManager:
             chat_id = session.chat_id  # update to the new chat_id
 
         session.update_activity()
-        response = session.generate_response(prompt, token_limit=token_limit, temperature=temperature, top_p=top_p, role=role)
+        response = session.generate_response(prompt, token_limit=token_limit, temperature=temperature, top_p=top_p, role=role, level=level)
         return session.chat_id, response
 
 # FastAPI Setup
@@ -208,7 +220,12 @@ class ChatRequest(BaseModel):
     token_limit: int = 256
     temperature: float = 0
     top_p: float = 1
+<<<<<<< HEAD
     role: str = "user"
+=======
+    role: str = "user"  # E.g., "system", "user", "assistant"
+    level: int = 0 # 0-1-2
+>>>>>>> 7531b7e (Work on AI optimization)
 
 class ChatResponse(BaseModel):
     chat_id: str
@@ -224,5 +241,6 @@ def chat_endpoint(request: ChatRequest):
         temperature=request.temperature,
         top_p=request.top_p,
         role=request.role,
+        level=request.level
     )
     return ChatResponse(chat_id=chat_id, response=response)

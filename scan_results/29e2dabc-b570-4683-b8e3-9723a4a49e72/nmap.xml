@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<NmapScanResults>
+    <tag_62_63_203_92>
+        <tag_62_63_203_92>
+            <hostnames>
+                <name>h-62-63-203-92.A147.priv.bahnhof.se</name>
+                <type>PTR</type>
+            </hostnames>
+            <addresses>
+                <ipv4>62.63.203.92</ipv4>
+            </addresses>
+            <status>
+                <state>up</state>
+                <reason>user-set</reason>
+            </status>
+            <open_ports>
+                <tag_53>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>domain</name>
+                    <product>dnsmasq</product>
+                    <version>2.83</version>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:thekelleys:dnsmasq:2.83</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <vulners>
+  cpe:/a:thekelleys:dnsmasq:2.83: 
+    	CVE-2023-50387	7.5	https://vulners.com/cve/CVE-2023-50387
+    	CVE-2023-28450	7.5	https://vulners.com/cve/CVE-2023-28450
+    	CVE-2022-0934	7.5	https://vulners.com/cve/CVE-2022-0934
+    	CE8366BE-F17D-552A-B1B4-C2DBD31482C0	7.5	https://vulners.com/githubexploit/CE8366BE-F17D-552A-B1B4-C2DBD31482C0	*EXPLOIT*
+    	BB688FBF-CEE2-5DD1-8561-8F76501DE2D4	7.5	https://vulners.com/githubexploit/BB688FBF-CEE2-5DD1-8561-8F76501DE2D4	*EXPLOIT*
+    	79068BEF-A572-5A8A-88D0-177524BDAAFE	7.5	https://vulners.com/githubexploit/79068BEF-A572-5A8A-88D0-177524BDAAFE	*EXPLOIT*
+    	5EFDF373-FBD1-5C09-A612-00ADBFE574CF	7.5	https://vulners.com/githubexploit/5EFDF373-FBD1-5C09-A612-00ADBFE574CF	*EXPLOIT*
+    	CVE-2021-3448	4.0	https://vulners.com/cve/CVE-2021-3448</vulners>
+                    </script>
+                </tag_53>
+                <tag_80>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>Apache httpd</product>
+                    <version>2.4.62</version>
+                    <extrainfo>(Debian)</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:apache:http_server:2.4.62</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-server-header>Apache/2.4.62 (Debian)</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                    </script>
+                </tag_80>
+                <tag_443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>ssl</name>
+                    <product>Apache httpd</product>
+                    <version/>
+                    <extrainfo>SSL-only mode</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:apache:http_server</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-enum>
+  /health/: Spring Boot Actuator endpoint
+  /users/: Potentially interesting folder (401 Unauthorized)
+  /web/: Potentially interesting folder
+</http-enum>
+                        <http-server-header>Kestrel</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <sslv2-drown>
+</sslv2-drown>
+                    </script>
+                </tag_443>
+                <tag_1723>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>pptp</name>
+                    <product>linux</product>
+                    <version>(Firmware: 1)</version>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                    </script>
+                </tag_1723>
+                <tag_1900>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>upnp</name>
+                    <product>MiniUPnP</product>
+                    <version>1.8</version>
+                    <extrainfo>UPnP 1.1</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:miniupnp_project:miniupnpd:1.8</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest, GetRequest: 
+    HTTP/1.0 404 Not Found
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 134
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;404 Not Found&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Found&lt;/H1&gt;The requested URL was not found on this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  GenericLines: 
+    501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  HTTPOptions: 
+    HTTP/1.0 501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  RTSPRequest: 
+    RTSP/1.0 501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  SIPOptions: 
+    SIP/2.0 501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;</fingerprint-strings>
+                        <vulners>
+  cpe:/a:miniupnp_project:miniupnpd:1.8: 
+    	EDB-ID:43501	9.8	https://vulners.com/exploitdb/EDB-ID:43501	*EXPLOIT*
+    	CVE-2017-8798	9.8	https://vulners.com/cve/CVE-2017-8798
+    	EXPLOITPACK:BF9A30C8BDA7F90A61C73F47DEC59DBC	7.5	https://vulners.com/exploitpack/EXPLOITPACK:BF9A30C8BDA7F90A61C73F47DEC59DBC	*EXPLOIT*
+    	CVE-2013-2600	7.5	https://vulners.com/cve/CVE-2013-2600
+    	1337DAY-ID-29439	7.5	https://vulners.com/zdt/1337DAY-ID-29439	*EXPLOIT*
+    	1337DAY-ID-27766	7.5	https://vulners.com/zdt/1337DAY-ID-27766	*EXPLOIT*
+    	PACKETSTORM:142491	0.0	https://vulners.com/packetstorm/PACKETSTORM:142491	*EXPLOIT*</vulners>
+                    </script>
+                </tag_1900>
+            </open_ports>
+        </tag_62_63_203_92>
+    </tag_62_63_203_92>
+</NmapScanResults>

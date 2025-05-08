@@ -6,6 +6,12 @@ import datetime
 import traceback
 import combined_scan_module
 import AI.chat as chat
+import traceback # Import traceback for detailed error logging
+import json
+
+# Assuming these are your custom modules
+import scan
+import AI.chat as chat # More explicit import if chat is a module inside AI
 import pdf_writer_module
 import generate_graphs
 
@@ -40,6 +46,7 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
+            # scan_id = "abcf832f-58d0-476a-aef7-fdc455d7e2f3"
 
             print(f"Generated new scan ID: {scan_id}")
 
@@ -116,7 +123,7 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
     )
 
     append_status("## ZAP AI Analysis Starting")
-    zap_xml = os.path.join(scan_dir, f"zap-report-{scan_id}.xml")
+    zap_xml = os.path.join(scan_dir, f"zap.xml")
     if os.path.exists(zap_xml):
         send_zap_to_AI(scan_id, zap_xml, status_md_path, level)
     else:
@@ -173,7 +180,7 @@ def append_status(status_md_path, message):
 def send_zap_to_AI(scan_id, xml_file_path, status_md_path, level):
     try:
         print(f"[{scan_id}] Starting ZAP analysis")
-        chat.run_zap_analysis(xml_file_path, scan_id, level)
+        chat.run_zap_analysis(f"scan_results/{scan_id}/zap.xml", scan_id, level)
         append_status(status_md_path, "### ZAP AI Analysis Completed.")
     except Exception:
         err = traceback.format_exc()
@@ -276,6 +283,13 @@ def update_results():
         markdown_chunk = convert_to_markdown(vulnerability_data)
 
         scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
+
+        json_filepath = os.path.join(scan_dir, "report.json")
+
+        if not os.path.exists(json_filepath):
+            with open(json_filepath, "w") as f:
+                json.dump({0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}}, f, indent=4)
+
         md_file_path = os.path.join(scan_dir, VULNERABILITY_FILENAME)
         os.makedirs(scan_dir, exist_ok=True)
 

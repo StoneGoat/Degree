@@ -1,0 +1,213 @@
+<?xml version="1.0" ?>
+<NmapScanResults>
+    <tag_62_63_203_92>
+        <tag_62_63_203_92>
+            <hostnames>
+                <name>h-62-63-203-92.A147.priv.bahnhof.se</name>
+                <type>PTR</type>
+            </hostnames>
+            <addresses>
+                <ipv4>62.63.203.92</ipv4>
+            </addresses>
+            <status>
+                <state>up</state>
+                <reason>user-set</reason>
+            </status>
+            <open_ports>
+                <tag_53>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>domain</name>
+                    <product>dnsmasq</product>
+                    <version>2.83</version>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:thekelleys:dnsmasq:2.83</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <vulners>
+  cpe:/a:thekelleys:dnsmasq:2.83: 
+    	CVE-2023-50387	7.5	https://vulners.com/cve/CVE-2023-50387
+    	CVE-2023-28450	7.5	https://vulners.com/cve/CVE-2023-28450
+    	CVE-2022-0934	7.5	https://vulners.com/cve/CVE-2022-0934
+    	CE8366BE-F17D-552A-B1B4-C2DBD31482C0	7.5	https://vulners.com/githubexploit/CE8366BE-F17D-552A-B1B4-C2DBD31482C0	*EXPLOIT*
+    	BB688FBF-CEE2-5DD1-8561-8F76501DE2D4	7.5	https://vulners.com/githubexploit/BB688FBF-CEE2-5DD1-8561-8F76501DE2D4	*EXPLOIT*
+    	79068BEF-A572-5A8A-88D0-177524BDAAFE	7.5	https://vulners.com/githubexploit/79068BEF-A572-5A8A-88D0-177524BDAAFE	*EXPLOIT*
+    	5EFDF373-FBD1-5C09-A612-00ADBFE574CF	7.5	https://vulners.com/githubexploit/5EFDF373-FBD1-5C09-A612-00ADBFE574CF	*EXPLOIT*
+    	CVE-2021-3448	4.0	https://vulners.com/cve/CVE-2021-3448</vulners>
+                    </script>
+                </tag_53>
+                <tag_80>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>nginx</product>
+                    <version>1.22.1</version>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:igor_sysoev:nginx:1.22.1</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-passwd>ERROR: Script execution failed (use -d to debug)</http-passwd>
+                        <http-server-header>nginx/1.22.1</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <vulners>
+  nginx 1.22.1: 
+    	2C119FFA-ECE0-5E14-A4A4-354A2C38071A	10.0	https://vulners.com/githubexploit/2C119FFA-ECE0-5E14-A4A4-354A2C38071A	*EXPLOIT*
+    	3F71F065-66D4-541F-A813-9F1A2F2B1D91	8.8	https://vulners.com/githubexploit/3F71F065-66D4-541F-A813-9F1A2F2B1D91	*EXPLOIT*
+    	NGINX:CVE-2022-41741	7.8	https://vulners.com/nginx/NGINX:CVE-2022-41741
+    	DF1BBDC4-B715-5ABE-985E-91DD3BB87773	7.8	https://vulners.com/githubexploit/DF1BBDC4-B715-5ABE-985E-91DD3BB87773	*EXPLOIT*
+    	DF041B2B-2DA7-5262-AABE-9EBD2D535041	7.8	https://vulners.com/githubexploit/DF041B2B-2DA7-5262-AABE-9EBD2D535041	*EXPLOIT*
+    	F7F6E599-CEF4-5E03-8E10-FE18C4101E38	7.5	https://vulners.com/githubexploit/F7F6E599-CEF4-5E03-8E10-FE18C4101E38	*EXPLOIT*
+    	E73E445F-0A0D-5966-8A21-C74FE9C0D2BC	7.5	https://vulners.com/githubexploit/E73E445F-0A0D-5966-8A21-C74FE9C0D2BC	*EXPLOIT*
+    	E5C174E5-D6E8-56E0-8403-D287DE52EB3F	7.5	https://vulners.com/githubexploit/E5C174E5-D6E8-56E0-8403-D287DE52EB3F	*EXPLOIT*
+    	DB6E1BBD-08B1-574D-A351-7D6BB9898A4A	7.5	https://vulners.com/githubexploit/DB6E1BBD-08B1-574D-A351-7D6BB9898A4A	*EXPLOIT*
+    	CVE-2023-44487	7.5	https://vulners.com/cve/CVE-2023-44487
+    	C9A1C0C1-B6E3-5955-A4F1-DEA0E505B14B	7.5	https://vulners.com/githubexploit/C9A1C0C1-B6E3-5955-A4F1-DEA0E505B14B	*EXPLOIT*
+    	BD3652A9-D066-57BA-9943-4E34970463B9	7.5	https://vulners.com/githubexploit/BD3652A9-D066-57BA-9943-4E34970463B9	*EXPLOIT*
+    	B0B1EF25-DE18-534A-AE5B-E6E87669C1D2	7.5	https://vulners.com/githubexploit/B0B1EF25-DE18-534A-AE5B-E6E87669C1D2	*EXPLOIT*
+    	B0208442-6E17-5772-B12D-B5BE30FA5540	7.5	https://vulners.com/githubexploit/B0208442-6E17-5772-B12D-B5BE30FA5540	*EXPLOIT*
+    	A820A056-9F91-5059-B0BC-8D92C7A31A52	7.5	https://vulners.com/githubexploit/A820A056-9F91-5059-B0BC-8D92C7A31A52	*EXPLOIT*
+    	A66531EB-3C47-5C56-B8A6-E04B54E9D656	7.5	https://vulners.com/githubexploit/A66531EB-3C47-5C56-B8A6-E04B54E9D656	*EXPLOIT*
+    	9814661A-35A4-5DB7-BB25-A1040F365C81	7.5	https://vulners.com/githubexploit/9814661A-35A4-5DB7-BB25-A1040F365C81	*EXPLOIT*
+    	788E0E7C-6F5C-5DAD-9E3A-EE6D8A685F7D	7.5	https://vulners.com/githubexploit/788E0E7C-6F5C-5DAD-9E3A-EE6D8A685F7D	*EXPLOIT*
+    	5A864BCC-B490-5532-83AB-2E4109BB3C31	7.5	https://vulners.com/githubexploit/5A864BCC-B490-5532-83AB-2E4109BB3C31	*EXPLOIT*
+    	40879618-C556-547C-8769-9E63E83D0B55	7.5	https://vulners.com/githubexploit/40879618-C556-547C-8769-9E63E83D0B55	*EXPLOIT*
+    	1F6E0709-DA03-564E-925F-3177657C053E	7.5	https://vulners.com/githubexploit/1F6E0709-DA03-564E-925F-3177657C053E	*EXPLOIT*
+    	17C6AD2A-8469-56C8-BBBE-1764D0DF1680	7.5	https://vulners.com/githubexploit/17C6AD2A-8469-56C8-BBBE-1764D0DF1680	*EXPLOIT*
+    	NGINX:CVE-2022-41742	7.1	https://vulners.com/nginx/NGINX:CVE-2022-41742
+    	95499236-C9FE-56A6-9D7D-E943A24B633A	6.9	https://vulners.com/githubexploit/95499236-C9FE-56A6-9D7D-E943A24B633A	*EXPLOIT*
+    	NGINX:CVE-2024-7347	5.7	https://vulners.com/nginx/NGINX:CVE-2024-7347
+    	NGINX:CVE-2025-23419	5.3	https://vulners.com/nginx/NGINX:CVE-2025-23419</vulners>
+                    </script>
+                </tag_80>
+                <tag_443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>nginx</product>
+                    <version>1.22.1</version>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:igor_sysoev:nginx:1.22.1</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-passwd>ERROR: Script execution failed (use -d to debug)</http-passwd>
+                        <http-server-header>nginx/1.22.1</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <sslv2-drown>
+</sslv2-drown>
+                        <vulners>
+  nginx 1.22.1: 
+    	2C119FFA-ECE0-5E14-A4A4-354A2C38071A	10.0	https://vulners.com/githubexploit/2C119FFA-ECE0-5E14-A4A4-354A2C38071A	*EXPLOIT*
+    	3F71F065-66D4-541F-A813-9F1A2F2B1D91	8.8	https://vulners.com/githubexploit/3F71F065-66D4-541F-A813-9F1A2F2B1D91	*EXPLOIT*
+    	NGINX:CVE-2022-41741	7.8	https://vulners.com/nginx/NGINX:CVE-2022-41741
+    	DF1BBDC4-B715-5ABE-985E-91DD3BB87773	7.8	https://vulners.com/githubexploit/DF1BBDC4-B715-5ABE-985E-91DD3BB87773	*EXPLOIT*
+    	DF041B2B-2DA7-5262-AABE-9EBD2D535041	7.8	https://vulners.com/githubexploit/DF041B2B-2DA7-5262-AABE-9EBD2D535041	*EXPLOIT*
+    	F7F6E599-CEF4-5E03-8E10-FE18C4101E38	7.5	https://vulners.com/githubexploit/F7F6E599-CEF4-5E03-8E10-FE18C4101E38	*EXPLOIT*
+    	E73E445F-0A0D-5966-8A21-C74FE9C0D2BC	7.5	https://vulners.com/githubexploit/E73E445F-0A0D-5966-8A21-C74FE9C0D2BC	*EXPLOIT*
+    	E5C174E5-D6E8-56E0-8403-D287DE52EB3F	7.5	https://vulners.com/githubexploit/E5C174E5-D6E8-56E0-8403-D287DE52EB3F	*EXPLOIT*
+    	DB6E1BBD-08B1-574D-A351-7D6BB9898A4A	7.5	https://vulners.com/githubexploit/DB6E1BBD-08B1-574D-A351-7D6BB9898A4A	*EXPLOIT*
+    	CVE-2023-44487	7.5	https://vulners.com/cve/CVE-2023-44487
+    	C9A1C0C1-B6E3-5955-A4F1-DEA0E505B14B	7.5	https://vulners.com/githubexploit/C9A1C0C1-B6E3-5955-A4F1-DEA0E505B14B	*EXPLOIT*
+    	BD3652A9-D066-57BA-9943-4E34970463B9	7.5	https://vulners.com/githubexploit/BD3652A9-D066-57BA-9943-4E34970463B9	*EXPLOIT*
+    	B0B1EF25-DE18-534A-AE5B-E6E87669C1D2	7.5	https://vulners.com/githubexploit/B0B1EF25-DE18-534A-AE5B-E6E87669C1D2	*EXPLOIT*
+    	B0208442-6E17-5772-B12D-B5BE30FA5540	7.5	https://vulners.com/githubexploit/B0208442-6E17-5772-B12D-B5BE30FA5540	*EXPLOIT*
+    	A820A056-9F91-5059-B0BC-8D92C7A31A52	7.5	https://vulners.com/githubexploit/A820A056-9F91-5059-B0BC-8D92C7A31A52	*EXPLOIT*
+    	A66531EB-3C47-5C56-B8A6-E04B54E9D656	7.5	https://vulners.com/githubexploit/A66531EB-3C47-5C56-B8A6-E04B54E9D656	*EXPLOIT*
+    	9814661A-35A4-5DB7-BB25-A1040F365C81	7.5	https://vulners.com/githubexploit/9814661A-35A4-5DB7-BB25-A1040F365C81	*EXPLOIT*
+    	788E0E7C-6F5C-5DAD-9E3A-EE6D8A685F7D	7.5	https://vulners.com/githubexploit/788E0E7C-6F5C-5DAD-9E3A-EE6D8A685F7D	*EXPLOIT*
+    	5A864BCC-B490-5532-83AB-2E4109BB3C31	7.5	https://vulners.com/githubexploit/5A864BCC-B490-5532-83AB-2E4109BB3C31	*EXPLOIT*
+    	40879618-C556-547C-8769-9E63E83D0B55	7.5	https://vulners.com/githubexploit/40879618-C556-547C-8769-9E63E83D0B55	*EXPLOIT*
+    	1F6E0709-DA03-564E-925F-3177657C053E	7.5	https://vulners.com/githubexploit/1F6E0709-DA03-564E-925F-3177657C053E	*EXPLOIT*
+    	17C6AD2A-8469-56C8-BBBE-1764D0DF1680	7.5	https://vulners.com/githubexploit/17C6AD2A-8469-56C8-BBBE-1764D0DF1680	*EXPLOIT*
+    	NGINX:CVE-2022-41742	7.1	https://vulners.com/nginx/NGINX:CVE-2022-41742
+    	95499236-C9FE-56A6-9D7D-E943A24B633A	6.9	https://vulners.com/githubexploit/95499236-C9FE-56A6-9D7D-E943A24B633A	*EXPLOIT*
+    	NGINX:CVE-2024-7347	5.7	https://vulners.com/nginx/NGINX:CVE-2024-7347
+    	NGINX:CVE-2025-23419	5.3	https://vulners.com/nginx/NGINX:CVE-2025-23419</vulners>
+                    </script>
+                </tag_443>
+                <tag_1723>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>pptp</name>
+                    <product>linux</product>
+                    <version>(Firmware: 1)</version>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                    </script>
+                </tag_1723>
+                <tag_1900>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>upnp</name>
+                    <product>MiniUPnP</product>
+                    <version>1.8</version>
+                    <extrainfo>UPnP 1.1</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:miniupnp_project:miniupnpd:1.8</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest, GetRequest: 
+    HTTP/1.0 404 Not Found
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 134
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;404 Not Found&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Found&lt;/H1&gt;The requested URL was not found on this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  GenericLines: 
+    501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  HTTPOptions: 
+    HTTP/1.0 501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  RTSPRequest: 
+    RTSP/1.0 501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;
+  SIPOptions: 
+    SIP/2.0 501 Not Implemented
+    Content-Type: text/html
+    Connection: close
+    Content-Length: 149
+    Server: TP-LINK/TP-LINK UPnP/1.1 MiniUPnPd/1.8
+    Ext:
+    &lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;501 Not Implemented&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Not Implemented&lt;/H1&gt;The HTTP Method is not implemented by this server.&lt;/BODY&gt;&lt;/HTML&gt;</fingerprint-strings>
+                        <vulners>
+  cpe:/a:miniupnp_project:miniupnpd:1.8: 
+    	EDB-ID:43501	9.8	https://vulners.com/exploitdb/EDB-ID:43501	*EXPLOIT*
+    	CVE-2017-8798	9.8	https://vulners.com/cve/CVE-2017-8798
+    	EXPLOITPACK:BF9A30C8BDA7F90A61C73F47DEC59DBC	7.5	https://vulners.com/exploitpack/EXPLOITPACK:BF9A30C8BDA7F90A61C73F47DEC59DBC	*EXPLOIT*
+    	CVE-2013-2600	7.5	https://vulners.com/cve/CVE-2013-2600
+    	1337DAY-ID-29439	7.5	https://vulners.com/zdt/1337DAY-ID-29439	*EXPLOIT*
+    	1337DAY-ID-27766	7.5	https://vulners.com/zdt/1337DAY-ID-27766	*EXPLOIT*
+    	PACKETSTORM:142491	0.0	https://vulners.com/packetstorm/PACKETSTORM:142491	*EXPLOIT*</vulners>
+                    </script>
+                </tag_1900>
+            </open_ports>
+        </tag_62_63_203_92>
+    </tag_62_63_203_92>
+</NmapScanResults>

@@ -14,14 +14,15 @@ model_list = {
 scan_results = {}
 
 def send_chat_request(prompt, chat_id=None, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0",
-                      token_limit=4096, temperature=1, top_p=1, role="user"):
+                      token_limit=4096, temperature=1, top_p=1, role="user", level=0):
     payload = {
         "prompt": prompt,
         "model_id": model_id,
         "token_limit": token_limit,
         "temperature": temperature,
         "top_p": top_p,
-        "role": role
+        "role": role,
+        "level": level
     }
     if chat_id is not None:
         payload["chat_id"] = chat_id
@@ -59,8 +60,11 @@ def get_alert_items_from_xml(file_path):
     tree = ET.parse(file_path)
     root = tree.getroot()
     alert_items = []
-    # Look for the OWASPZAPReport element if it's not the root.
-    zap_report = root.find('OWASPZAPReport') or root
+    
+    # Use the root directly since OWASPZAPReport is the root element in the XML
+    # This line is the key fix:
+    zap_report = root
+    
     for site in zap_report.findall('site'):
         alerts = site.find('alerts')
         if alerts is not None:
@@ -165,10 +169,14 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
 
     fixed_keys = ["issue", "impact", "exploit", "solution", "reference"]
     scan_results["zap"] = {}
+
+    chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
     
     for i, message in enumerate(alert_messages):
+        if i % 3 == 0:
+            chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
+
             # Initialize the chat session with the system prompt.
-        chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
         if chat_id is None:
             print("Failed to initialize chat session.")
             return
@@ -180,10 +188,12 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
         attempt = 0
         sections = []
         while attempt < max_attempts:
-            chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id)
+            chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id, level=level)
             print("Response received:")
             print(response)
             sections = parse_markdown_response_ordered(response)
+
+            break
             
             if len(sections) == 5:
                 break
@@ -212,16 +222,15 @@ def get_nmap_results_from_xml(file_path):
     tree = ET.parse(file_path)
     root = tree.getroot()
     
-    # Locate the NmapScanResults element
-    nmap_results = root.find('NmapScanResults')
-    if nmap_results is None:
-        print("No NmapScanResults element found in the XML.")
+    # Check if the root element is NmapScanResults
+    if root.tag != 'NmapScanResults':
+        print(f"Expected NmapScanResults as root element, but found {root.tag}")
         return []
 
     results = []
-    # Iterate over each host element inside NmapScanResults
-    for host_element in nmap_results:
-        host_tag = host_element.tag
+    # Iterate over each host element inside NmapScanResults (root)
+    for host_element in root:
+        host_tag = host_element.tag  # e.g. tag_62_63_203_92
         message = f"Nmap Scan Results for {host_tag}\n"
         
         # Find the nested host element that contains the actual data
@@ -367,7 +376,7 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         print("DEBUG: Message content:\n", message)
         
         # Send the message to the AI and get a single overview response.
-        chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id)
+        chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id, level=level)
         print("DEBUG: Raw response received:")
         print(response)
         
@@ -430,17 +439,17 @@ def get_nikto_results_from_xml(file_path):
     tree = ET.parse(file_path)
     root = tree.getroot()
     
-    # Locate the NiktoScanResults element
-    nikto_results = root.find('NiktoScanResults')
-    if nikto_results is None:
-        print("No NiktoScanResults element found in the XML.")
-        return []
+    # The root element is already NiktoScanResults
+    print(f"Root tag: {root.tag}")  # This will print "NiktoScanResults"
+
+    # Access the raw_output directly
+    raw_output = root.find('raw_output')
 
     results = []
-    # Extract the raw output
-    raw_output = nikto_results.findtext('raw_output')
-    if raw_output:
-        message = f"Nikto Scan Results\n\n{raw_output}\n\n This is the end of the context."
+    if raw_output is not None:
+        # Get the text content of the raw_output element
+        raw_output_text = raw_output.text
+        message = f"Nikto Scan Results\n\n{raw_output_text}\n\n This is the end of the context."
         results.append(message)
     else:
         print("No raw_output found in NiktoScanResults.")
@@ -541,7 +550,7 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
         print("DEBUG: Message content:\n", message)
         
         # Send the message to the AI and get a structured analysis
-        chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id)
+        chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id, level=level)
         print("DEBUG: Raw response received:")
         print(response)
         
@@ -568,8 +577,6 @@ def run_AI(xml_file_path="../scan-report2.xml",
     test_alert_items(xml_file_path, model_id, scan_id, level=level)
     test_nmap_object(xml_file_path, model_id, scan_id, level=level)
     test_nikto_object(xml_file_path, model_id, scan_id, level=level)
-
-
 
 def run_zap_analysis(xml_file_path, scan_id, level):
     test_alert_items(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
@@ -697,7 +704,7 @@ def get_scan_overview(file_path):
     
     return summary_text
 
-def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None):
+def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
     Extracts scan data and sends it to the LLM for an overview analysis.
     
@@ -724,7 +731,7 @@ def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRab
         return "Failed to generate overview."
     
     # Send the overview text to get analysis
-    chat_id, response = send_chat_request(overview_text, chat_id=chat_id, model_id=model_id)
+    chat_id, response = send_chat_request(overview_text, chat_id=chat_id, model_id=model_id, level=level)
     if response is None:
         print("Failed to receive overview response.")
         return "Failed to generate overview."

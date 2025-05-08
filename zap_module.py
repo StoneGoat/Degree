@@ -45,14 +45,14 @@ def save_report(id):
     xml = zap.core.xmlreport(apikey=API_KEY)
     out_dir = os.path.join(RESULTS_DIR, str(id))
     os.makedirs(out_dir, exist_ok=True)
-    path = os.path.join(out_dir, f"zap-report-{id}.xml")
+    path = os.path.join(out_dir, f"zap.xml")
     with open(path, 'w', encoding='utf-8') as f:
         f.write(xml)
     print(f"Saved ZAP XML report to {path}")
 
 
-def run_full_scan(target, nmap_results, nikto_results, id):
+def run_full_scan(target, id):
     target = 'https://' + target
     spider_scan(target)
     active_scan(target)
-    save_report(nmap_results, nikto_results, id)
+    save_report(id)
