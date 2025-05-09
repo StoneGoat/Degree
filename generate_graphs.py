@@ -540,7 +540,7 @@ def generate_all_graphs_for_scan(scan_id):
     Returns the output directory path on success, None on failure.
     """
     output_dir = os.path.join("scan_results", scan_id)
-    xml_filename = os.path.join(output_dir, f"scan-report{scan_id}.xml")
+    xml_filename = os.path.join(output_dir, f"scan-report.xml")
 
     print(f"\n--- Starting Graph Generation for Scan ID: {scan_id} ---")
     print(f"Expecting Input XML: {xml_filename}")

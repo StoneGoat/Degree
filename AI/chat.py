@@ -592,6 +592,9 @@ def run_nmap_analysis(xml_file_path, scan_id, level):
 def run_nikto_analysis(xml_file_path, scan_id, level):
     test_nikto_object(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
 
+def run_overview_analysis(xml_file_path, scan_id, level):
+    test_scan_overview(xml_file_path=xml_file_path, scan_id=scan_id, level=level)
+
 def get_scan_overview(file_path):
     """
     Extracts a concise overview from the XML scan report.
@@ -760,7 +763,7 @@ if __name__ == "__main__":
           # test_alert_items(level=i)
           # test_nmap_object(level=i)  
           # test_nikto_object(level=i)
-          print("\n\n\nResponse:\n\n\n" + test_scan_overview(xml_file_path="../scan-report694b5f6b-dade-45ac-84eb-9021ccc6b172.xml"))
+          print("\n\n\nResponse:\n\n\n" + test_scan_overview(xml_file_path="../scan_results/d39d0e8a-864e-4655-b459-b43124cdaded/scan-report.xml"))
           # save_json(scan_results, "scan_results.json")
     else:
         interactive_chat()

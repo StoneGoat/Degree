@@ -8,6 +8,7 @@ import combined_scan_module
 import AI.chat as chat
 import traceback # Import traceback for detailed error logging
 import json
+import xml.etree.ElementTree as ET
 
 # Assuming these are your custom modules
 import AI.chat as chat # More explicit import if chat is a module inside AI
@@ -45,7 +46,7 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
-            scan_id = "abcf832f-58d0-476a-aef7-fdc455d7e2f3"
+            scan_id = "d39d0e8a-864e-4655-b459-b43124cdaded"
 
             print(f"Generated new scan ID: {scan_id}")
 
@@ -128,6 +129,11 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
     else:
         append_status("### ZAP AI Skipped: zap-report XML not found")
 
+    create_combined_xml(scan_dir)
+
+    overview_xml = os.path.join(scan_dir, f"scan-report.xml")
+    send_overview_to_AI(scan_id, overview_xml, status_md_path, level)
+
     # 3) generate visual summaries
     append_status("## Generating Visual Summaries...")
     add_graphs_to_markdown(
@@ -146,6 +152,24 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
         f"Total duration: {duration}"
     )
     print(f"[{scan_id}] Scan process finished.")
+
+def create_combined_xml(scan_dir):
+    files = ['nikto.xml', 'nmap.xml', 'zap.xml']
+
+    # Create the new root
+    root = ET.Element('ScanResults')
+
+    for fname in files:
+        filepath = os.path.join(scan_dir, fname)
+        tree = ET.parse(filepath)
+        src_root = tree.getroot()
+        root.append(src_root)
+
+    # Write out, with XML declaration
+    combined = ET.ElementTree(root)
+    combined_path = os.path.join(scan_dir, "scan-report.xml")
+    combined.write(combined_path, encoding='utf-8', xml_declaration=True)
+    pass
 
 @app.route("/results")
 def scan_results():
@@ -212,6 +236,19 @@ def send_nikto_to_AI(scan_id, xml_file_path, status_md_path, level):
         print(f"[{scan_id}] Nikto analysis error:\n{err}")
         append_status(status_md_path,
             "### Nikto AI Analysis Error\n\n"
+            "```" + err + "```"
+        )
+
+def send_overview_to_AI(scan_id, xml_file_path, status_md_path, level):
+    try:
+        print(f"[{scan_id}] Starting Overview Analysis")
+        chat.run_overview_analysis(xml_file_path=xml_file_path, scan_id=scan_id, level=level)
+        append_status(status_md_path, "### Overview AI Analysis Completed.")
+    except Exception:
+        err = traceback.format_exc()
+        print(f"[{scan_id}] Overview analysis error:\n{err}")
+        append_status(status_md_path,
+            "### Overview AI Analysis Error\n\n"
             "```" + err + "```"
         )
 
@@ -294,9 +331,6 @@ def update_results():
         os.makedirs(scan_dir, exist_ok=True)
 
         try:
-            with open(md_file_path, 'a', encoding='utf-8') as f:
-                f.write(markdown_chunk)
-
             with open(json_filepath, "r+") as f:
               try:
                   data = json.load(f)
@@ -311,6 +345,13 @@ def update_results():
               f.seek(0)
               json.dump(data, f, indent=4)
               f.truncate()
+
+              # Now rebuild the vulnerability.md from the JSON data
+              with open(md_file_path, 'w', encoding='utf-8') as f:
+                  for order_key in sorted(data.keys(), key=str):  # Sort by order key
+                      for chunk in data[order_key]:
+                          if chunk:  # Only write non-empty chunks
+                              f.write(chunk)
             
             print(f"[{scan_id}] Appended received vulnerability data to {md_file_path}")
             return jsonify({"status": "success", "message": f"Results appended for scan {scan_id}"})
@@ -357,7 +398,6 @@ def convert_to_markdown(data):
             markdown += "\n---\n"
             return markdown
         # Fallback for generic dict
-        markdown += "## Generic Data Update\n\n"
         for key, details in data.items():
             title = key.replace('_', ' ').title()
             markdown += f"### {title}\n\n"
@@ -489,9 +529,32 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
     # Append graph LINKS section to VULNERABILITY markdown
     if graphs_added_to_vuln > 0:
         try:
-            with open(md_file_path, 'a', encoding='utf-8') as f:
-                print(f"[{scan_id}] Appending {graphs_added_to_vuln} graph links to {VULNERABILITY_FILENAME}.")
-                f.write(graph_link_section)
+            print(f"[{scan_id}] Appending {graphs_added_to_vuln} graph links to {VULNERABILITY_FILENAME}.")
+
+            json_filepath = os.path.join(scan_dir, "report.json")
+
+            with open(json_filepath, "r+") as f:
+              try:
+                  data = json.load(f)
+              except json.JSONDecodeError:
+                  # Empty or invalid JSON → reinitialize
+                  data = {0: (), 1: (), 2: (), 3: (), 4: (), 5: ()}
+
+              # 3. Update the mapping
+              data[str(1)].append(graph_link_section)
+
+              # 4. Write back, then truncate any leftover
+              f.seek(0)
+              json.dump(data, f, indent=4)
+              f.truncate()
+
+              # Now rebuild the vulnerability.md from the JSON data
+              with open(md_file_path, 'w', encoding='utf-8') as f:
+                  for order_key in sorted(data.keys(), key=str):  # Sort by order key
+                      for chunk in data[order_key]:
+                          if chunk:  # Only write non-empty chunks
+                              f.write(chunk)
+              
         except IOError as e:
             msg = f"Markdown Write Error: Failed to write graph links to {VULNERABILITY_FILENAME}: `{e}`"
             print(f"[{scan_id}] {msg}")
@@ -545,4 +608,4 @@ def serve_scan_image(scan_id, filename):
 if __name__ == "__main__":
     print("Starting Flask development server...")
     print(f"Access at: http://127.0.0.1:5000 or http://<your-ip>:5000")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)

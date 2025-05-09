@@ -1,0 +1,475 @@
+<?xml version="1.0"?>
+<OWASPZAPReport programName="ZAP" version="2.16.1" generated="Fri, 9 May 2025 14:20:02">
+	
+		<site name="https://flamman.se" host="flamman.se" port="443" ssl="true">
+			<alerts>
+				
+					<alertitem>
+						<pluginid>10037</pluginid>
+						<alertRef>10037</alertRef>
+						<alert>Server Leaks Information via &quot;X-Powered-By&quot; HTTP Response Header Field(s)</alert>
+						<name>Server Leaks Information via &quot;X-Powered-By&quot; HTTP Response Header Field(s)</name>
+						<riskcode>1</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Low (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;The web/application server is leaking information via one or more &quot;X-Powered-By&quot; HTTP response headers. Access to such information may facilitate attackers identifying other frameworks/components your web application is reliant upon and the vulnerabilities such components may be subject to.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param></param>
+									<attack></attack>
+									<evidence>X-Powered-By: Templ.io</evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param></param>
+									<attack></attack>
+									<evidence>X-Powered-By: Templ.io</evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param></param>
+									<attack></attack>
+									<evidence>X-Powered-By: Templ.io</evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+						</instances>
+						<count>3</count>
+						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to suppress &quot;X-Powered-By&quot; headers.&lt;/p&gt;</solution>
+						<otherinfo></otherinfo>
+						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework&lt;/p&gt;&lt;p&gt;https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html&lt;/p&gt;</reference>
+						<cweid>497</cweid>
+						<wascid>13</wascid>
+						<sourceid>6</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10035</pluginid>
+						<alertRef>10035-1</alertRef>
+						<alert>Strict-Transport-Security Header Not Set</alert>
+						<name>Strict-Transport-Security Header Not Set</name>
+						<riskcode>1</riskcode>
+						<confidence>3</confidence>
+						<riskdesc>Low (High)</riskdesc>
+						<confidencedesc>High</confidencedesc>
+						<desc>&lt;p&gt;HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param></param>
+									<attack></attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+						</instances>
+						<count>1</count>
+						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.&lt;/p&gt;</solution>
+						<otherinfo></otherinfo>
+						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html&lt;/p&gt;&lt;p&gt;https://owasp.org/www-community/Security_Headers&lt;/p&gt;&lt;p&gt;https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security&lt;/p&gt;&lt;p&gt;https://caniuse.com/stricttransportsecurity&lt;/p&gt;&lt;p&gt;https://datatracker.ietf.org/doc/html/rfc6797&lt;/p&gt;</reference>
+						<cweid>319</cweid>
+						<wascid>15</wascid>
+						<sourceid>4</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10104</pluginid>
+						<alertRef>10104</alertRef>
+						<alert>User Agent Fuzzer</alert>
+						<name>User Agent Fuzzer</name>
+						<riskcode>0</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Informational (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;Check for differences in response based on fuzzed User Agent (eg. mobile sites, access as a Search Engine Crawler). Compares the response statuscode and the hashcode of the response body with the original response.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence></evidence>
+									<otherinfo></otherinfo>
+								</instance>
+							
+						</instances>
+						<count>36</count>
+						<solution></solution>
+						<otherinfo></otherinfo>
+						<reference>&lt;p&gt;https://owasp.org/wstg&lt;/p&gt;</reference>
+						<cweid>0</cweid>
+						<wascid>0</wascid>
+						<sourceid>128</sourceid>
+					</alertitem>
+				
+			</alerts>
+		</site>
+	
+</OWASPZAPReport>

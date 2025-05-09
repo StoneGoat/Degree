@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ScanResults><raw_output>- Nikto v2.1.5
+---------------------------------------------------------------------------
++ Target IP:          44.228.249.3
++ Target Hostname:    testphp.vulnweb.com
++ Target Port:        80
++ Start Time:         2025-05-09 13:26:13 (GMT2)
+---------------------------------------------------------------------------
++ Server: nginx/1.19.0
++ Retrieved x-powered-by header: PHP/5.6.40-38+ubuntu20.04.1+deb.sury.org+1
++ The anti-clickjacking X-Frame-Options header is not present.
++ Server leaks inodes via ETags, header found with file /clientaccesspolicy.xml, fields: 0x5049b03d 0x133 
++ /clientaccesspolicy.xml contains a full wildcard entry. See http://msdn.microsoft.com/en-us/library/cc197955(v=vs.95).aspx
++ lines
++ /crossdomain.xml contains a full wildcard entry. See http://jeremiahgrossman.blogspot.com/2008/05/crossdomainxml-invites-cross-site.html
++ /crossdomain.xml contains 0 line which should be manually viewed for improper domains or wildcards.
+E:Fri May  9 13:26:59 2025 + ERROR: / returned an error: error reading HTTP response
+E:Fri May  9 13:27:00 2025 + ERROR: /images returned an error: error reading HTTP response
+E:Fri May  9 13:27:03 2025 + ERROR: / returned an error: error reading HTTP response
+E:Fri May  9 13:27:04 2025 + ERROR: / returned an error: error reading HTTP response
++ /CVS/Entries: CVS Entries file may contain directory listing information.
++ OSVDB-3268: /admin/: Directory indexing found.
++ OSVDB-3092: /admin/: This might be interesting...
+E:Fri May  9 13:32:05 2025 + ERROR: /img/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:06 2025 + ERROR: /imgs/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:06 2025 + ERROR: /import/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:06 2025 + ERROR: /impreso/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:07 2025 + ERROR: /includes/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:07 2025 + ERROR: /incoming/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:07 2025 + ERROR: /info/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:08 2025 + ERROR: /informacion/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:08 2025 + ERROR: /information/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:08 2025 + ERROR: /ingresa/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:09 2025 + ERROR: /ingreso/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:09 2025 + ERROR: /install/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:09 2025 + ERROR: /internal/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:10 2025 + ERROR: /intranet/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
+E:Fri May  9 13:32:10 2025 + ERROR: /invitado/ returned an error: opening stream: can't connect (timeout): Transport endpoint is not connected
++ OSVDB-3268: /images/: Directory indexing found.
++ OSVDB-3268: /images/?pattern=/etc/*&amp;sort=name: Directory indexing found.
++ /login.php: Admin login page/section found.
++ 6544 items checked: 19 error(s) and 13 item(s) reported on remote host
++ End Time:           2025-05-09 13:46:06 (GMT2) (1193 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+</raw_output>
+<tag_44_228_249_3>
+        <tag_44_228_249_3>
+            <hostnames>
+                <name>ec2-44-228-249-3.us-west-2.compute.amazonaws.com</name>
+                <type>PTR</type>
+            </hostnames>
+            <addresses>
+                <ipv4>44.228.249.3</ipv4>
+            </addresses>
+            <status>
+                <state>up</state>
+                <reason>user-set</reason>
+            </status>
+            <open_ports>
+                <tag_80>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>nginx</product>
+                    <version>1.19.0</version>
+                    <extrainfo />
+                    <conf>10</conf>
+                    <cpe>cpe:/a:igor_sysoev:nginx:1.19.0</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <http-aspnet-debug>ERROR: Script execution failed (use -d to debug)</http-aspnet-debug>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <http-vuln-cve2014-3704>ERROR: Script execution failed (use -d to debug)</http-vuln-cve2014-3704>
+                        <vulners>
+  nginx 1.19.0: 
+    	2C119FFA-ECE0-5E14-A4A4-354A2C38071A	10.0	https://vulners.com/githubexploit/2C119FFA-ECE0-5E14-A4A4-354A2C38071A	*EXPLOIT*
+    	3F71F065-66D4-541F-A813-9F1A2F2B1D91	8.8	https://vulners.com/githubexploit/3F71F065-66D4-541F-A813-9F1A2F2B1D91	*EXPLOIT*
+    	NGINX:CVE-2022-41741	7.8	https://vulners.com/nginx/NGINX:CVE-2022-41741
+    	DF1BBDC4-B715-5ABE-985E-91DD3BB87773	7.8	https://vulners.com/githubexploit/DF1BBDC4-B715-5ABE-985E-91DD3BB87773	*EXPLOIT*
+    	DF041B2B-2DA7-5262-AABE-9EBD2D535041	7.8	https://vulners.com/githubexploit/DF041B2B-2DA7-5262-AABE-9EBD2D535041	*EXPLOIT*
+    	CVE-2022-41741	7.8	https://vulners.com/cve/CVE-2022-41741
+    	NGINX:CVE-2021-23017	7.7	https://vulners.com/nginx/NGINX:CVE-2021-23017
+    	EDB-ID:50973	7.7	https://vulners.com/exploitdb/EDB-ID:50973	*EXPLOIT*
+    	CVE-2021-23017	7.7	https://vulners.com/cve/CVE-2021-23017
+    	B175E582-6BBF-5D54-AF15-ED3715F757E3	7.7	https://vulners.com/githubexploit/B175E582-6BBF-5D54-AF15-ED3715F757E3	*EXPLOIT*
+    	9A14990B-D52A-56B6-966C-6F35C8B8EB9D	7.7	https://vulners.com/githubexploit/9A14990B-D52A-56B6-966C-6F35C8B8EB9D	*EXPLOIT*
+    	25F34A51-EB79-5BBC-8262-6F1876067F04	7.7	https://vulners.com/githubexploit/25F34A51-EB79-5BBC-8262-6F1876067F04	*EXPLOIT*
+    	245ACDDD-B1E2-5344-B37D-5B9A0B0A1F0D	7.7	https://vulners.com/githubexploit/245ACDDD-B1E2-5344-B37D-5B9A0B0A1F0D	*EXPLOIT*
+    	1337DAY-ID-37837	7.7	https://vulners.com/zdt/1337DAY-ID-37837	*EXPLOIT*
+    	1337DAY-ID-36300	7.7	https://vulners.com/zdt/1337DAY-ID-36300	*EXPLOIT*
+    	00455CDF-B814-5424-952E-9088FBB2D42D	7.7	https://vulners.com/githubexploit/00455CDF-B814-5424-952E-9088FBB2D42D	*EXPLOIT*
+    	F7F6E599-CEF4-5E03-8E10-FE18C4101E38	7.5	https://vulners.com/githubexploit/F7F6E599-CEF4-5E03-8E10-FE18C4101E38	*EXPLOIT*
+    	E73E445F-0A0D-5966-8A21-C74FE9C0D2BC	7.5	https://vulners.com/githubexploit/E73E445F-0A0D-5966-8A21-C74FE9C0D2BC	*EXPLOIT*
+    	E5C174E5-D6E8-56E0-8403-D287DE52EB3F	7.5	https://vulners.com/githubexploit/E5C174E5-D6E8-56E0-8403-D287DE52EB3F	*EXPLOIT*
+    	DB6E1BBD-08B1-574D-A351-7D6BB9898A4A	7.5	https://vulners.com/githubexploit/DB6E1BBD-08B1-574D-A351-7D6BB9898A4A	*EXPLOIT*
+    	CVE-2023-44487	7.5	https://vulners.com/cve/CVE-2023-44487
+    	C9A1C0C1-B6E3-5955-A4F1-DEA0E505B14B	7.5	https://vulners.com/githubexploit/C9A1C0C1-B6E3-5955-A4F1-DEA0E505B14B	*EXPLOIT*
+    	BD3652A9-D066-57BA-9943-4E34970463B9	7.5	https://vulners.com/githubexploit/BD3652A9-D066-57BA-9943-4E34970463B9	*EXPLOIT*
+    	B0B1EF25-DE18-534A-AE5B-E6E87669C1D2	7.5	https://vulners.com/githubexploit/B0B1EF25-DE18-534A-AE5B-E6E87669C1D2	*EXPLOIT*
+    	B0208442-6E17-5772-B12D-B5BE30FA5540	7.5	https://vulners.com/githubexploit/B0208442-6E17-5772-B12D-B5BE30FA5540	*EXPLOIT*
+    	A820A056-9F91-5059-B0BC-8D92C7A31A52	7.5	https://vulners.com/githubexploit/A820A056-9F91-5059-B0BC-8D92C7A31A52	*EXPLOIT*
+    	A66531EB-3C47-5C56-B8A6-E04B54E9D656	7.5	https://vulners.com/githubexploit/A66531EB-3C47-5C56-B8A6-E04B54E9D656	*EXPLOIT*
+    	9814661A-35A4-5DB7-BB25-A1040F365C81	7.5	https://vulners.com/githubexploit/9814661A-35A4-5DB7-BB25-A1040F365C81	*EXPLOIT*
+    	788E0E7C-6F5C-5DAD-9E3A-EE6D8A685F7D	7.5	https://vulners.com/githubexploit/788E0E7C-6F5C-5DAD-9E3A-EE6D8A685F7D	*EXPLOIT*
+    	5A864BCC-B490-5532-83AB-2E4109BB3C31	7.5	https://vulners.com/githubexploit/5A864BCC-B490-5532-83AB-2E4109BB3C31	*EXPLOIT*
+    	40879618-C556-547C-8769-9E63E83D0B55	7.5	https://vulners.com/githubexploit/40879618-C556-547C-8769-9E63E83D0B55	*EXPLOIT*
+    	1F6E0709-DA03-564E-925F-3177657C053E	7.5	https://vulners.com/githubexploit/1F6E0709-DA03-564E-925F-3177657C053E	*EXPLOIT*
+    	17C6AD2A-8469-56C8-BBBE-1764D0DF1680	7.5	https://vulners.com/githubexploit/17C6AD2A-8469-56C8-BBBE-1764D0DF1680	*EXPLOIT*
+    	CVE-2021-3618	7.4	https://vulners.com/cve/CVE-2021-3618
+    	NGINX:CVE-2022-41742	7.1	https://vulners.com/nginx/NGINX:CVE-2022-41742
+    	CVE-2022-41742	7.1	https://vulners.com/cve/CVE-2022-41742
+    	95499236-C9FE-56A6-9D7D-E943A24B633A	6.9	https://vulners.com/githubexploit/95499236-C9FE-56A6-9D7D-E943A24B633A	*EXPLOIT*
+    	PACKETSTORM:167720	6.8	https://vulners.com/packetstorm/PACKETSTORM:167720	*EXPLOIT*
+    	NGINX:CVE-2024-7347	5.7	https://vulners.com/nginx/NGINX:CVE-2024-7347
+    	NGINX:CVE-2025-23419	5.3	https://vulners.com/nginx/NGINX:CVE-2025-23419
+    	PACKETSTORM:162830	0.0	https://vulners.com/packetstorm/PACKETSTORM:162830	*EXPLOIT*</vulners>
+                    </script>
+                </tag_80>
+            </open_ports>
+        </tag_44_228_249_3>
+    </tag_44_228_249_3>
+</ScanResults>
