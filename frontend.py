@@ -3,6 +3,7 @@ import threading
 import uuid
 import os
 import datetime
+from datetime import datetime as dt
 import traceback
 import combined_scan_module
 import AI.chat as chat
@@ -32,6 +33,10 @@ def index():
     if request.method == "POST":
         domain = request.form.get("domain")
         level_str = request.form.get("level")
+        print("HASLOGIN: " + str(request.form.get("haslogin")))
+        if request.form.get("haslogin"):
+          loginlink = request.form.get("loginlink")
+          print("LOGINLINK: " + str(loginlink))
         level_map = {"Manager": 0, "Developer": 1, "CyberSec": 2}
         level = level_map.get(level_str)
 
@@ -46,7 +51,7 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
-            scan_id = "d39d0e8a-864e-4655-b459-b43124cdaded"
+            # scan_id = "d39d0e8a-864e-4655-b459-b43124cdaded"
 
             print(f"Generated new scan ID: {scan_id}")
 
@@ -116,7 +121,7 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
 
     # 2) run all scans
     print(f"[{scan_id}] Starting scan.run_scan...")
-    # combined_scan_module.run_scan(domain, scan_id, level)
+    combined_scan_module.run_scan(domain, scan_id, level)
     append_status(
         "## Scan Tool Execution Complete\n\n"
         "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."
@@ -203,8 +208,17 @@ def append_status(status_md_path, message):
 def send_zap_to_AI(scan_id, xml_file_path, status_md_path, level):
     try:
         print(f"[{scan_id}] Starting ZAP analysis")
+        append_status(
+            status_md_path,
+            "### ZAP Scan Completed. AI Analysis Starting.\n" +
+            f"Started at: {dt.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
         chat.run_zap_analysis(f"scan_results/{scan_id}/zap.xml", scan_id, level)
-        append_status(status_md_path, "### ZAP AI Analysis Completed.")
+        append_status(
+            status_md_path,
+            "### ZAP AI Analysis Completed.\n" +
+            f"Finished at: {dt.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
     except Exception:
         err = traceback.format_exc()
         print(f"[{scan_id}] ZAP analysis error:\n{err}")
@@ -216,8 +230,13 @@ def send_zap_to_AI(scan_id, xml_file_path, status_md_path, level):
 def send_nmap_to_AI(scan_id, xml_file_path, status_md_path, level):
     try:
         print(f"[{scan_id}] Starting Nmap analysis")
+        append_status(
+            status_md_path,
+            "### Nmap Scan Completed. AI Analysis Starting.\n" +
+            f"Started at: {dt.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
         chat.run_nmap_analysis(xml_file_path, scan_id, level)
-        append_status(status_md_path, "### Nmap AI Analysis Completed.")
+        append_status(status_md_path, "### Nmap AI Analysis Completed.\n" + f"Finished at: {dt.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
     except Exception:
         err = traceback.format_exc()
         print(f"[{scan_id}] Nmap analysis error:\n{err}")
@@ -229,8 +248,13 @@ def send_nmap_to_AI(scan_id, xml_file_path, status_md_path, level):
 def send_nikto_to_AI(scan_id, xml_file_path, status_md_path, level):
     try:
         print(f"[{scan_id}] Starting Nikto analysis")
+        append_status(
+            status_md_path,
+            "### Nikto Scan Completed. AI Analysis Starting.\n" +
+            f"Started at: {dt.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
         chat.run_nikto_analysis(xml_file_path, scan_id, level)
-        append_status(status_md_path, "### Nikto AI Analysis Completed.")
+        append_status(status_md_path, "### Nikto AI Analysis Completed.\n" +  f"Finished at: {dt.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
     except Exception:
         err = traceback.format_exc()
         print(f"[{scan_id}] Nikto analysis error:\n{err}")

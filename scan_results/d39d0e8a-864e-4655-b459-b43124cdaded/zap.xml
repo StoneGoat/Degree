@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<OWASPZAPReport programName="ZAP" version="2.16.1" generated="Fri, 9 May 2025 13:49:05">
+<OWASPZAPReport programName="ZAP" version="2.16.1" generated="Mon, 12 May 2025 13:53:17">
 	
 		<site name="https://flamman.se" host="flamman.se" port="443" ssl="true">
 			<alerts>
@@ -52,7 +52,7 @@
 						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework&lt;/p&gt;&lt;p&gt;https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html&lt;/p&gt;</reference>
 						<cweid>497</cweid>
 						<wascid>13</wascid>
-						<sourceid>12</sourceid>
+						<sourceid>6</sourceid>
 					</alertitem>
 				
 				
@@ -104,7 +104,7 @@
 						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html&lt;/p&gt;&lt;p&gt;https://owasp.org/www-community/Security_Headers&lt;/p&gt;&lt;p&gt;https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security&lt;/p&gt;&lt;p&gt;https://caniuse.com/stricttransportsecurity&lt;/p&gt;&lt;p&gt;https://datatracker.ietf.org/doc/html/rfc6797&lt;/p&gt;</reference>
 						<cweid>319</cweid>
 						<wascid>15</wascid>
-						<sourceid>12</sourceid>
+						<sourceid>6</sourceid>
 					</alertitem>
 				
 				
@@ -486,7 +486,7 @@
 						<reference>&lt;p&gt;https://owasp.org/wstg&lt;/p&gt;</reference>
 						<cweid>0</cweid>
 						<wascid>0</wascid>
-						<sourceid>111</sourceid>
+						<sourceid>108</sourceid>
 					</alertitem>
 				
 			</alerts>

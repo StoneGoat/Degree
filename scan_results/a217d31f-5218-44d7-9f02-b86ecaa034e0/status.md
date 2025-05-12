@@ -1,7 +1,7 @@
-# Scan Status for vulnweb.stenaeke.org
+# Scan Status for vuln.stenaeke.org
 
-*Scan ID: `d39d0e8a-864e-4655-b459-b43124cdaded`*
-*Scan started: 2025-05-12 14:20:12*
+*Scan ID: `a217d31f-5218-44d7-9f02-b86ecaa034e0`*
+*Scan started: 2025-05-12 14:25:44*
 
 ## Initializing Scan
 
@@ -26,13 +26,13 @@ Nmap and Nikto have finished (and triggered AI). Starting ZAP now.
 ---
 
 ### ZAP Scan Completed. AI Analysis Starting.
-Started at: 2025-05-12 14:20:12
+Started at: 2025-05-12 14:39:17
 
 
 ---
 
 ### ZAP AI Analysis Completed.
-Finished at: 2025-05-12 14:21:10
+Finished at: 2025-05-12 14:44:06
 
 
 ---
@@ -47,12 +47,12 @@ Finished at: 2025-05-12 14:21:10
 
 ### Graph Generation Status Updates
 
-Graph Generation Status: Graphs generated successfully into directory: `scan_results/d39d0e8a-864e-4655-b459-b43124cdaded`.
+Graph Generation Status: Graphs generated successfully into directory: `scan_results/a217d31f-5218-44d7-9f02-b86ecaa034e0`.
 
 ---
 
 ## Scan Process Complete
 
-Finished at: 2025-05-12 14:22:11
-Total duration: 0:01:59
+Finished at: 2025-05-12 14:45:00
+Total duration: 0:19:15
 
