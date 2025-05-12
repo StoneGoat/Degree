@@ -1,4 +1,5 @@
 import requests
+import nikto_module
 
 def get_session_cookie(login_url, username, password):
     credentials = {
