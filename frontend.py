@@ -39,7 +39,6 @@ def index():
         level_map = {"Manager": 0, "Developer": 1, "CyberSec": 2}
         level = level_map.get(level_str)
 
-
         if level is None:
                 flash("Invalid level selected.")
                 return redirect(url_for("index"))
