@@ -3,40 +3,37 @@ import dig_module
 import nmap_module
 import nikto_module
 import zap_module
+import session_cookie_module
 import AI.chat as chat
 
-def run_scan(domain, scan_id, level):
+def run_scan(domain, scan_id, level, username=None, password=None):
+    session_cookies = None
+    if username and password:
+        creds = {"username": username, "password": password}
+        session_cookies = session_cookie_module.get_session_cookie(
+            domain,
+            creds
+        )
+        for name, value in session_cookies.items():
+            zap_module.zap.core.set_cookie(domain, f"{name}={value}")
+
     ips = dig_module.get_IP(domain)
 
     def do_nmap():
-        xml = nmap_module.scan_scan_to_xml(ips, scan_id)
-        print("NMAP SCAN DONE")
-        print("NMAP SCAN DONE")
-        print("NMAP SCAN DONE")
-        print("NMAP SCAN DONE")
-        print("NMAP SCAN DONE")
-        print("NMAP SCAN DONE")
-        print("NMAP SCAN DONE")
-        print("NMAP SCAN DONE")
+        xml = nmap_module.scan_scan_to_xml(ips, scan_id, session_cookies)
+        print(f"[{scan_id}] NMAP scan done")
         chat.run_nmap_analysis(f"scan_results/{scan_id}/nmap.xml", scan_id, level)
         return xml
 
     def do_nikto():
-        xml = nikto_module.nikto_scan_to_xml(domain, scan_id)
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
-        print("NIKTO SCAN DONE")
+        xml = nikto_module.nikto_scan_to_xml(domain, scan_id, session_cookies)
+        print(f"[{scan_id}] NIKTO scan done")
         chat.run_nikto_analysis(f"scan_results/{scan_id}/nikto.xml", scan_id, level)
         return xml
-    
+
     def do_zap():
         xml = zap_module.run_full_scan(domain, scan_id)
+        print(f"[{scan_id}] ZAP scan done")
         chat.run_zap_analysis(xml, scan_id, level)
         return xml
 
@@ -49,8 +46,7 @@ def run_scan(domain, scan_id, level):
         for fut in as_completed(futures):
             which = futures[fut]
             try:
-                _ = fut.result()
-                print(f"[{scan_id}] {which.upper()} scan done")
+                fut.result()
             except Exception as e:
                 print(f"[{scan_id}] Error in {which} scan: {e}")
 
