@@ -33,12 +33,12 @@ def index():
     if request.method == "POST":
         domain = request.form.get("domain")
         level_str = request.form.get("level")
-        print("HASLOGIN: " + str(request.form.get("haslogin")))
         if request.form.get("haslogin"):
-          loginlink = request.form.get("loginlink")
-          print("LOGINLINK: " + str(loginlink))
+          username = request.form.get("username")
+          password = request.form.get("password")
         level_map = {"Manager": 0, "Developer": 1, "CyberSec": 2}
         level = level_map.get(level_str)
+
 
         if level is None:
                 flash("Invalid level selected.")
@@ -90,7 +90,7 @@ def index():
             # Redirect to results page
             response = redirect(url_for('scan_results', scan_id=scan_id, domain=domain, level=level_str))
             # Start the scan process in a background thread
-            scan_thread = threading.Thread(target=run_scan_process, args=(scan_id, domain, level, scan_dir, md_file_path, status_md_path))
+            scan_thread = threading.Thread(target=run_scan_process, args=(scan_id, domain, level, scan_dir, md_file_path, status_md_path, username, password))
             scan_thread.daemon = True
             scan_thread.start()
 
@@ -104,7 +104,7 @@ def index():
 
     return render_template("index.html")
 
-def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_path):
+def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_path, username, password):
     start_time = datetime.datetime.now()
     print(f"[{scan_id}] Background scan process started for {domain} (Level: {level})")
 
@@ -121,7 +121,7 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
 
     # 2) run all scans
     print(f"[{scan_id}] Starting scan.run_scan...")
-    combined_scan_module.run_scan(domain, scan_id, level)
+    combined_scan_module.run_scan(domain, scan_id, level, username, password)
     append_status(
         "## Scan Tool Execution Complete\n\n"
         "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."
