@@ -31,11 +31,3 @@ def get_session(login_url, username, password):
         raise Exception("login failed")
 
     return session.cookies.get_dict()
-
-# Only run this test code when directly executing this module
-if __name__ == "__main__":
-    print(get_dvwa_session(
-        "http://vuln.stenaeke.org/login.php",
-        "admin",
-        "password"
-    ))
