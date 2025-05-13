@@ -48,11 +48,11 @@ def render_toc_table(toc_md: str) -> str:
 def write_to_PDF(md_path, output_pdf_path):
     with open(md_path, 'r', encoding='utf-8') as f:
         raw_md = f.read()
-    toc_md = generate_toc(raw_md, max_depth=2)
-    anchored_md = add_anchors(raw_md, max_depth=2)
+    toc_md = generate_toc(raw_md, max_depth=4)
+    anchored_md = add_anchors(raw_md, max_depth=4)
     toc_block = render_toc_table(toc_md)
     full_md = "\n\n".join(["<!-- toc -->", toc_block, "<!-- tocstop -->", anchored_md])
-    pdf = MarkdownPdf(toc_level=2)
+    pdf = MarkdownPdf(toc_level=4)
     first = raw_md.splitlines()[0]
     if first.startswith('#'):
         pdf.meta["title"] = first.lstrip('# ').strip()

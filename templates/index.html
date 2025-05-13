@@ -42,7 +42,6 @@
           <option value="Developer">Developer</option>
           <option value="CyberSec">CyberSec</option>
         </select>
-        <button type="submit">Scan</button>
         <div class="login-div">
           <label>
             <input type="checkbox" id="haslogin" name="haslogin">
@@ -69,9 +68,7 @@
   
       chk.addEventListener('change', () => {
         const show = chk.checked;
-        // show/hide the entire creds block
         credsGroup.style.display = show ? 'block' : 'none';
-        // enable/disable inputs
         userField.disabled = !show;
         passField.disabled = !show;
       });
