@@ -9,15 +9,11 @@ import AI.chat as chat
 def run_scan(domain, scan_id, level, username=None, password=None):
     session_cookies = None
     if username and password:
-        creds = {"username": username, "password": password}
-        session_cookies = session_cookie_module.get_session_cookie(
+        session_cookies = session_cookie_module.get_dvwa_session(
             domain,
             username=username,
             password=password
         )
-        for name, value in session_cookies.items():
-            # zap_module.zap.core.set_cookie(domain, f"{name}={value}")
-            zap_module.zap.httpsessions.add_session_token(domain, sessiontoken=f"{value}")
 
     ips = dig_module.get_IP(domain)
 
@@ -34,7 +30,9 @@ def run_scan(domain, scan_id, level, username=None, password=None):
         return xml
 
     def do_zap():
-        xml = zap_module.run_full_scan(domain, scan_id)
+        login_url = f"http://{domain}/login.php"
+        session_cookies = session_cookie_module.get_dvwa_session(login_url, username, password)
+        xml = zap_module.run_authenticated_scan(domain, username, password, scan_id, session_cookies)
         print(f"[{scan_id}] ZAP scan done")
         chat.run_zap_analysis(xml, scan_id, level)
         return xml
