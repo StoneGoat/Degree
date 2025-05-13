@@ -266,3 +266,15 @@ img {
 .container {
   margin-top: 20px;
 }
+
+.login-div {
+  padding: 12px 20px;
+}
+
+.login-creds input[disabled] {
+  display: none;
+}
+
+.login-creds label[disabled] {
+  display: none;
+}

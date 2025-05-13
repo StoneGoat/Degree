@@ -29,9 +29,8 @@
       {% endif %}
     {% endwith %}
     
-    <!-- Disclaimer Section -->
     <div class="disclaimer">
-      <strong>Disclaimer:</strong> This tool is intended for security assessments on systems and domains you own or have explicit permission to test. Any unauthorized or malicious use is strictly prohibited.
+      <strong>Disclaimer:</strong> This tool is intended for security assessments on systems you own or have permission to test. Unauthorized use is prohibited.
     </div>
 
     <div class="scan-form">
@@ -44,26 +43,40 @@
           <option value="CyberSec">CyberSec</option>
         </select>
         <button type="submit">Scan</button>
-        <div>
-          <label for="haslogin">Has Login Page</label>
-          <input type="checkbox" id="haslogin" value="1" name="haslogin">
-          <label for="username">Enter Credentials:</label>
-          <input type="text" id="username" name="username" placeholder="admin">
-          <input type="text" id="password" name="password" placeholder="password">
+        <div class="login-div">
+          <label>
+            <input type="checkbox" id="haslogin" name="haslogin">
+            Has Login Page
+          </label>  
+          <div id="creds-group" style="display: none; margin-top: 0.5em;">
+            <label for="username">Enter Credentials:</label>
+            <div class="login-creds">
+              <input type="text"   id="username" name="username" placeholder="username" disabled>
+              <input type="text" id="password" name="password" placeholder="password" disabled>
+            </div>
+          </div>
         </div>
+  
+        <button type="submit">Scan</button>
       </form>
     </div>
-    
-    <div class="info-section">
-      <h2>How It Works</h2>
-      <ol>
-        <li>Enter a domain name to scan</li>
-        <li>Select technical skill level from the drop down menu</li>
-        <li>Our scanner checks for common vulnerabilities</li>
-        <li>Results are analyzed by AI for comprehensive insights</li>
-        <li>View detailed vulnerability information and remediation steps</li>
-      </ol>
-    </div>
-  </div>
-</body>
-</html>
+  
+    <script>
+      const chk        = document.getElementById('haslogin');
+      const credsGroup = document.getElementById('creds-group');
+      const userField  = document.getElementById('username');
+      const passField  = document.getElementById('password');
+  
+      chk.addEventListener('change', () => {
+        const show = chk.checked;
+        // show/hide the entire creds block
+        credsGroup.style.display = show ? 'block' : 'none';
+        // enable/disable inputs
+        userField.disabled = !show;
+        passField.disabled = !show;
+      });
+    </script>
+  
+  </body>
+  </html>
+  
