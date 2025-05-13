@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import nmap_module
 
 def get_dvwa_session(login_url, username, password):
     session = requests.Session()
@@ -23,9 +24,3 @@ def get_dvwa_session(login_url, username, password):
         raise Exception("DVWA login failed")
 
     return session.cookies.get_dict()
-
-print(get_dvwa_session(
-    "http://vuln.stenaeke.org/login.php",
-    "admin",
-    "password"
-))

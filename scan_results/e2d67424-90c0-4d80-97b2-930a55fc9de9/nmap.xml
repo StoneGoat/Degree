@@ -1,2 +1,136 @@
 <?xml version="1.0" ?>
-<NmapScanResults/>
+<NmapScanResults>
+    <tag_35_228_57_67>
+        <tag_35_228_57_67>
+            <hostnames>
+                <name>67.57.228.35.bc.googleusercontent.com</name>
+                <type>PTR</type>
+            </hostnames>
+            <addresses>
+                <ipv4>35.228.57.67</ipv4>
+            </addresses>
+            <status>
+                <state>up</state>
+                <reason>user-set</reason>
+            </status>
+            <open_ports>
+                <tag_22>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>ssh</name>
+                    <product>OpenSSH</product>
+                    <version>8.2p1 Ubuntu 4ubuntu0.13</version>
+                    <extrainfo>Ubuntu Linux; protocol 2.0</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/o:linux:linux_kernel</cpe>
+                    <script>
+                        <vulners>
+  cpe:/a:openbsd:openssh:8.2p1: 
+    	CVE-2023-38408	9.8	https://vulners.com/cve/CVE-2023-38408
+    	B8190CDB-3EB9-5631-9828-8064A1575B23	9.8	https://vulners.com/githubexploit/B8190CDB-3EB9-5631-9828-8064A1575B23	*EXPLOIT*
+    	8FC9C5AB-3968-5F3C-825E-E8DB5379A623	9.8	https://vulners.com/githubexploit/8FC9C5AB-3968-5F3C-825E-E8DB5379A623	*EXPLOIT*
+    	8AD01159-548E-546E-AA87-2DE89F3927EC	9.8	https://vulners.com/githubexploit/8AD01159-548E-546E-AA87-2DE89F3927EC	*EXPLOIT*
+    	5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	9.8	https://vulners.com/githubexploit/5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	*EXPLOIT*
+    	2227729D-6700-5C8F-8930-1EEAFD4B9FF0	9.8	https://vulners.com/githubexploit/2227729D-6700-5C8F-8930-1EEAFD4B9FF0	*EXPLOIT*
+    	0221525F-07F5-5790-912D-F4B9E2D1B587	9.8	https://vulners.com/githubexploit/0221525F-07F5-5790-912D-F4B9E2D1B587	*EXPLOIT*
+    	CVE-2020-15778	7.8	https://vulners.com/cve/CVE-2020-15778
+    	SSV:92579	7.5	https://vulners.com/seebug/SSV:92579	*EXPLOIT*
+    	PACKETSTORM:173661	7.5	https://vulners.com/packetstorm/PACKETSTORM:173661	*EXPLOIT*
+    	F0979183-AE88-53B4-86CF-3AF0523F3807	7.5	https://vulners.com/githubexploit/F0979183-AE88-53B4-86CF-3AF0523F3807	*EXPLOIT*
+    	CVE-2020-12062	7.5	https://vulners.com/cve/CVE-2020-12062
+    	1337DAY-ID-26576	7.5	https://vulners.com/zdt/1337DAY-ID-26576	*EXPLOIT*
+    	CVE-2021-28041	7.1	https://vulners.com/cve/CVE-2021-28041
+    	CVE-2021-41617	7.0	https://vulners.com/cve/CVE-2021-41617
+    	PACKETSTORM:189283	6.8	https://vulners.com/packetstorm/PACKETSTORM:189283	*EXPLOIT*
+    	F79E574D-30C8-5C52-A801-66FFA0610BAA	6.8	https://vulners.com/githubexploit/F79E574D-30C8-5C52-A801-66FFA0610BAA	*EXPLOIT*
+    	CVE-2025-26465	6.8	https://vulners.com/cve/CVE-2025-26465
+    	C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	6.8	https://vulners.com/githubexploit/C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	*EXPLOIT*
+    	1337DAY-ID-39918	6.8	https://vulners.com/zdt/1337DAY-ID-39918	*EXPLOIT*
+    	10213DBE-F683-58BB-B6D3-353173626207	6.8	https://vulners.com/githubexploit/10213DBE-F683-58BB-B6D3-353173626207	*EXPLOIT*
+    	CVE-2023-51385	6.5	https://vulners.com/cve/CVE-2023-51385
+    	CVE-2023-48795	5.9	https://vulners.com/cve/CVE-2023-48795
+    	CVE-2020-14145	5.9	https://vulners.com/cve/CVE-2020-14145
+    	54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	5.9	https://vulners.com/githubexploit/54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	*EXPLOIT*
+    	CVE-2016-20012	5.3	https://vulners.com/cve/CVE-2016-20012
+    	CVE-2025-32728	4.3	https://vulners.com/cve/CVE-2025-32728
+    	CVE-2021-36368	3.7	https://vulners.com/cve/CVE-2021-36368
+    	PACKETSTORM:140261	0.0	https://vulners.com/packetstorm/PACKETSTORM:140261	*EXPLOIT*</vulners>
+                    </script>
+                </tag_22>
+                <tag_80>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>nginx</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:igor_sysoev:nginx</cpe>
+                    <script>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                    </script>
+                </tag_80>
+                <tag_443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>nginx</product>
+                    <version/>
+                    <extrainfo>reverse proxy</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:igor_sysoev:nginx</cpe>
+                    <script>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                    </script>
+                </tag_443>
+                <tag_8022>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>ssh</name>
+                    <product>OpenSSH</product>
+                    <version>8.2p1 Ubuntu 4ubuntu0.13</version>
+                    <extrainfo>Ubuntu Linux; protocol 2.0</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/o:linux:linux_kernel</cpe>
+                    <script>
+                        <vulners>
+  cpe:/a:openbsd:openssh:8.2p1: 
+    	CVE-2023-38408	9.8	https://vulners.com/cve/CVE-2023-38408
+    	B8190CDB-3EB9-5631-9828-8064A1575B23	9.8	https://vulners.com/githubexploit/B8190CDB-3EB9-5631-9828-8064A1575B23	*EXPLOIT*
+    	8FC9C5AB-3968-5F3C-825E-E8DB5379A623	9.8	https://vulners.com/githubexploit/8FC9C5AB-3968-5F3C-825E-E8DB5379A623	*EXPLOIT*
+    	8AD01159-548E-546E-AA87-2DE89F3927EC	9.8	https://vulners.com/githubexploit/8AD01159-548E-546E-AA87-2DE89F3927EC	*EXPLOIT*
+    	5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	9.8	https://vulners.com/githubexploit/5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	*EXPLOIT*
+    	2227729D-6700-5C8F-8930-1EEAFD4B9FF0	9.8	https://vulners.com/githubexploit/2227729D-6700-5C8F-8930-1EEAFD4B9FF0	*EXPLOIT*
+    	0221525F-07F5-5790-912D-F4B9E2D1B587	9.8	https://vulners.com/githubexploit/0221525F-07F5-5790-912D-F4B9E2D1B587	*EXPLOIT*
+    	CVE-2020-15778	7.8	https://vulners.com/cve/CVE-2020-15778
+    	SSV:92579	7.5	https://vulners.com/seebug/SSV:92579	*EXPLOIT*
+    	PACKETSTORM:173661	7.5	https://vulners.com/packetstorm/PACKETSTORM:173661	*EXPLOIT*
+    	F0979183-AE88-53B4-86CF-3AF0523F3807	7.5	https://vulners.com/githubexploit/F0979183-AE88-53B4-86CF-3AF0523F3807	*EXPLOIT*
+    	CVE-2020-12062	7.5	https://vulners.com/cve/CVE-2020-12062
+    	1337DAY-ID-26576	7.5	https://vulners.com/zdt/1337DAY-ID-26576	*EXPLOIT*
+    	CVE-2021-28041	7.1	https://vulners.com/cve/CVE-2021-28041
+    	CVE-2021-41617	7.0	https://vulners.com/cve/CVE-2021-41617
+    	PACKETSTORM:189283	6.8	https://vulners.com/packetstorm/PACKETSTORM:189283	*EXPLOIT*
+    	F79E574D-30C8-5C52-A801-66FFA0610BAA	6.8	https://vulners.com/githubexploit/F79E574D-30C8-5C52-A801-66FFA0610BAA	*EXPLOIT*
+    	CVE-2025-26465	6.8	https://vulners.com/cve/CVE-2025-26465
+    	C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	6.8	https://vulners.com/githubexploit/C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	*EXPLOIT*
+    	1337DAY-ID-39918	6.8	https://vulners.com/zdt/1337DAY-ID-39918	*EXPLOIT*
+    	10213DBE-F683-58BB-B6D3-353173626207	6.8	https://vulners.com/githubexploit/10213DBE-F683-58BB-B6D3-353173626207	*EXPLOIT*
+    	CVE-2023-51385	6.5	https://vulners.com/cve/CVE-2023-51385
+    	CVE-2023-48795	5.9	https://vulners.com/cve/CVE-2023-48795
+    	CVE-2020-14145	5.9	https://vulners.com/cve/CVE-2020-14145
+    	54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	5.9	https://vulners.com/githubexploit/54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	*EXPLOIT*
+    	CVE-2016-20012	5.3	https://vulners.com/cve/CVE-2016-20012
+    	CVE-2025-32728	4.3	https://vulners.com/cve/CVE-2025-32728
+    	CVE-2021-36368	3.7	https://vulners.com/cve/CVE-2021-36368
+    	PACKETSTORM:140261	0.0	https://vulners.com/packetstorm/PACKETSTORM:140261	*EXPLOIT*</vulners>
+                    </script>
+                </tag_8022>
+            </open_ports>
+        </tag_35_228_57_67>
+    </tag_35_228_57_67>
+</NmapScanResults>

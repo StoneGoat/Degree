@@ -1,5 +1,5 @@
-import nmap
 import os
+import nmap
 from xml_module import convert_dict_to_pretty_xml
 
 RESULTS_DIR = 'scan_results'
@@ -11,10 +11,9 @@ def filter_nmap_result(result):
         entry = {
             "hostnames": host_data.get("hostnames", []),
             "addresses": host_data.get("addresses", {}),
-            "status": host_data.get("status", {})
+            "status":    host_data.get("status", {})
         }
         if "tcp" in host_data:
-            # only keep open ports
             entry["open_ports"] = {
                 port: info
                 for port, info in host_data["tcp"].items()
@@ -26,18 +25,21 @@ def filter_nmap_result(result):
 def scan_scan_to_xml(ips, scan_id, session_cookies=None):
     if isinstance(ips, str):
         ips = [ips]
-
-    # Base nmap args
     args = '-sV -Pn --top-ports 1000 --script vuln'
 
-    # Inject cookies if provided
     if session_cookies:
-        cookie_str = "; ".join(f"{k}={v}" for k, v in session_cookies.items())
-        args += f' --script-args http.cookie="{cookie_str}"'
+        cookie_list = [f"{k}={v}" for k, v in session_cookies.items()]
+        cookies_table = "{" + ",".join(f'"{c}"' for c in cookie_list) + "}"
+        args += f" --script-args http.cookie={cookies_table}"
 
     results = {}
     for ip in ips:
-        raw = nmap_scanner.scan(hosts=ip, arguments=args)
+        try:
+            raw = nmap_scanner.scan(hosts=ip, arguments=args)
+        except Exception as e:
+            print(f"[ERROR] Nmap failed on {ip}: {e}")
+            raw = {}
+        print(f"[DEBUG] Raw scan result for {ip}: {raw}")
         results[ip] = filter_nmap_result(raw)
 
     xml_str = convert_dict_to_pretty_xml("NmapScanResults", results)
@@ -47,6 +49,6 @@ def scan_scan_to_xml(ips, scan_id, session_cookies=None):
     path = os.path.join(out_dir, 'nmap.xml')
     with open(path, 'w', encoding='utf-8') as f:
         f.write(xml_str)
-    print(f"→ Saved Nmap report: {path}")
 
+    print(f"→ Saved Nmap report: {path}")
     return xml_str
