@@ -12,10 +12,12 @@ def run_scan(domain, scan_id, level, username=None, password=None):
         creds = {"username": username, "password": password}
         session_cookies = session_cookie_module.get_session_cookie(
             domain,
-            creds
+            username=username,
+            password=password
         )
         for name, value in session_cookies.items():
-            zap_module.zap.core.set_cookie(domain, f"{name}={value}")
+            # zap_module.zap.core.set_cookie(domain, f"{name}={value}")
+            zap_module.zap.httpsessions.add_session_token(domain, sessiontoken=f"{value}")
 
     ips = dig_module.get_IP(domain)
 
@@ -51,3 +53,5 @@ def run_scan(domain, scan_id, level, username=None, password=None):
                 print(f"[{scan_id}] Error in {which} scan: {e}")
 
     return f"Scan complete for domain: {domain}"
+
+#run_scan("https://vuln.stenaeke.org/", "jkahsdkasejajhsdjahsd", 2, "admin", "password")

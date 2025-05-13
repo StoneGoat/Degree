@@ -1,0 +1,1546 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ScanResults><NiktoScanResults>
+    <raw_output>
+       -config+            Use this config file
+       -Display+           Turn on/off display outputs
+       -dbcheck            check database and other key files for syntax errors
+       -Format+            save file (-o) format
+       -Help               Extended help information
+       -host+              target host
+       -id+                Host authentication to use, format is id:pass or id:pass:realm
+       -list-plugins       List all available plugins
+       -output+            Write output to this file
+       -nossl              Disables using SSL
+       -no404              Disables 404 checks
+       -Plugins+           List of plugins to run (default: ALL)
+       -port+              Port to use (default 80)
+       -root+              Prepend root value to all requests, format is /directory 
+       -ssl                Force ssl mode on port
+       -Tuning+            Scan tuning
+       -timeout+           Timeout for requests (default 10 seconds)
+       -update             Update databases and plugins from CIRT.net
+       -Version            Print plugin and database versions
+       -vhost+             Virtual host (for Host header)
+   		+ requires a value
+
+	Note: This is the short help output. Use -H for full help text.
+
+</raw_output>
+</NiktoScanResults><NmapScanResults>
+    <tag_172_67_179_187 />
+    <tag_104_21_59_147 />
+</NmapScanResults><OWASPZAPReport programName="ZAP" version="2.16.1" generated="Mon, 12 May 2025 16:31:28">
+	
+		<site name="https://vuln.stenaeke.org" host="vuln.stenaeke.org" port="443" ssl="true">
+			<alerts>
+				
+					<alertitem>
+						<pluginid>10038</pluginid>
+						<alertRef>10038-1</alertRef>
+						<alert>Content Security Policy (CSP) Header Not Set</alert>
+						<name>Content Security Policy (CSP) Header Not Set</name>
+						<riskcode>2</riskcode>
+						<confidence>3</confidence>
+						<riskdesc>Medium (High)</riskdesc>
+						<confidencedesc>High</confidencedesc>
+						<desc>&lt;p&gt;Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/sitemap.xml</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>2</count>
+						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy&lt;/p&gt;&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html&lt;/p&gt;&lt;p&gt;https://www.w3.org/TR/CSP/&lt;/p&gt;&lt;p&gt;https://w3c.github.io/webappsec-csp/&lt;/p&gt;&lt;p&gt;https://web.dev/articles/csp&lt;/p&gt;&lt;p&gt;https://caniuse.com/#feat=contentsecuritypolicy&lt;/p&gt;&lt;p&gt;https://content-security-policy.com/&lt;/p&gt;</reference>
+						<cweid>693</cweid>
+						<wascid>15</wascid>
+						<sourceid>11</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>0</pluginid>
+						<alertRef>0</alertRef>
+						<alert>Directory Browsing</alert>
+						<name>Directory Browsing</name>
+						<riskcode>2</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Medium (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;It is possible to view the directory listing. Directory listing may reveal hidden scripts, include files, backup source files, etc. which can be accessed to read sensitive information.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/</uri>
+									<method>GET</method>
+									<param />
+									<attack>https://vuln.stenaeke.org/dvwa/</attack>
+									<evidence>Parent Directory</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css/</uri>
+									<method>GET</method>
+									<param />
+									<attack>https://vuln.stenaeke.org/dvwa/css/</attack>
+									<evidence>Parent Directory</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images/</uri>
+									<method>GET</method>
+									<param />
+									<attack>https://vuln.stenaeke.org/dvwa/images/</attack>
+									<evidence>Parent Directory</evidence>
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>3</count>
+						<solution>&lt;p&gt;Disable directory browsing. If this is required, make sure the listed files does not induce risks.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://httpd.apache.org/docs/mod/core.html#options&lt;/p&gt;</reference>
+						<cweid>548</cweid>
+						<wascid>48</wascid>
+						<sourceid>2335</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10020</pluginid>
+						<alertRef>10020-1</alertRef>
+						<alert>Missing Anti-clickjacking Header</alert>
+						<name>Missing Anti-clickjacking Header</name>
+						<riskcode>2</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Medium (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;The response does not protect against 'ClickJacking' attacks. It should include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>x-frame-options</param>
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>1</count>
+						<solution>&lt;p&gt;Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.&lt;/p&gt;&lt;p&gt;If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's "frame-ancestors" directive.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options&lt;/p&gt;</reference>
+						<cweid>1021</cweid>
+						<wascid>15</wascid>
+						<sourceid>11</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10010</pluginid>
+						<alertRef>10010</alertRef>
+						<alert>Cookie No HttpOnly Flag</alert>
+						<name>Cookie No HttpOnly Flag</name>
+						<riskcode>1</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Low (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>Set-Cookie: PHPSESSID</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>security</param>
+									<attack />
+									<evidence>Set-Cookie: security</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>Set-Cookie: PHPSESSID</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>security</param>
+									<attack />
+									<evidence>Set-Cookie: security</evidence>
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>4</count>
+						<solution>&lt;p&gt;Ensure that the HttpOnly flag is set for all cookies.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://owasp.org/www-community/HttpOnly&lt;/p&gt;</reference>
+						<cweid>1004</cweid>
+						<wascid>13</wascid>
+						<sourceid>7</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10011</pluginid>
+						<alertRef>10011</alertRef>
+						<alert>Cookie Without Secure Flag</alert>
+						<name>Cookie Without Secure Flag</name>
+						<riskcode>1</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Low (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;A cookie has been set without the secure flag, which means that the cookie can be accessed via unencrypted connections.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>Set-Cookie: PHPSESSID</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>security</param>
+									<attack />
+									<evidence>Set-Cookie: security</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>Set-Cookie: PHPSESSID</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>security</param>
+									<attack />
+									<evidence>Set-Cookie: security</evidence>
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>4</count>
+						<solution>&lt;p&gt;Whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted channel. Ensure that the secure flag is set for cookies containing such sensitive information.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html&lt;/p&gt;</reference>
+						<cweid>614</cweid>
+						<wascid>13</wascid>
+						<sourceid>7</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10054</pluginid>
+						<alertRef>10054-1</alertRef>
+						<alert>Cookie without SameSite Attribute</alert>
+						<name>Cookie without SameSite Attribute</name>
+						<riskcode>1</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Low (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>Set-Cookie: PHPSESSID</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>security</param>
+									<attack />
+									<evidence>Set-Cookie: security</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>Set-Cookie: PHPSESSID</evidence>
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>security</param>
+									<attack />
+									<evidence>Set-Cookie: security</evidence>
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>4</count>
+						<solution>&lt;p&gt;Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site&lt;/p&gt;</reference>
+						<cweid>1275</cweid>
+						<wascid>13</wascid>
+						<sourceid>7</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10035</pluginid>
+						<alertRef>10035-1</alertRef>
+						<alert>Strict-Transport-Security Header Not Set</alert>
+						<name>Strict-Transport-Security Header Not Set</name>
+						<riskcode>1</riskcode>
+						<confidence>3</confidence>
+						<riskdesc>Low (High)</riskdesc>
+						<confidencedesc>High</confidencedesc>
+						<desc>&lt;p&gt;HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css/login.css</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images/login_logo.png</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images/RandomStorm.png</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/robots.txt</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/sitemap.xml</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>6</count>
+						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html&lt;/p&gt;&lt;p&gt;https://owasp.org/www-community/Security_Headers&lt;/p&gt;&lt;p&gt;https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security&lt;/p&gt;&lt;p&gt;https://caniuse.com/stricttransportsecurity&lt;/p&gt;&lt;p&gt;https://datatracker.ietf.org/doc/html/rfc6797&lt;/p&gt;</reference>
+						<cweid>319</cweid>
+						<wascid>15</wascid>
+						<sourceid>20</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10021</pluginid>
+						<alertRef>10021</alertRef>
+						<alert>X-Content-Type-Options Header Missing</alert>
+						<name>X-Content-Type-Options Header Missing</name>
+						<riskcode>1</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Low (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css/login.css</uri>
+									<method>GET</method>
+									<param>x-content-type-options</param>
+									<attack />
+									<evidence />
+									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images/login_logo.png</uri>
+									<method>GET</method>
+									<param>x-content-type-options</param>
+									<attack />
+									<evidence />
+									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images/RandomStorm.png</uri>
+									<method>GET</method>
+									<param>x-content-type-options</param>
+									<attack />
+									<evidence />
+									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>x-content-type-options</param>
+									<attack />
+									<evidence />
+									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/robots.txt</uri>
+									<method>GET</method>
+									<param>x-content-type-options</param>
+									<attack />
+									<evidence />
+									<otherinfo>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.</otherinfo>
+								</instance>
+							
+						</instances>
+						<count>5</count>
+						<solution>&lt;p&gt;Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.&lt;/p&gt;&lt;p&gt;If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.&lt;/p&gt;</solution>
+						<otherinfo>&lt;p&gt;This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.&lt;/p&gt;&lt;p&gt;At "High" threshold this scan rule will not alert on client or server error responses.&lt;/p&gt;</otherinfo>
+						<reference>&lt;p&gt;https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)&lt;/p&gt;&lt;p&gt;https://owasp.org/www-community/Security_Headers&lt;/p&gt;</reference>
+						<cweid>693</cweid>
+						<wascid>15</wascid>
+						<sourceid>20</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10111</pluginid>
+						<alertRef>10111</alertRef>
+						<alert>Authentication Request Identified</alert>
+						<name>Authentication Request Identified</name>
+						<riskcode>0</riskcode>
+						<confidence>3</confidence>
+						<riskdesc>Informational (High)</riskdesc>
+						<confidencedesc>High</confidencedesc>
+						<desc>&lt;p&gt;The given request has been identified as an authentication request. The 'Other Info' field contains a set of key=value lines which identify any relevant fields. If the request is in a context which has an Authentication Method set to "Auto-Detect" then this rule will change the authentication to match the request identified.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Login</param>
+									<attack />
+									<evidence>password</evidence>
+									<otherinfo>userParam=Login
+userValue=Login
+passwordParam=password
+referer=https://vuln.stenaeke.org/login.php
+csrfToken=user_token</otherinfo>
+								</instance>
+							
+						</instances>
+						<count>1</count>
+						<solution>&lt;p&gt;This is an informational alert rather than a vulnerability and so there is nothing to fix.&lt;/p&gt;</solution>
+						<otherinfo>&lt;p&gt;userParam=Login&lt;/p&gt;&lt;p&gt;userValue=Login&lt;/p&gt;&lt;p&gt;passwordParam=password&lt;/p&gt;&lt;p&gt;referer=https://vuln.stenaeke.org/login.php&lt;/p&gt;&lt;p&gt;csrfToken=user_token&lt;/p&gt;</otherinfo>
+						<reference>&lt;p&gt;https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/&lt;/p&gt;</reference>
+						<cweid>-1</cweid>
+						<wascid>-1</wascid>
+						<sourceid>22</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10015</pluginid>
+						<alertRef>10015</alertRef>
+						<alert>Re-examine Cache-control Directives</alert>
+						<name>Re-examine Cache-control Directives</name>
+						<riskcode>0</riskcode>
+						<confidence>1</confidence>
+						<riskdesc>Informational (Low)</riskdesc>
+						<confidencedesc>Low</confidencedesc>
+						<desc>&lt;p&gt;The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>cache-control</param>
+									<attack />
+									<evidence>no-cache, must-revalidate</evidence>
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>1</count>
+						<solution>&lt;p&gt;For secure content, ensure the cache-control HTTP header is set with "no-cache, no-store, must-revalidate". If an asset should be cached consider setting the directives "public, max-age, immutable".&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching&lt;/p&gt;&lt;p&gt;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control&lt;/p&gt;&lt;p&gt;https://grayduck.mn/2021/09/13/cache-control-recommendations/&lt;/p&gt;</reference>
+						<cweid>525</cweid>
+						<wascid>13</wascid>
+						<sourceid>11</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10050</pluginid>
+						<alertRef>10050-2</alertRef>
+						<alert>Retrieved from Cache</alert>
+						<name>Retrieved from Cache</name>
+						<riskcode>0</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Informational (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;The content was retrieved from a shared cache. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where caching servers such as "proxy" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css/login.css</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>Age: 86</evidence>
+									<otherinfo>The presence of the 'Age' header indicates that a HTTP/1.1 compliant caching server is in use.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images/login_logo.png</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>Age: 86</evidence>
+									<otherinfo>The presence of the 'Age' header indicates that a HTTP/1.1 compliant caching server is in use.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images/RandomStorm.png</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>Age: 7119</evidence>
+									<otherinfo>The presence of the 'Age' header indicates that a HTTP/1.1 compliant caching server is in use.</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/robots.txt</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>Age: 7119</evidence>
+									<otherinfo>The presence of the 'Age' header indicates that a HTTP/1.1 compliant caching server is in use.</otherinfo>
+								</instance>
+							
+						</instances>
+						<count>4</count>
+						<solution>&lt;p&gt;Validate that the response does not contain sensitive, personal or user-specific information. If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:&lt;/p&gt;&lt;p&gt;Cache-Control: no-cache, no-store, must-revalidate, private&lt;/p&gt;&lt;p&gt;Pragma: no-cache&lt;/p&gt;&lt;p&gt;Expires: 0&lt;/p&gt;&lt;p&gt;This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.&lt;/p&gt;</solution>
+						<otherinfo>&lt;p&gt;The presence of the 'Age' header indicates that a HTTP/1.1 compliant caching server is in use.&lt;/p&gt;</otherinfo>
+						<reference>&lt;p&gt;https://tools.ietf.org/html/rfc7234&lt;/p&gt;&lt;p&gt;https://tools.ietf.org/html/rfc7231&lt;/p&gt;&lt;p&gt;https://www.rfc-editor.org/rfc/rfc9110.html&lt;/p&gt;</reference>
+						<cweid>-1</cweid>
+						<wascid>-1</wascid>
+						<sourceid>20</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10112</pluginid>
+						<alertRef>10112</alertRef>
+						<alert>Session Management Response Identified</alert>
+						<name>Session Management Response Identified</name>
+						<riskcode>0</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Informational (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;The given response has been identified as containing a session management token. The 'Other Info' field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to "Auto-Detect" then this rule will change the session management to use the tokens identified.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>ob75njuk9gnv63lokpk0fq45e7</evidence>
+									<otherinfo>
+cookie:PHPSESSID</otherinfo>
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>PHPSESSID</param>
+									<attack />
+									<evidence>tf787u6vjuilh2odr6oqk9tc65</evidence>
+									<otherinfo>
+cookie:PHPSESSID</otherinfo>
+								</instance>
+							
+						</instances>
+						<count>2</count>
+						<solution>&lt;p&gt;This is an informational alert rather than a vulnerability and so there is nothing to fix.&lt;/p&gt;</solution>
+						<otherinfo>&lt;p&gt;&lt;/p&gt;&lt;p&gt;cookie:PHPSESSID&lt;/p&gt;</otherinfo>
+						<reference>&lt;p&gt;https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id&lt;/p&gt;</reference>
+						<cweid>-1</cweid>
+						<wascid>-1</wascid>
+						<sourceid>7</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10104</pluginid>
+						<alertRef>10104</alertRef>
+						<alert>User Agent Fuzzer</alert>
+						<name>User Agent Fuzzer</name>
+						<riskcode>0</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Informational (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;Check for differences in response based on fuzzed User Agent (eg. mobile sites, access as a Search Engine Crawler). Compares the response statuscode and the hashcode of the response body with the original response.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/css</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/dvwa/images</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>https://vuln.stenaeke.org/login.php</uri>
+									<method>POST</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>84</count>
+						<solution />
+						<otherinfo />
+						<reference>&lt;p&gt;https://owasp.org/wstg&lt;/p&gt;</reference>
+						<cweid>0</cweid>
+						<wascid>0</wascid>
+						<sourceid>2737</sourceid>
+					</alertitem>
+				
+			</alerts>
+		</site>
+	
+</OWASPZAPReport></ScanResults>

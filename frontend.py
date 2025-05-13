@@ -33,6 +33,7 @@ def index():
     if request.method == "POST":
         domain = request.form.get("domain")
         level_str = request.form.get("level")
+        username, password = "", ""
         if request.form.get("haslogin"):
           username = request.form.get("username")
           password = request.form.get("password")
