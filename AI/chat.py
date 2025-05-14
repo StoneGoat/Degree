@@ -322,6 +322,9 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         prompt = """
             You are a cybersecurity expert analyzing Nmap scan results for technical implementers. Provide a practical, implementation-focused analysis in clear markdown format. For each distinct host scanned, use these specific sections:
 
+            ## Nmap Overview
+            This is the main Nmap Header.
+
             ### Network Exposure Summary
             Summarize the host's exposure profile based on the scan: IP address, hostname (if available), state (up/down), total open/filtered/closed ports found, and operating system guess (if Nmap provided one). Assess the immediate attack surface presented.
 
@@ -347,6 +350,9 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
     elif level == 2:
         prompt = """
             You are a senior cybersecurity analyst communicating with fellow security professionals regarding Nmap scan results. Provide an expert-level analysis in markdown format using these specific sections:
+
+            ## Nmap Overview
+            This is the main Nmap Header.
 
             ### Attack Surface Analysis
             Interpret Nmap outputs (port states, OS/service detection, NSE results, scan artifacts) to assess the host/network's detailed exposure profile and potential scan limitations.
@@ -478,6 +484,9 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
     prompt = """
         You are a cybersecurity expert analyzing Nikto web security scan results for non-technical stakeholders. Provide an easy-to-understand analysis with these specific sections for each distinct vulnerability found:
 
+        ## Nikto Analysis
+        This is the main Nikto Header.
+
         ### Issue Summary
         Explain the vulnerability in simple terms using everyday analogies. Avoid technical jargon and focus on why this matters to the business.
 
@@ -500,6 +509,9 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
         prompt = """
             You are a cybersecurity expert analyzing Nikto web security scan results for technical implementers (developers, sysadmins, DevOps engineers). Provide a practical, implementation-focused analysis in clear markdown format. For each distinct vulnerability found, use these specific sections:
 
+            ## Nikto Analysis
+            This is the main Nikto Header.
+
             ### Issue Explanation
             Describe the vulnerability's technical mechanism (e.g., outdated component, specific misconfiguration identified by Nikto), common root causes, and where it typically occurs within the web stack. Explain the direct security principle being violated.
 
@@ -520,6 +532,9 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
     elif level == 2:
         prompt = """
             You are a senior cybersecurity analyst communicating with fellow security professionals (engineers, analysts, pentesters) regarding Nikto web security scan results. Provide an expert-level cybersecurity analysis in markdown format for each distinct vulnerability found. Focus on risk, threat context, and strategic mitigation using these specific sections:
+
+            ## Nikto Analysis
+            This is the main Nikto Header.
 
             ### Technical Deep Dive
             Provide a detailed technical breakdown of the vulnerability mechanism as identified or suggested by the Nikto finding. Discuss relevant protocols, underlying component weaknesses, potential variations not explicitly tested by Nikto, and nuances of accurate detection versus potential false positives associated with the Nikto check.
@@ -731,7 +746,16 @@ def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRab
     # Initialize chat session with system prompt
     system_prompt = """You are a senior cybersecurity expert providing executive summaries of security scan findings.
     Focus on clarity, brevity, and actionable insights. Format your overview with markdown headings.
-    Prioritize issues based on risk level and highlight only the most significant findings."""
+    Prioritize issues based on risk level and highlight only the most significant findings. It should follow the following structure:
+    
+    # Executive Summary
+
+    ## Overall Security Posture Assessment
+
+    ## Most Significant Security Issues Identified
+
+    ## Conclusion
+    """
     
     chat_id, _ = send_chat_request(system_prompt, role="system", model_id=model_id)
     if chat_id is None:
