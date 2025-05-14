@@ -6,11 +6,11 @@ import zap_module
 import session_cookie_module
 import AI.chat as chat
 
-def run_scan(domain, scan_id, level, username=None, password=None):
+def run_scan(domain, scan_id, level, login_url, username=None, password=None):
     session_cookies = None
     if username and password:
         session_cookies = session_cookie_module.get_session(
-            domain,
+            login_url,
             username=username,
             password=password
         )
@@ -30,8 +30,6 @@ def run_scan(domain, scan_id, level, username=None, password=None):
         return xml
 
     def do_zap():
-        login_url = f"http://{domain}/login.php"
-        session_cookies = session_cookie_module.get_session(login_url, username, password)
         xml = zap_module.run_authenticated_scan(domain, username, password, scan_id, session_cookies)
         print(f"[{scan_id}] ZAP scan done")
         chat.run_zap_analysis(xml, scan_id, level)

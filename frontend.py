@@ -32,6 +32,7 @@ print(f"Scan results will be stored in: {app.config['SCAN_RESULTS_DIR']}")
 def index():
     if request.method == "POST":
         domain = request.form.get("domain")
+        login_url = request.form.get("login_url")
         level_str = request.form.get("level")
         username, password = "", ""
         if request.form.get("haslogin"):
@@ -90,7 +91,7 @@ def index():
             # Redirect to results page
             response = redirect(url_for('scan_results', scan_id=scan_id, domain=domain, level=level_str))
             # Start the scan process in a background thread
-            scan_thread = threading.Thread(target=run_scan_process, args=(scan_id, domain, level, scan_dir, md_file_path, status_md_path, username, password))
+            scan_thread = threading.Thread(target=run_scan_process, args=(scan_id, domain, login_url, level, scan_dir, md_file_path, status_md_path, username, password))
             scan_thread.daemon = True
             scan_thread.start()
 
@@ -104,7 +105,7 @@ def index():
 
     return render_template("index.html")
 
-def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_path, username, password):
+def run_scan_process(scan_id, domain, login_url, level, scan_dir, md_file_path, status_md_path, username, password):
     start_time = datetime.datetime.now()
     print(f"[{scan_id}] Background scan process started for {domain} (Level: {level})")
 
@@ -121,7 +122,7 @@ def run_scan_process(scan_id, domain, level, scan_dir, md_file_path, status_md_p
 
     # 2) run all scans
     print(f"[{scan_id}] Starting scan.run_scan...")
-    combined_scan_module.run_scan(domain, scan_id, level, username, password)
+    combined_scan_module.run_scan(domain, scan_id, level, login_url, username, password)
     append_status(
         "## Scan Tool Execution Complete\n\n"
         "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."

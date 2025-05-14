@@ -14,7 +14,7 @@ def nikto_scan_to_xml(target, scan_id, session_cookies=None):
         '-Display', 'E4',
         '-usecookies'
     ]
-
+    
     if session_cookies:
         cookie_str = "; ".join(f"{k}={v}" for k, v in session_cookies.items())
         cmd += ['-O', f'STATIC-COOKIE={cookie_str}']

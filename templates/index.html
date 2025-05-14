@@ -37,21 +37,26 @@
       <form method="post">
         <label for="domain">Enter Domain:</label>
         <input type="text" id="domain" name="domain" placeholder="example.com" required>
+
         <select name="level" id="level">
           <option value="Manager">Manager</option>
           <option value="Developer">Developer</option>
           <option value="CyberSec">CyberSec</option>
         </select>
+
         <div class="login-div">
           <label>
             <input type="checkbox" id="haslogin" name="haslogin">
             Has Login Page
           </label>  
           <div id="creds-group" style="display: none; margin-top: 0.5em;">
+            <label for="login_url">Login Page URL:</label>
+            <input type="url" id="login_url" name="login_url" placeholder="https://example.com/login" disabled>
+
             <label for="username">Enter Credentials:</label>
             <div class="login-creds">
-              <input type="text"   id="username" name="username" placeholder="username" disabled>
-              <input type="text" id="password" name="password" placeholder="password" disabled>
+              <input type="text" id="username" name="username" placeholder="username" disabled>
+              <input type="password" id="password" name="password" placeholder="password" disabled>
             </div>
           </div>
         </div>
@@ -61,19 +66,20 @@
     </div>
   
     <script>
-      const chk        = document.getElementById('haslogin');
-      const credsGroup = document.getElementById('creds-group');
-      const userField  = document.getElementById('username');
-      const passField  = document.getElementById('password');
+      const chk             = document.getElementById('haslogin');
+      const credsGroup      = document.getElementById('creds-group');
+      const loginUrlField   = document.getElementById('login_url');
+      const userField       = document.getElementById('username');
+      const passField       = document.getElementById('password');
   
       chk.addEventListener('change', () => {
         const show = chk.checked;
-        credsGroup.style.display = show ? 'block' : 'none';
-        userField.disabled = !show;
-        passField.disabled = !show;
+        credsGroup.style.display   = show ? 'block' : 'none';
+        loginUrlField.disabled     = !show;
+        userField.disabled         = !show;
+        passField.disabled         = !show;
       });
     </script>
   
   </body>
   </html>
-  

@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import nikto_module
 
 def get_session(login_url, username, password):
     session = requests.Session()
@@ -31,3 +32,7 @@ def get_session(login_url, username, password):
         raise Exception("login failed")
 
     return session.cookies.get_dict()
+
+cookies = get_session("http://vuln.stenaeke.org/login.php","admin","password")
+
+nikto_module.nikto_scan_to_xml("http://vuln.stenaeke.org","e0070ced-3674-4374-9bc4-a57711719e14",cookies)
