@@ -19,6 +19,8 @@ def nikto_scan_to_xml(target, scan_id, session_cookies=None):
         cookie_str = "; ".join(f"{k}={v}" for k, v in session_cookies.items())
         cmd += ['-O', f'STATIC-COOKIE={cookie_str}']
 
+    print("CMD: " + str(cmd))
+
     proc = subprocess.run(cmd, capture_output=True, text=True)
     raw = proc.stdout or ''
     if proc.returncode != 0:
