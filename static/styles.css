@@ -34,7 +34,6 @@ body {
 }
 
 .site-header .container {
-
   background: none;
   padding: 0;
   border-radius: 0;
@@ -61,7 +60,6 @@ body {
   text-transform: uppercase;
   color: var(--color-bg);
   text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-  
 }
 
 .site-subtitle {
@@ -113,7 +111,10 @@ body {
   color: var(--color-text);
 }
 
+/* Unified input styling */
 .scan-form input[type="text"],
+.scan-form input[type="url"],
+.scan-form input[type="password"],
 .scan-form select {
   width: 300px;
   padding: 8px;
@@ -122,6 +123,24 @@ body {
   border-radius: 4px;
   background: #1f2a35;
   color: var(--color-text);
+}
+
+/* Hide disabled inputs */
+.scan-form input:disabled,
+.scan-form select:disabled {
+  display: none;
+}
+
+/* Ensure labels in login-div stack nicely */
+.login-div label {
+  display: block;
+  margin-top: 0.75em;
+}
+
+.back-button,
+.scan-form button,
+.download-button {
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .scan-form button {
@@ -240,12 +259,6 @@ img {
   width: 75%;
 }
 
-.scan-form button,
-.back-button,
-.download-button {
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -269,12 +282,4 @@ img {
 
 .login-div {
   padding: 12px 20px;
-}
-
-.login-creds input[disabled] {
-  display: none;
-}
-
-.login-creds label[disabled] {
-  display: none;
 }
