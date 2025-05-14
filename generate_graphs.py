@@ -418,12 +418,21 @@ def visualize_summary_findings(security_data, output_file='0_summary_findings.pn
             if security_data.get('nmap') or security_data.get('nikto'): tool_names.append('OWASP ZAP');total_findings_display.append(0);high_risk.append(0);medium_risk.append(0);low_risk.append(0);info_risk.append(0);print("  - ZAP Summary: No data found.")
         # Nmap Summary
         if security_data.get('nmap'):
-            tool_names.append('Nmap'); nmap_hosts = security_data['nmap']; all_ports = [p for host in nmap_hosts if host.get('ports') for p in host.get('ports')]; open_ports = [p for p in all_ports if p.get('state') == 'open']; open_ports_count = len(open_ports); total_findings_display.append(open_ports_count)
+            tool_names.append('Nmap')
+            nmap_hosts = security_data['nmap']
+            all_ports = [p for host in nmap_hosts if host.get('ports') for p in host.get('ports')]
+            open_ports = [p for p in all_ports if p.get('state') == 'open']
+            open_ports_count = len(open_ports)
+            total_findings_display.append(open_ports_count)
+            
+            # Change this section to always show open ports as medium risk
             n_high, n_med, n_low, n_info = 0, 0, 0, 0
-            if open_ports_count > 5: n_high = open_ports_count; 
-            elif open_ports_count > 2: n_med = open_ports_count; 
-            elif open_ports_count > 0 : n_low = open_ports_count
-            high_risk.append(n_high); medium_risk.append(n_med); low_risk.append(n_low); info_risk.append(n_info)
+            n_med = open_ports_count  # Always assign all open ports to medium risk
+            
+            high_risk.append(n_high)
+            medium_risk.append(n_med)
+            low_risk.append(n_low)
+            info_risk.append(n_info)
             print(f"  - Nmap Summary: Open Ports={open_ports_count} -> H={n_high}, M={n_med}, L={n_low}, I={n_info}")
         else:
              if security_data.get('zap') or security_data.get('nikto'): tool_names.append('Nmap');total_findings_display.append(0);high_risk.append(0);medium_risk.append(0);low_risk.append(0);info_risk.append(0);print("  - Nmap Summary: No data found.")

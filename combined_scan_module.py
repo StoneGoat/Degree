@@ -5,6 +5,7 @@ import nikto_module
 import zap_module
 import session_cookie_module
 import AI.chat as chat
+import frontend
 
 def run_scan(domain, scan_id, level, login_url, username=None, password=None):
     session_cookies = None
@@ -20,19 +21,19 @@ def run_scan(domain, scan_id, level, login_url, username=None, password=None):
     def do_nmap():
         xml = nmap_module.scan_scan_to_xml(ips, scan_id, session_cookies)
         print(f"[{scan_id}] NMAP scan done")
-        chat.run_nmap_analysis(f"scan_results/{scan_id}/nmap.xml", scan_id, level)
+        frontend.send_nmap_to_AI(f"scan_results/{scan_id}/nmap.xml", scan_id=scan_id, level=level)
         return xml
 
     def do_nikto():
         xml = nikto_module.nikto_scan_to_xml(domain, scan_id, session_cookies)
         print(f"[{scan_id}] NIKTO scan done")
-        chat.run_nikto_analysis(f"scan_results/{scan_id}/nikto.xml", scan_id, level)
+        frontend.send_nikto_to_AI(f"scan_results/{scan_id}/nikto.xml", scan_id, level)
         return xml
 
     def do_zap():
         xml = zap_module.run_authenticated_scan(domain, username, password, scan_id, session_cookies)
         print(f"[{scan_id}] ZAP scan done")
-        chat.run_zap_analysis(xml, scan_id, level)
+        frontend.send_zap_to_AI(xml, scan_id, level)
         return xml
 
     with ThreadPoolExecutor(max_workers=3) as executor:

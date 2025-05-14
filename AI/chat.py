@@ -276,8 +276,8 @@ def get_nmap_results_from_xml(file_path):
 
 def extract_successful_scripts_from_nmap_xml(file_path):
     """
-    Parse the Nmap XML file and extract only the useful script results.
-    Filters out error responses, bad requests, and "not found" results.
+    Parse the Nmap XML file and extract only meaningful script results.
+    Filters out error responses, error messages, HTTP errors, and negative findings.
     
     Args:
         file_path (str): Path to the Nmap XML file
@@ -285,65 +285,137 @@ def extract_successful_scripts_from_nmap_xml(file_path):
     Returns:
         dict: A nested dictionary structure with IPs, ports, and meaningful script results
     """
-    tree = ET.parse(file_path)
-    root = tree.getroot()
+    try:
+        tree = ET.parse(file_path)
+        root = tree.getroot()
+    except Exception as e:
+        print(f"Error parsing XML file: {str(e)}")
+        return {}
     
-    successful_scripts = {}
-    
-    # Check if the root element is NmapScanResults
-    if root.tag != 'NmapScanResults':
-        print(f"Expected NmapScanResults as root element, but found {root.tag}")
-        return successful_scripts
+    meaningful_scripts = {}
     
     # Iterate over each host tag (e.g., tag_104_21_59_147)
     for host_tag in root:
-        # Extract IP from tag name (removing "tag_" and replacing underscores with dots)
+        # Extract IP from tag name
         ip = host_tag.tag.replace("tag_", "").replace("_", ".")
-        successful_scripts[ip] = {}
         
         # Find the nested host element with the same tag name
         nested_host = host_tag.find(host_tag.tag)
         if nested_host is None:
             continue
         
-        # Find open_ports element
-        open_ports = nested_host.find('open_ports')
-        if open_ports is None:
+        # Extract host info for context
+        hostname = nested_host.findtext('./hostnames/name', 'Unknown')
+        open_ports_elem = nested_host.find('open_ports')
+        if open_ports_elem is None:
             continue
         
+        # Check if any meaningful scripts exist for this host
+        has_meaningful_scripts = False
+        host_data = {"ports": {}}
+        
         # Process each port
-        for port_elem in open_ports:
+        for port_elem in open_ports_elem:
             port_tag = port_elem.tag
-            # Extract port number from tag (e.g., "tag_80" -> "80")
             port_number = port_tag.replace("tag_", "")
+            
+            # Get port service info
+            service_name = port_elem.findtext('name', 'unknown')
+            product = port_elem.findtext('product', '')
+            version = port_elem.findtext('version', '')
+            
+            # Create port info dictionary
+            port_info = {
+                "service": service_name,
+                "product": product,
+                "version": version,
+                "scripts": {}
+            }
             
             # Find script element
             script_elem = port_elem.find('script')
             if script_elem is None:
                 continue
             
-            # Extract all useful script results
-            port_scripts = {}
+            # Check for meaningful script results
+            found_meaningful_script = False
+            
             for script_result in script_elem:
                 script_name = script_result.tag
                 script_content = script_result.text.strip() if script_result.text else ""
                 
-                # Skip unhelpful script results
-                if should_skip_script(script_name, script_content):
+                # Skip script results that aren't useful
+                if not is_meaningful_script(script_name, script_content):
                     continue
                 
-                # Add useful script to the results
-                port_scripts[script_name] = script_content
+                # We found a meaningful script
+                port_info["scripts"][script_name] = script_content
+                found_meaningful_script = True
+                has_meaningful_scripts = True
             
-            # Only add port if it has useful scripts
-            if port_scripts:
-                successful_scripts[ip][port_number] = port_scripts
+            # Only add port if it has meaningful scripts
+            if found_meaningful_script:
+                host_data["ports"][port_number] = port_info
         
-        # Remove IP if no ports had useful scripts
-        if not successful_scripts[ip]:
-            del successful_scripts[ip]
+        # Only add host if it has meaningful scripts
+        if has_meaningful_scripts:
+            meaningful_scripts[ip] = host_data
     
-    return successful_scripts
+    return meaningful_scripts
+
+def is_meaningful_script(script_name, content):
+    """
+    Determines if a script result provides meaningful security information.
+    
+    Args:
+        script_name (str): The name of the script
+        content (str): The content/output of the script
+        
+    Returns:
+        bool: True if the script provides meaningful information, False otherwise
+    """
+    # Skip empty content
+    if not content or content.strip() == "":
+        return False
+    
+    # Skip error messages
+    if "ERROR:" in content or "execution failed" in content:
+        return False
+    
+    # Skip HTTP error responses
+    if "400 Bad Request" in content or "403 Forbidden" in content:
+        return False
+    
+    # Skip negative findings
+    negative_patterns = [
+        "Couldn't find any",
+        "No vulnerabilities found",
+        "No issues identified",
+        "No vulnerabilities identified",
+        "Not vulnerable"
+    ]
+    if any(pattern in content for pattern in negative_patterns):
+        return False
+    
+    # Skip fingerprint-strings with only error responses
+    if script_name == "fingerprint-strings":
+        # Only consider it meaningful if it contains successful responses
+        successful_patterns = ["200 OK", "301 Moved", "302 Found", "Set-Cookie"]
+        if not any(pattern in content for pattern in successful_patterns):
+            return False
+    
+    # Special handling for minimal information
+    if script_name == "http-server-header" and len(content.strip().split()) <= 1:
+        # If it's just a single word like "cloudflare", it's not very meaningful
+        if not content.strip().lower() in ["apache", "nginx", "iis"]:
+            return False
+    
+    # Special handling for empty ssl checks
+    if script_name == "sslv2-drown" and content.strip() == "":
+        return False
+    
+    # If we made it here, it's a meaningful script
+    return True
 
 def should_skip_script(script_name, content):
     """
@@ -524,6 +596,8 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         send_vulnerability_to_api(vulnerability_data, scan_id, 3)
         print("-" * 80)
 
+    test_nmap_scripts(xml_file_path, model_id, scan_id, level)
+
 def test_nmap_scripts(xml_file_path="../scan-report2.xml", 
                      model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
@@ -536,147 +610,106 @@ def test_nmap_scripts(xml_file_path="../scan-report2.xml",
         scan_id (str, optional): Scan ID for API updates
         level (int): Detail level (0=non-technical, 1=technical, 2=expert)
     """
-    # Extract successful scripts from the XML file
-    script_data = extract_successful_scripts_from_nmap_xml(xml_file_path)
+    print("Starting Nmap script analysis...")
     
-    if not script_data:
-        print("DEBUG: No successful Nmap scripts found in the scan results.")
-        return
-    
-    print(f"DEBUG: Found script results for {len(script_data)} hosts.")
-    
-    # Format script data into messages suitable for analysis
-    script_messages = []
-    for ip, ports in script_data.items():
-        message = f"Nmap Script Results for {ip}\n\n"
-        for port, scripts in ports.items():
-            message += f"Port {port} Scripts:\n"
-            for script_name, script_output in scripts.items():
-                message += f"  Script: {script_name}\n"
-                message += f"  Output: {script_output}\n\n"
-        script_messages.append(message)
-    
-    # Create prompt based on level
-    prompt = """
-        You are a cybersecurity expert analyzing Nmap script results for non-technical stakeholders. 
-        Provide a clear, easy-to-understand analysis using these specific sections:
-
-        ## Nmap Script Analysis
-        This is the main header.
-
-        ### Key Findings
-        Explain in simple terms what the script results reveal about the system, using everyday language and analogies.
-
-        ### Security Implications
-        Describe what these findings mean for the organization's security in business terms, avoiding technical jargon.
-
-        ### Risk Assessment
-        Explain potential vulnerabilities and their implications using simple risk scenarios.
-
-        ### Recommended Actions
-        Suggest practical steps that management should consider, focusing on business priorities.
-
-        IMPORTANT: Use simple language and avoid technical terminology wherever possible. If technical terms must be used, briefly explain them. Ensure every section header starts with exactly "###".
-    """
-
-    if level == 1:
+    try:
+        # Extract meaningful scripts from the XML file
+        script_data = extract_successful_scripts_from_nmap_xml(xml_file_path)
+        
+        if not script_data:
+            print("No meaningful Nmap script results found in the scan data.")
+            return
+        
+        print(f"Found meaningful script results for {len(script_data)} hosts.")
+        
+        # Format script data into messages suitable for analysis
+        script_messages = []
+        for ip, ports in script_data.items():
+            message = f"Nmap Script Results for {ip}\n\n"
+            for port, scripts in ports.items():
+                message += f"Port {port} Scripts:\n"
+                for script_name, script_output in scripts.items():
+                    message += f"  Script: {script_name}\n"
+                    message += f"  Output: {script_output}\n\n"
+            script_messages.append(message)
+        
+        print(f"Prepared {len(script_messages)} messages for analysis.")
+        
+        # Create prompt based on level
         prompt = """
-            You are a cybersecurity expert analyzing Nmap script results for technical implementers.
-            Provide a practical, implementation-focused analysis in clear markdown format using these specific sections:
-
-            ## Nmap Script Analysis
-            This is the main header.
-
-            ### Technical Findings Summary
-            Summarize what the script results reveal about the host's services, configurations, and potential vulnerabilities.
-
-            ### Security Implications & Vulnerabilities
-            Identify specific security concerns based on the script output, including potential vulnerabilities,
-            misconfigurations, or information disclosure issues detected by the scripts.
-
-            ### Exploitation Scenarios
-            Describe how the identified issues could potentially be exploited, including practical examples.
-
-            ### Remediation Steps
-            Provide detailed, actionable instructions for addressing the issues identified by the scripts,
-            including specific configuration changes, updates, or security controls.
-
-            ### Technical References
-            Include links to relevant documentation, CVEs, and security best practices.
-
-            IMPORTANT: Provide sufficient technical detail for direct implementation and validation.
-            Ensure every section header starts with exactly "###".
+            You are a cybersecurity expert analyzing Nmap script results. Provide a clear analysis focusing on:
+            
+            ### Key Findings
+            Explain what the script results reveal about the system.
+            
+            ### Security Implications
+            Describe potential security issues based on these findings.
+            
+            ### Recommended Actions
+            Suggest practical steps to address any issues found.
+            
+            IMPORTANT: Only analyze meaningful information in the script results. Skip "Bad Request" and error messages.
         """
-    elif level == 2:
-        prompt = """
-            You are a senior cybersecurity analyst communicating with fellow security professionals regarding Nmap script results.
-            Provide an expert-level analysis in markdown format using these specific sections:
-
-            ## Nmap Script Analysis
-            This is the main header.
-
-            ### Advanced Script Output Analysis
-            Provide detailed interpretation of the script outputs, including nuanced findings, potential false positives/negatives,
-            and contextual significance of the results across the attack surface.
-
-            ### Threat Intelligence Context
-            Analyze how the findings correlate with known threat actor TTPs, attack chains, and broader threat landscape implications.
-
-            ### Advanced Exploitation Vectors
-            Discuss sophisticated attack methodologies that could leverage the discovered information,
-            including multi-stage attack scenarios and less obvious exploitation paths.
-
-            ### Strategic Remediation & Hardening
-            Recommend comprehensive defensive strategies, focusing on defense-in-depth approaches,
-            architectural considerations, and advanced monitoring techniques.
-
-            ### Expert Resources & References
-            Provide links to advanced technical resources, research papers, and specialized threat intelligence.
-
-            IMPORTANT: Focus on deep technical analysis and strategic security implications.
-            Ensure every section header starts with exactly "###".
-        """
-
-    # Initialize the chat session with the system prompt
-    chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
-    if chat_id is None:
-        print("DEBUG: Failed to initialize chat session.")
-        return
-    print("DEBUG: Initialized chat session with ID:", chat_id)
-    
-    # Add a scripts section to scan_results if it doesn't exist
-    if "nmap_scripts" not in scan_results:
-        scan_results["nmap_scripts"] = {}
-    
-    # Process each message
-    for i, message in enumerate(script_messages):
-        print("\nDEBUG: Processing Nmap script message index", i)
-        print("DEBUG: Message content:\n", message)
         
-        # Send the message to the AI and get response
-        chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id, level=level)
-        print("DEBUG: Raw response received:")
-        print(response)
+        if level >= 1:
+            prompt += " Provide technical details suitable for IT staff."
+            
+        if level >= 2:
+            prompt += " Include advanced analysis for security professionals."
         
-        # Clean up the response
-        cleaned_response = clean_response(response)
-        print("DEBUG: Cleaned response:")
-        print(cleaned_response)
+        # Add a nmap_scripts section to scan_results if it doesn't exist
+        if "nmap_scripts" not in scan_results:
+            scan_results["nmap_scripts"] = {}
         
-        # Extract host IP from the message
-        match = re.search(r"Nmap Script Results for (.+)", message)
-        host_ip = match.group(1) if match else f"host_{i}"
-        print(f"DEBUG: Host IP: {host_ip}")
-        
-        # Store the response
-        scan_results["nmap_scripts"][host_ip] = {"analysis": cleaned_response}
-        
-        # Send to API if scan_id is provided
-        if scan_id:
-            vulnerability_data = {"script_analysis": cleaned_response}
-            send_vulnerability_to_api(vulnerability_data, scan_id, 6)  # Using 6 as order since it follows after other analyses
-        
-        print("-" * 80)
+        # Process each message separately with a new chat session each time
+        for i, message in enumerate(script_messages):
+            print(f"\nProcessing Nmap script message {i+1} of {len(script_messages)}")
+            
+            try:
+                # Create a new chat session for each message to avoid context issues
+                print("Initializing new chat session...")
+                chat_id, _ = send_chat_request(prompt, role="system", model_id=model_id)
+                
+                if chat_id is None:
+                    print(f"Failed to initialize chat session for message {i+1}. Skipping.")
+                    continue
+                    
+                print(f"Chat session initialized with ID: {chat_id}")
+                
+                # Send the message to the AI and get response
+                print(f"Sending message to AI (length: {len(message)} chars)...")
+                chat_id, response = send_chat_request(message, chat_id=chat_id, model_id=model_id, level=level)
+                
+                if response is None:
+                    print(f"No response received for message {i+1}. Skipping.")
+                    continue
+                    
+                print(f"Response received (length: {len(response)} chars)")
+                
+                # Clean up the response
+                cleaned_response = clean_response(response)
+                
+                # Extract host IP from the message
+                match = re.search(r"Nmap Script Results for (.+)", message)
+                host_ip = match.group(1) if match else f"host_{i}"
+                
+                # Store the response
+                scan_results["nmap_scripts"][host_ip] = {"analysis": cleaned_response}
+                
+                # Send to API if scan_id is provided
+                if scan_id:
+                    vulnerability_data = {"script_analysis": cleaned_response}
+                    try:
+                        send_vulnerability_to_api(vulnerability_data, scan_id, 3)
+                    except Exception as e:
+                        print(f"Error sending to API: {str(e)}")
+                
+            except Exception as e:
+                print(f"Error processing message {i+1}: {str(e)}")
+                continue
+                
+    except Exception as e:
+        print(f"Error in test_nmap_scripts: {str(e)}")
 
 def send_vulnerability_to_api(vulnerability_data, scan_id=None, order=0):
     if not scan_id:
@@ -861,15 +894,6 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
         
         print("-" * 80)
 
-def run_AI(xml_file_path="../scan-report2.xml", 
-                     model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0",
-                     scan_id="",
-                     level=2):
-    print("Running AI")
-    test_alert_items(xml_file_path, model_id, scan_id, level=level)
-    test_nmap_object(xml_file_path, model_id, scan_id, level=level)
-    test_nikto_object(xml_file_path, model_id, scan_id, level=level)
-
 def run_zap_analysis(xml_file_path, scan_id, level):
     test_alert_items(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
 
@@ -1049,18 +1073,18 @@ def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRab
     
     return response
 
-if __name__ == "__main__":
-    mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()
-    if mode == 'test':
-        # level = int(input("Input Level"))
+# if __name__ == "__main__":
+#     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()
+#     if mode == 'test':
+#         # level = int(input("Input Level"))
 
-        for i in range(2, 3):
-          print("Testing for Level: " + str(i))
-          # test_alert_items(level=i)
-          # test_nmap_object(level=i)  
-          # test_nikto_object(level=i)
-          test_nmap_scripts("scan_results/f2abfd78-342e-48cc-94de-14d943a3eca4/nmap.xml", scan_id="ajhsdkjasdk", level=1)
-          # print("\n\n\nResponse:\n\n\n" + test_scan_overview(xml_file_path="../scan_results/d39d0e8a-864e-4655-b459-b43124cdaded/scan-report.xml"))
-          # save_json(scan_results, "scan_results.json")
-    else:
-        interactive_chat()
+#         for i in range(2, 3):
+#           print("Testing for Level: " + str(i))
+#           # test_alert_items(level=i)
+#           # test_nmap_object(level=i)  
+#           # test_nikto_object(level=i)
+#           test_nmap_scripts("scan_results/f2abfd78-342e-48cc-94de-14d943a3eca4/nmap.xml", scan_id="ajhsdkjasdk", level=1)
+#           # print("\n\n\nResponse:\n\n\n" + test_scan_overview(xml_file_path="../scan_results/d39d0e8a-864e-4655-b459-b43124cdaded/scan-report.xml"))
+#           # save_json(scan_results, "scan_results.json")
+#     else:
+#         interactive_chat()

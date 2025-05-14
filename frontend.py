@@ -128,12 +128,12 @@ def run_scan_process(scan_id, domain, login_url, level, scan_dir, md_file_path, 
         "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."
     )
 
-    append_status("## ZAP AI Analysis Starting")
-    zap_xml = os.path.join(scan_dir, f"zap.xml")
-    if os.path.exists(zap_xml):
-        send_zap_to_AI(scan_id, zap_xml, status_md_path, level)
-    else:
-        append_status("### ZAP AI Skipped: zap-report XML not found")
+    # append_status("## ZAP AI Analysis Starting")
+    # zap_xml = os.path.join(scan_dir, f"zap.xml")
+    # if os.path.exists(zap_xml):
+    #     send_zap_to_AI(scan_id, zap_xml, status_md_path, level)
+    # else:
+    #     append_status("### ZAP AI Skipped: zap-report XML not found")
 
     create_combined_xml(scan_dir)
 
@@ -206,15 +206,17 @@ def append_status(status_md_path, message):
     with open(status_md_path, 'a', encoding='utf-8') as f:
         f.write(f"---\n\n{message}\n\n")
 
-def send_zap_to_AI(scan_id, xml_file_path, status_md_path, level):
+def send_zap_to_AI(xml_file_path, scan_id, level):
     try:
+        scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
+        status_md_path = os.path.join(scan_dir, STATUS_FILENAME)
         print(f"[{scan_id}] Starting ZAP analysis")
         append_status(
             status_md_path,
             "### ZAP Scan Completed. AI Analysis Starting.\n" +
             f"Started at: {dt.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
         )
-        chat.run_zap_analysis(f"scan_results/{scan_id}/zap.xml", scan_id, level)
+        chat.run_zap_analysis(xml_file_path, scan_id, level)
         append_status(
             status_md_path,
             "### ZAP AI Analysis Completed.\n" +
@@ -228,8 +230,10 @@ def send_zap_to_AI(scan_id, xml_file_path, status_md_path, level):
             "```" + err + "```"
         )
 
-def send_nmap_to_AI(scan_id, xml_file_path, status_md_path, level):
+def send_nmap_to_AI(xml_file_path, scan_id, level):
     try:
+        scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
+        status_md_path = os.path.join(scan_dir, STATUS_FILENAME)
         print(f"[{scan_id}] Starting Nmap analysis")
         append_status(
             status_md_path,
@@ -246,8 +250,10 @@ def send_nmap_to_AI(scan_id, xml_file_path, status_md_path, level):
             "```" + err + "```"
         )
 
-def send_nikto_to_AI(scan_id, xml_file_path, status_md_path, level):
+def send_nikto_to_AI(xml_file_path, scan_id, level):
     try:
+        scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
+        status_md_path = os.path.join(scan_dir, STATUS_FILENAME)
         print(f"[{scan_id}] Starting Nikto analysis")
         append_status(
             status_md_path,
