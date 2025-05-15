@@ -350,6 +350,13 @@ def update_results():
         print(f"[{scan_id}] Received update data via /update endpoint.")
         markdown_chunk = convert_to_markdown(vulnerability_data)
 
+        if order == 0 and "# Executive Summary" in markdown_chunk:
+            # Extract only from "# Executive Summary" onwards
+            executive_summary_index = markdown_chunk.find("# Executive Summary")
+            if executive_summary_index >= 0:
+                markdown_chunk = markdown_chunk[executive_summary_index:]
+                print(f"[{scan_id}] Trimmed Executive Summary to start with the header")
+
         scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
 
         json_filepath = os.path.join(scan_dir, "report.json")

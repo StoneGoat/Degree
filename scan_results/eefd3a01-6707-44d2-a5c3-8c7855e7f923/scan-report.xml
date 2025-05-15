@@ -1,0 +1,587 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ScanResults><NiktoScanResults>
+    <raw_output>- Nikto v2.5.0
+---------------------------------------------------------------------------
++ /: Retrieved x-powered-by header: Templ.io.
++ Target IP:          35.228.57.67
++ Target Hostname:    flamman.se
++ Target Port:        80
++ Start Time:         2025-05-15 13:08:24 (GMT2)
+---------------------------------------------------------------------------
++ Server: nginx
++ Root page / redirects to: https://www.flamman.se/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /: Suggested security header missing: permissions-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy
++ /: Suggested security header missing: x-content-type-options. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
++ /: Suggested security header missing: strict-transport-security. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
++ /: Suggested security header missing: content-security-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
++ /: Suggested security header missing: referrer-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
++ 7970 requests: 0 error(s) and 6 item(s) reported on remote host
++ End Time:           2025-05-15 13:11:05 (GMT2) (161 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+</raw_output>
+</NiktoScanResults><NmapScanResults>
+    <tag_35_228_57_67>
+        <tag_35_228_57_67>
+            <hostnames>
+                <name>67.57.228.35.bc.googleusercontent.com</name>
+                <type>PTR</type>
+            </hostnames>
+            <addresses>
+                <ipv4>35.228.57.67</ipv4>
+            </addresses>
+            <status>
+                <state>up</state>
+                <reason>user-set</reason>
+            </status>
+            <open_ports>
+                <tag_22>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>ssh</name>
+                    <product>OpenSSH</product>
+                    <version>8.2p1 Ubuntu 4ubuntu0.13</version>
+                    <extrainfo>Ubuntu Linux; protocol 2.0</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/o:linux:linux_kernel</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <vulners>
+  cpe:/a:openbsd:openssh:8.2p1: 
+    	CVE-2023-38408	9.8	https://vulners.com/cve/CVE-2023-38408
+    	B8190CDB-3EB9-5631-9828-8064A1575B23	9.8	https://vulners.com/githubexploit/B8190CDB-3EB9-5631-9828-8064A1575B23	*EXPLOIT*
+    	8FC9C5AB-3968-5F3C-825E-E8DB5379A623	9.8	https://vulners.com/githubexploit/8FC9C5AB-3968-5F3C-825E-E8DB5379A623	*EXPLOIT*
+    	8AD01159-548E-546E-AA87-2DE89F3927EC	9.8	https://vulners.com/githubexploit/8AD01159-548E-546E-AA87-2DE89F3927EC	*EXPLOIT*
+    	5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	9.8	https://vulners.com/githubexploit/5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	*EXPLOIT*
+    	2227729D-6700-5C8F-8930-1EEAFD4B9FF0	9.8	https://vulners.com/githubexploit/2227729D-6700-5C8F-8930-1EEAFD4B9FF0	*EXPLOIT*
+    	0221525F-07F5-5790-912D-F4B9E2D1B587	9.8	https://vulners.com/githubexploit/0221525F-07F5-5790-912D-F4B9E2D1B587	*EXPLOIT*
+    	CVE-2020-15778	7.8	https://vulners.com/cve/CVE-2020-15778
+    	SSV:92579	7.5	https://vulners.com/seebug/SSV:92579	*EXPLOIT*
+    	PACKETSTORM:173661	7.5	https://vulners.com/packetstorm/PACKETSTORM:173661	*EXPLOIT*
+    	F0979183-AE88-53B4-86CF-3AF0523F3807	7.5	https://vulners.com/githubexploit/F0979183-AE88-53B4-86CF-3AF0523F3807	*EXPLOIT*
+    	CVE-2020-12062	7.5	https://vulners.com/cve/CVE-2020-12062
+    	1337DAY-ID-26576	7.5	https://vulners.com/zdt/1337DAY-ID-26576	*EXPLOIT*
+    	CVE-2021-28041	7.1	https://vulners.com/cve/CVE-2021-28041
+    	CVE-2021-41617	7.0	https://vulners.com/cve/CVE-2021-41617
+    	PACKETSTORM:189283	6.8	https://vulners.com/packetstorm/PACKETSTORM:189283	*EXPLOIT*
+    	F79E574D-30C8-5C52-A801-66FFA0610BAA	6.8	https://vulners.com/githubexploit/F79E574D-30C8-5C52-A801-66FFA0610BAA	*EXPLOIT*
+    	CVE-2025-26465	6.8	https://vulners.com/cve/CVE-2025-26465
+    	C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	6.8	https://vulners.com/githubexploit/C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	*EXPLOIT*
+    	1337DAY-ID-39918	6.8	https://vulners.com/zdt/1337DAY-ID-39918	*EXPLOIT*
+    	10213DBE-F683-58BB-B6D3-353173626207	6.8	https://vulners.com/githubexploit/10213DBE-F683-58BB-B6D3-353173626207	*EXPLOIT*
+    	CVE-2023-51385	6.5	https://vulners.com/cve/CVE-2023-51385
+    	CVE-2023-48795	5.9	https://vulners.com/cve/CVE-2023-48795
+    	CVE-2020-14145	5.9	https://vulners.com/cve/CVE-2020-14145
+    	54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	5.9	https://vulners.com/githubexploit/54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	*EXPLOIT*
+    	CVE-2016-20012	5.3	https://vulners.com/cve/CVE-2016-20012
+    	CVE-2025-32728	4.3	https://vulners.com/cve/CVE-2025-32728
+    	CVE-2021-36368	3.7	https://vulners.com/cve/CVE-2021-36368
+    	PACKETSTORM:140261	0.0	https://vulners.com/packetstorm/PACKETSTORM:140261	*EXPLOIT*</vulners>
+                    </script>
+                </tag_22>
+                <tag_80>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>nginx</product>
+                    <version />
+                    <extrainfo />
+                    <conf>10</conf>
+                    <cpe>cpe:/a:igor_sysoev:nginx</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-passwd>ERROR: Script execution failed (use -d to debug)</http-passwd>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <https-redirect>ERROR: Script execution failed (use -d to debug)</https-redirect>
+                    </script>
+                </tag_80>
+                <tag_443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>nginx</product>
+                    <version />
+                    <extrainfo>reverse proxy</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/a:igor_sysoev:nginx</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <sslv2-drown>
+</sslv2-drown>
+                    </script>
+                </tag_443>
+                <tag_8022>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>ssh</name>
+                    <product>OpenSSH</product>
+                    <version>8.2p1 Ubuntu 4ubuntu0.13</version>
+                    <extrainfo>Ubuntu Linux; protocol 2.0</extrainfo>
+                    <conf>10</conf>
+                    <cpe>cpe:/o:linux:linux_kernel</cpe>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <vulners>
+  cpe:/a:openbsd:openssh:8.2p1: 
+    	CVE-2023-38408	9.8	https://vulners.com/cve/CVE-2023-38408
+    	B8190CDB-3EB9-5631-9828-8064A1575B23	9.8	https://vulners.com/githubexploit/B8190CDB-3EB9-5631-9828-8064A1575B23	*EXPLOIT*
+    	8FC9C5AB-3968-5F3C-825E-E8DB5379A623	9.8	https://vulners.com/githubexploit/8FC9C5AB-3968-5F3C-825E-E8DB5379A623	*EXPLOIT*
+    	8AD01159-548E-546E-AA87-2DE89F3927EC	9.8	https://vulners.com/githubexploit/8AD01159-548E-546E-AA87-2DE89F3927EC	*EXPLOIT*
+    	5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	9.8	https://vulners.com/githubexploit/5E6968B4-DBD6-57FA-BF6E-D9B2219DB27A	*EXPLOIT*
+    	2227729D-6700-5C8F-8930-1EEAFD4B9FF0	9.8	https://vulners.com/githubexploit/2227729D-6700-5C8F-8930-1EEAFD4B9FF0	*EXPLOIT*
+    	0221525F-07F5-5790-912D-F4B9E2D1B587	9.8	https://vulners.com/githubexploit/0221525F-07F5-5790-912D-F4B9E2D1B587	*EXPLOIT*
+    	CVE-2020-15778	7.8	https://vulners.com/cve/CVE-2020-15778
+    	SSV:92579	7.5	https://vulners.com/seebug/SSV:92579	*EXPLOIT*
+    	PACKETSTORM:173661	7.5	https://vulners.com/packetstorm/PACKETSTORM:173661	*EXPLOIT*
+    	F0979183-AE88-53B4-86CF-3AF0523F3807	7.5	https://vulners.com/githubexploit/F0979183-AE88-53B4-86CF-3AF0523F3807	*EXPLOIT*
+    	CVE-2020-12062	7.5	https://vulners.com/cve/CVE-2020-12062
+    	1337DAY-ID-26576	7.5	https://vulners.com/zdt/1337DAY-ID-26576	*EXPLOIT*
+    	CVE-2021-28041	7.1	https://vulners.com/cve/CVE-2021-28041
+    	CVE-2021-41617	7.0	https://vulners.com/cve/CVE-2021-41617
+    	PACKETSTORM:189283	6.8	https://vulners.com/packetstorm/PACKETSTORM:189283	*EXPLOIT*
+    	F79E574D-30C8-5C52-A801-66FFA0610BAA	6.8	https://vulners.com/githubexploit/F79E574D-30C8-5C52-A801-66FFA0610BAA	*EXPLOIT*
+    	CVE-2025-26465	6.8	https://vulners.com/cve/CVE-2025-26465
+    	C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	6.8	https://vulners.com/githubexploit/C94132FD-1FA5-5342-B6EE-0DAF45EEFFE3	*EXPLOIT*
+    	1337DAY-ID-39918	6.8	https://vulners.com/zdt/1337DAY-ID-39918	*EXPLOIT*
+    	10213DBE-F683-58BB-B6D3-353173626207	6.8	https://vulners.com/githubexploit/10213DBE-F683-58BB-B6D3-353173626207	*EXPLOIT*
+    	CVE-2023-51385	6.5	https://vulners.com/cve/CVE-2023-51385
+    	CVE-2023-48795	5.9	https://vulners.com/cve/CVE-2023-48795
+    	CVE-2020-14145	5.9	https://vulners.com/cve/CVE-2020-14145
+    	54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	5.9	https://vulners.com/githubexploit/54E1BB01-2C69-5AFD-A23D-9783C9D9FC4C	*EXPLOIT*
+    	CVE-2016-20012	5.3	https://vulners.com/cve/CVE-2016-20012
+    	CVE-2025-32728	4.3	https://vulners.com/cve/CVE-2025-32728
+    	CVE-2021-36368	3.7	https://vulners.com/cve/CVE-2021-36368
+    	PACKETSTORM:140261	0.0	https://vulners.com/packetstorm/PACKETSTORM:140261	*EXPLOIT*</vulners>
+                    </script>
+                </tag_8022>
+            </open_ports>
+        </tag_35_228_57_67>
+    </tag_35_228_57_67>
+</NmapScanResults><OWASPZAPReport programName="ZAP" version="2.16.1" generated="Thu, 15 May 2025 13:08:38">
+	
+		<site name="http://flamman.se" host="flamman.se" port="80" ssl="false">
+			<alerts>
+				
+					<alertitem>
+						<pluginid>10037</pluginid>
+						<alertRef>10037</alertRef>
+						<alert>Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s)</alert>
+						<name>Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s)</name>
+						<riskcode>1</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Low (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;The web/application server is leaking information via one or more "X-Powered-By" HTTP response headers. Access to such information may facilitate attackers identifying other frameworks/components your web application is reliant upon and the vulnerabilities such components may be subject to.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param />
+									<attack />
+									<evidence>X-Powered-By: Templ.io</evidence>
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>1</count>
+						<solution>&lt;p&gt;Ensure that your web server, application server, load balancer, etc. is configured to suppress "X-Powered-By" headers.&lt;/p&gt;</solution>
+						<otherinfo />
+						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework&lt;/p&gt;&lt;p&gt;https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html&lt;/p&gt;</reference>
+						<cweid>497</cweid>
+						<wascid>13</wascid>
+						<sourceid>6</sourceid>
+					</alertitem>
+				
+				
+					<alertitem>
+						<pluginid>10104</pluginid>
+						<alertRef>10104</alertRef>
+						<alert>User Agent Fuzzer</alert>
+						<name>User Agent Fuzzer</name>
+						<riskcode>0</riskcode>
+						<confidence>2</confidence>
+						<riskdesc>Informational (Medium)</riskdesc>
+						<confidencedesc>Medium</confidencedesc>
+						<desc>&lt;p&gt;Check for differences in response based on fuzzed User Agent (eg. mobile sites, access as a Search Engine Crawler). Compares the response statuscode and the hashcode of the response body with the original response.&lt;/p&gt;</desc>
+						<instances>
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/robots.txt</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+							
+								<instance>
+									<uri>http://flamman.se/sitemap.xml</uri>
+									<method>GET</method>
+									<param>Header User-Agent</param>
+									<attack>msnbot/1.1 (+http://search.msn.com/msnbot.htm)</attack>
+									<evidence />
+									<otherinfo />
+								</instance>
+							
+						</instances>
+						<count>36</count>
+						<solution />
+						<otherinfo />
+						<reference>&lt;p&gt;https://owasp.org/wstg&lt;/p&gt;</reference>
+						<cweid>0</cweid>
+						<wascid>0</wascid>
+						<sourceid>114</sourceid>
+					</alertitem>
+				
+			</alerts>
+		</site>
+	
+</OWASPZAPReport></ScanResults>
