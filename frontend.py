@@ -125,7 +125,6 @@ def run_scan_process(scan_id, domain, login_url, level, scan_dir, md_file_path, 
     combined_scan_module.run_scan(domain, scan_id, level, login_url, username, password)
     append_status(
         "## Scan Tool Execution Complete\n\n"
-        "Nmap and Nikto have finished (and triggered AI). Starting ZAP now."
     )
 
     # append_status("## ZAP AI Analysis Starting")
