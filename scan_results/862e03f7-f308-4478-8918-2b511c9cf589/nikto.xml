@@ -1,0 +1,1101 @@
+<?xml version="1.0" ?>
+<NiktoScanResults>
+    <raw_output>- Nikto v2.5.0
+---------------------------------------------------------------------------
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ Target IP:          91.212.209.194
++ Target Hostname:    www.elmhultscreentryck.se
++ Target Port:        80
++ Start Time:         2025-05-29 13:21:39 (GMT2)
+---------------------------------------------------------------------------
++ Server: nginx/1.20.1
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /: Suggested security header missing: permissions-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy
++ /: Suggested security header missing: strict-transport-security. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
++ /: Suggested security header missing: content-security-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
++ /: Suggested security header missing: referrer-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
++ /: Suggested security header missing: x-content-type-options. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+E:Thu May 29 13:22:01 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:01 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:01 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:02 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:02 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:02 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:02 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:02 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:02 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:03 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:03 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:03 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:03 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:03 2025 + ERROR:  returned an error: error reading HTTP response
+E:Thu May 29 13:22:03 2025 + ERROR:  returned an error: error reading HTTP response
++ /kboard/: KBoard Forum 0.3.0 and prior have a security problem in forum_edit_post.php, forum_post.php and forum_reply.php.
++ /lists/admin/: PHPList pre 2.6.4 contains a number of vulnerabilities including remote administrative access, harvesting user info and more. Default login to admin interface is admin/phplist.
++ /ssdefs/: Siteseed pre 1.4.2 has 'major' security problems.
++ /sshome/: Siteseed pre 1.4.2 has 'major' security problems.
++ /tiki/: Tiki 1.7.2 and previous allowed restricted Wiki pages to be viewed via a 'URL trick'. Default login/pass could be admin/admin.
++ /~root/: Allowed to browse root's home directory. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-1013
++ /cgi-bin/wrap: Allows viewing of directories.
++ /guestbook/guestbookdat: PHP-Gastebuch 1.60 Beta reveals sensitive information about its configuration.
++ /guestbook/pwd: PHP-Gastebuch 1.60 Beta reveals the md5 hash of the admin password.
++ /help/: Help directory should not be accessible.
++ /getaccess: This may be an indication that the server is running getAccess for SSO.
++ /tsweb/: Microsoft TSAC found. See: https://web.archive.org/web/20040910030506/http://www.dslwebserver.com/main/fr_index.html?/main/sbs-Terminal-Services-Advanced-Client-Configuration.html
++ /vgn/performance/TMT: Vignette CMS admin/maintenance script available.
++ /vgn/performance/TMT/Report: Vignette CMS admin/maintenance script available.
++ /vgn/performance/TMT/Report/XML: Vignette CMS admin/maintenance script available.
++ /vgn/performance/TMT/reset: Vignette CMS admin/maintenance script available.
++ /vgn/ppstats: Vignette CMS admin/maintenance script available.
++ /vgn/previewer: Vignette CMS admin/maintenance script available.
++ /vgn/record/previewer: Vignette CMS admin/maintenance script available.
++ /vgn/stylepreviewer: Vignette CMS admin/maintenance script available.
++ /vgn/vr/Deleting: Vignette CMS admin/maintenance script available.
++ /vgn/vr/Editing: Vignette CMS admin/maintenance script available.
++ /vgn/vr/Saving: Vignette CMS admin/maintenance script available.
++ /vgn/vr/Select: Vignette CMS admin/maintenance script available.
++ /vgn/style: Vignette server may reveal system information through this file. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-0401
++ /bb-dnbd/faxsurvey: This may allow arbitrary command execution.
++ /scripts/tools/dsnform: Allows creation of ODBC Data Source.
++ /siteseed/: Siteseed pre 1.4.2 have 'major' security problems.
++ /iisadmin/: Access to /iisadmin should be restricted to localhost or allowed hosts only.
++ /w-agora/: w-agora pre 4.1.4 may allow a remote user to execute arbitrary PHP scripts via URL includes in include/*.php and user/*.php files. Default account is 'admin' but password set during install.
++ /server/: Possibly Macromedia JRun or CRX WebDAV upload.
++ /vgn/ac/data: Vignette CMS admin/maintenance script available.
++ /vgn/ac/delete: Vignette CMS admin/maintenance script available.
++ /vgn/ac/edit: Vignette CMS admin/maintenance script available.
++ /vgn/ac/esave: Vignette CMS admin/maintenance script available.
++ /vgn/ac/fsave: Vignette CMS admin/maintenance script available.
++ /vgn/ac/index: Vignette CMS admin/maintenance script available.
++ /vgn/asp/MetaDataUpdate: Vignette CMS admin/maintenance script available.
++ /vgn/asp/previewer: Vignette CMS admin/maintenance script available.
++ /vgn/asp/status: Vignette CMS admin/maintenance script available.
++ /vgn/asp/style: Vignette CMS admin/maintenance script available.
++ /vgn/errors: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/controller: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/errorpage: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/initialize: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/jspstatus: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/jspstatus56: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/metadataupdate: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/previewer: Vignette CMS admin/maintenance script available.
++ /vgn/jsp/style: Vignette CMS admin/maintenance script available.
++ /vgn/legacy/edit: Vignette CMS admin/maintenance script available.
++ /vgn/login: Vignette server may allow user enumeration based on the login attempts to this file.
++ /typo3conf/: This may contain sensitive TYPO3 files.
++ /cms/typo3conf/: This may contain sensitive TYPO3 files.
++ /site/typo3conf/: This may contain sensitive TYPO3 files.
++ /typo/typo3conf/: This may contain sensitive TYPO3 files.
++ /typo3/typo3conf/: This may contain sensitive TYPO3 files.
++ /vgn/license: Vignette server license file found. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-0403
++ /webcart/carts/: This may allow attackers to read credit card data. Reconfigure to make this dir not accessible via the web. See: https://packetstormsecurity.com/files/32406/xmas.txt.html
++ /webcart/config/: This may allow attackers to read credit card data. Reconfigure to make this dir not accessible via the web. See: https://packetstormsecurity.com/files/32406/xmas.txt.html
++ /webcart/orders/: This may allow attackers to read credit card data. Reconfigure to make this dir not accessible via the web. See: https://packetstormsecurity.com/files/32406/xmas.txt.html
++ /jamdb/: JamDB pre 0.9.2 mp3.php and image.php can allow user to read arbitrary file out of docroot.
++ /cgi/cgiproc?: It may be possible to crash Nortel Contivity VxWorks by requesting '/cgi/cgiproc?$' (not attempted!). Upgrade to version 2.60 or later. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2000-0063
++ /servlet/SchedulerTransfer: PeopleSoft SchedulerTransfer servlet found, which may allow remote command execution. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-0104
++ /servlets/SchedulerTransfer: PeopleSoft SchedulerTransfer servlet found, which may allow remote command execution. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-0104
++ /perl/-e%20print%20Hello: The Perl interpreter on the Novell system may allow any command to be executed. See: http://www.securityfocus.com/bid/5520
++ /vgn/legacy/save: Vignette Legacy Tool may be unprotected. To access this resource, set a cookie called 'vgn_creds' with any value.
++ /securecontrolpanel/: Web Server Control Panel.
++ /siteminder: This may be an indication that the server is running Siteminder for SSO.
++ /webmail/: Web based mail package installed.
++ /_cti_pvt/: FrontPage directory found.
++ /upd/: WASD Server can allow directory listings by requesting /upd/directory/. Upgrade to a later version and secure according to the documents on the WASD web site.
++ /CVS/Entries: CVS Entries file may contain directory listing information.
++ /admin-serv/config/admpw: This file contains the encrypted Netscape admin password. It should not be accessible via the web.
++ /cgi-bin/cgi_process: WASD reveals a lot of system information in this script. It should be removed.
++ /tree: WASD Server reveals the entire web root structure and files via this URL. Upgrade to a later version and secure according to the documents on the WASD web site.
++ /examples/servlet/AUX: Apache Tomcat versions below 4.1 may be vulnerable to DoS by repeatedly requesting this file.
++ /contents/extensions/asp/1: The IIS system may be vulnerable to a DOS. See: https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-018
++ /jigsaw/: Jigsaw server may be installed. Versions lower than 2.2.1 are vulnerable to Cross Site Scripting (XSS) in the error page. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-1053
++ /guestbook/?number=5&amp;lng=%3Cscript%3Ealert(document.domain);%3C/script%3E: MPM Guestbook 1.2 and previous are vulnreable to XSS attacks. See: OSVDB-2754
++ /ammerum/: Ammerum pre 0.6-1 had several security issues.
++ /ariadne/: Ariadne pre 2.1.2 has several vulnerabilities. The default login/pass to the admin page is admin/muze.
++ /cgi-bin/MachineInfo: Gives out information on the machine.
++ /chat/data/usr: SimpleChat! 1.3 allows retrieval of user information. See: OSVDB-53304
++ /config/: Configuration information may be available remotely.
++ /cgi-bin/handler: This program allows remote users to run arbitrary commands.
++ /servlet/SessionManager: IBM WebSphere reconfigure servlet (user=servlet, password=manager). All default code should be removed from servers.
++ /level/42/exec/show%20conf: Retrieved Cisco configuration file.
++ /livehelp/: LiveHelp may reveal system information.
++ /LiveHelp/: LiveHelp may reveal system information.
++ /session/admnlogin: SessionServlet Output, has session cookie info.
++ /krysalis/: Krysalis pre 1.0.3 may allow remote users to read arbitrary files outside docroot.
++ /submit?setoption=q&amp;option=allowed_ips&amp;value=255.255.255.255: MLdonkey 2.x allows administrative interface access to be access from any IP. This is typically only found on port 4080. See: OSVDB-3126
++ /_vti_txt/_vti_cnf/: FrontPage directory found.
++ /_vti_txt/: FrontPage directory found.
++ /doc/: The /doc/ directory is browsable. This may be /usr/doc. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-1999-0678
++ /doc: The /doc directory is browsable. This may be /usr/doc. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-1999-0678
++ /BACLIENT: IBM Tivoli default file found. See: OSVDB-2117
++ /level/16/exec/-///pwd: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/exec/-///show/configuration: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/exec/: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/exec//show/access-lists: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/level/16/exec//show/configuration: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/level/16/exec//show/interfaces: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/level/16/exec//show/interfaces/status: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/level/16/exec//show/version: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/level/16/exec//show/running-config/interface/FastEthernet: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/16/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/17/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/18/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/19/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/20/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/21/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/22/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/23/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/24/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/25/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/26/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/27/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/28/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/29/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/30/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/31/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/32/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/33/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/34/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/35/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/36/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/37/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/38/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/39/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/40/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/41/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/42/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/43/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/44/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/45/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/46/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/47/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/48/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/49/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/50/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/51/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/52/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/53/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/54/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/55/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/56/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/57/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/58/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/59/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/60/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/61/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/62/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/63/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/64/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/65/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/66/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/67/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/68/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/69/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/70/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/71/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/72/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/73/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/74/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/75/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/76/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/77/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/78/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/79/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/80/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/81/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/82/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/83/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/84/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/85/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/86/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/87/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/88/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/89/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/90/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/91/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/92/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/93/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/94/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/95/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/96/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/97/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/98/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /level/99/exec//show: CISCO HTTP service allows remote execution of commands. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0537
++ /com/: Novell web server allows directory listing. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2106
++ /com/novell/: Novell web server allows directory listing. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2106
++ /com/novell/webaccess: Novell web server allows directory listing. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2106
++ /support/messages: Axis WebCam allows retrieval of messages file (/var/log/messages). See: https://www.securityfocus.com/archive/1/313485
++ /server-status: This reveals Apache information. Comment out appropriate line in the Apache conf file or restrict access to allowed sources. See: OSVDB-561
++ /publisher/: Netscape Enterprise Server with Web Publishing can allow attackers to edit web pages and/or list arbitrary directories via Java applet. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2000-0237
++ /cpanel/: Web-based control panel. See: https://cpanel.net/
++ /photo/: My Photo Gallery pre 3.6 contains multiple vulnerabilities including directory traversal, unspecified vulnerabilities and remote management interface access. See: OSVDB-2695
++ /photodata/: My Photo Gallery pre 3.6 contains multiple vulnerabilities including directory traversal, unspecified vulnerabilities and remote management interface access. See: OSVDB-2695
++ /acceso/: This might be interesting.
++ /access-log: This might be interesting.
++ /access/: This might be interesting.
++ /access_log: This might be interesting.
++ /acciones/: This might be interesting.
++ /account/: This might be interesting.
++ /accounting/: This might be interesting.
++ /activex/: This might be interesting.
++ /adm/: This might be interesting.
++ /admin/: This might be interesting.
++ /Administration/: This might be interesting.
++ /administration/: This might be interesting.
++ /administrator/: This might be interesting.
++ /Admin_files/: This might be interesting.
++ /advwebadmin/: This might be interesting: probably HostingController, www.hostingcontroller.com.
++ /Agent/: This might be interesting.
++ /Agentes/: This might be interesting.
++ /agentes/: This might be interesting.
++ /Agents/: This might be interesting.
++ /analog/: This might be interesting.
++ /apache/: This might be interesting.
++ /app/: This might be interesting.
++ /applicattion/: This might be interesting.
++ /applicattions/: This might be interesting.
++ /apps/: This might be interesting.
++ /archivar/: This might be interesting.
++ /archive/: This might be interesting.
++ /archives/: This might be interesting.
++ /archivo/: This might be interesting.
++ /asp/: This might be interesting.
++ /Asp/: This might be interesting.
++ /atc/: This might be interesting.
++ /auth/: This might be interesting.
++ /ayuda/: This might be interesting.
++ /backdoor/: This might be interesting.
++ /backup/: This might be interesting.
++ /bak/: This might be interesting.
++ /banca/: This might be interesting.
++ /banco/: This might be interesting.
++ /bank/: This might be interesting.
++ /bbv/: This might be interesting.
++ /bdata/: This might be interesting.
++ /bdatos/: This might be interesting.
++ /beta/: This might be interesting.
++ /bin/: This might be interesting.
++ /boot/: This might be interesting.
++ /buy/: This might be interesting.
++ /buynow/: This might be interesting.
++ /c/: This might be interesting.
++ /cache-stats/: This might be interesting.
++ /caja/: This might be interesting.
++ /card/: This might be interesting.
++ /cards/: This might be interesting.
++ /cart/: This might be interesting.
++ /cash/: This might be interesting.
++ /ccard/: This might be interesting.
++ /cdrom/: This might be interesting.
++ /cert/: This might be interesting.
++ /certificado/: This might be interesting.
++ /certificate: This might be interesting.
++ /certificates: This might be interesting.
++ /client/: This might be interesting.
++ /cliente/: This might be interesting.
++ /clientes/: This might be interesting.
++ /clients/: This might be interesting.
++ /communicator/: This might be interesting.
++ /compra/: This might be interesting.
++ /compras/: This might be interesting.
++ /compressed/: This might be interesting.
++ /conecta/: This might be interesting.
++ /connect/: This might be interesting.
++ /console: This might be interesting.
++ /correo/: This might be interesting.
++ /crypto/: This might be interesting.
++ /css/: This might be interesting.
++ /cuenta/: This might be interesting.
++ /cuentas/: This might be interesting.
++ /dat/: This might be interesting.
++ /data/: This might be interesting.
++ /dato/: This might be interesting.
++ /datos/: This might be interesting.
++ /db/: This might be interesting.
++ /dbase/: This might be interesting.
++ /demo/: This might be interesting.
++ /demos/: This might be interesting.
++ /dev/: This might be interesting.
++ /devel/: This might be interesting.
++ /development/: This might be interesting.
++ /dir/: This might be interesting.
++ /directory/: This might be interesting.
++ /DMR/: This might be interesting.
++ /doc-html/: This might be interesting.
++ /down/: This might be interesting.
++ /download/: This might be interesting.
++ /downloads/: This might be interesting.
++ /ejemplo/: This might be interesting.
++ /ejemplos/: This might be interesting.
++ /employees/: This might be interesting.
++ /envia/: This might be interesting.
++ /enviamail/: This might be interesting.
++ /error_log: This might be interesting.
++ /excel/: This might be interesting.
++ /Excel/: This might be interesting.
++ /EXE/: This might be interesting.
++ /exe/: This might be interesting.
++ /fbsd/: This might be interesting.
++ /file/: This might be interesting.
++ /fileadmin/: This might be interesting.
++ /files/: This might be interesting.
++ /forum/: This might be interesting.
++ /forums/: This might be interesting.
++ /foto/: This might be interesting.
++ /fotos/: This might be interesting.
++ /fpadmin/: This might be interesting.
++ /ftp/: This might be interesting.
++ /gfx/: This might be interesting.
++ /global/: This might be interesting.
++ /graphics/: This might be interesting.
++ /guest/: This might be interesting.
++ /guestbook/: This might be interesting.
++ /guests/: This might be interesting.
++ /hidden/: This might be interesting.
++ /hitmatic/: This might be interesting.
++ /hit_tracker/: This might be interesting.
++ /home/: This might be interesting.
++ /homepage/: This might be interesting.
++ /htdocs/: This might be interesting.
++ /html/: This might be interesting.
++ /htpasswd: This might be interesting.
++ /ibill/: This might be interesting.
++ /idea/: This might be interesting.
++ /ideas/: This might be interesting.
++ /imagenes/: This might be interesting.
++ /img/: This might be interesting.
++ /imgs/: This might be interesting.
++ /import/: This might be interesting.
++ /impreso/: This might be interesting.
++ /includes/: This might be interesting.
++ /incoming/: This might be interesting.
++ /info/: This might be interesting.
++ /informacion/: This might be interesting.
++ /information/: This might be interesting.
++ /ingresa/: This might be interesting.
++ /ingreso/: This might be interesting.
++ /install/: This might be interesting.
++ /internal/: This might be interesting.
++ /intranet/: This might be interesting.
++ /invitado/: This might be interesting.
++ /invitados/: This might be interesting.
++ /java/: This might be interesting.
++ /jdbc/: This might be interesting.
++ /job/: This might be interesting.
++ /jrun/: This might be interesting.
++ /js: This might be interesting.
++ /lib/: This might be interesting.
++ /library/: This might be interesting.
++ /libro/: This might be interesting.
++ /linux/: This might be interesting.
++ /logfile: This might be interesting.
++ /logfile/: This might be interesting.
++ /logfiles/: This might be interesting.
++ /logger/: This might be interesting.
++ /logging/: This might be interesting.
++ /login/: This might be interesting.
++ /logs/: This might be interesting.
++ /logs/access_log: This might be interesting.
++ /logs/error_log: This might be interesting.
++ /lost+found/: This might be interesting.
++ /mail/: This might be interesting.
++ /manage/cgi/cgiproc: This might be interesting.
++ /marketing/: This might be interesting.
++ /mbox: This might be interesting.
++ /members/: This might be interesting.
++ /message/: This might be interesting.
++ /messaging/: This might be interesting.
++ /misc/: This might be interesting.
++ /mkstats/: This might be interesting.
++ /movimientos/: This might be interesting.
++ /mp3/: This might be interesting.
++ /mqseries/: This might be interesting.
++ /msql/: This might be interesting.
++ /msword/: This might be interesting.
++ /Msword/: This might be interesting.
++ /MSword/: This might be interesting.
++ /NetDynamic/: This might be interesting.
++ /NetDynamics/: This might be interesting.
++ /netscape/: This might be interesting.
++ /new: This might be interesting.
++ /new/: This might be interesting.
++ /news: This might be interesting.
++ /noticias/: This might be interesting.
++ /odbc/: This might be interesting.
++ /old/: This might be interesting.
++ /oracle: This might be interesting.
++ /oradata/: This might be interesting.
++ /order/: This might be interesting.
++ /orders/: This might be interesting.
++ /outgoing/: This might be interesting.
++ /ows/: This might be interesting: Oracle Web Services?.
++ /pages/: This might be interesting.
++ /Pages/: This might be interesting.
++ /passwd: This might be interesting.
++ /passwdfile: This might be interesting.
++ /password: This might be interesting.
++ /passwords/: This might be interesting.
++ /PDG_Cart/: This might be interesting.
++ /perl5/: This might be interesting.
++ /php/: This might be interesting.
++ /pics/: This might be interesting.
++ /pix/: This might be interesting.
++ /poll: This might be interesting.
++ /polls: This might be interesting.
++ /porn/: This might be interesting.
++ /pr0n/: This might be interesting.
++ /privado/: This might be interesting.
++ /private/: This might be interesting.
++ /prod/: This might be interesting.
++ /pron/: This might be interesting.
++ /prueba/: This might be interesting.
++ /pruebas/: This might be interesting.
++ /pub/: This might be interesting.
++ /public/: This might be interesting.
++ /publica/: This might be interesting.
++ /publicar/: This might be interesting.
++ /publico/: This might be interesting.
++ /purchase/: This might be interesting.
++ /purchases/: This might be interesting.
++ /python/: This might be interesting.
++ /readme: This might be interesting.
++ /register/: This might be interesting.
++ /registered/: This might be interesting.
++ /reports/: This might be interesting.
++ /reseller/: This might be interesting.
++ /restricted/: This might be interesting.
++ /retail/: This might be interesting.
++ /sales/: This might be interesting.
++ /sample/: This might be interesting.
++ /samples/: This might be interesting.
++ /save/: This might be interesting.
++ /scr/: This might be interesting.
++ /scratch: This might be interesting.
++ /scripts/weblog: This might be interesting.
++ /secret/: This might be interesting.
++ /sell/: This might be interesting.
++ /service/: This might be interesting.
++ /servicio/: This might be interesting.
++ /servicios/: This might be interesting.
++ /setup/: This might be interesting.
++ /shop/: This might be interesting.
++ /shopper/: This might be interesting.
++ /solaris/: This might be interesting.
++ /Sources/: This might be interesting: may be YaBB.
++ /spwd: This might be interesting.
++ /srchadm: This might be interesting.
++ /staff/: This might be interesting.
++ /stat/: This might be interesting.
++ /statistic/: This might be interesting.
++ /Statistics/: This might be interesting.
++ /statistics/: This might be interesting.
++ /stats/: This might be interesting.
++ /Stats/: This might be interesting.
++ /status/: This might be interesting.
++ /store/: This might be interesting.
++ /StoreDB/: This might be interesting.
++ /stylesheet/: This might be interesting.
++ /stylesheets/: This might be interesting.
++ /subir/: This might be interesting.
++ /sun/: This might be interesting.
++ /super_stats/access_logs: Web logs are exposed..
++ /super_stats/error_logs: Web logs are exposed.
++ /support/: This might be interesting.
++ /swf: This might be interesting: Flash files?.
++ /sys/: This might be interesting.
++ /system/: This might be interesting.
++ /tar/: This might be interesting.
++ /tarjetas/: This might be interesting.
++ /temp/: This might be interesting.
++ /template/: This might be interesting: could have sensitive files or system information.
++ /temporal/: This might be interesting.
++ /test/: This might be interesting.
++ /testing/: This might be interesting.
++ /tests/: This might be interesting.
++ /tmp/: This might be interesting.
++ /tools/: This might be interesting.
++ /tpv/: This might be interesting.
++ /trabajo/: This might be interesting.
++ /trafficlog/: This might be interesting.
++ /transito/: This might be interesting.
++ /tree/: This might be interesting.
++ /trees/: This might be interesting.
++ /updates/: This might be interesting.
++ /user/: This might be interesting.
++ /users/: This might be interesting.
++ /ustats/: This might be interesting.
++ /usuario/: This might be interesting.
++ /usuarios/: This might be interesting.
++ /vfs/: This might be interesting.
++ /w3perl/admin: This might be interesting.
++ /warez/: This might be interesting.
++ /web/: This might be interesting.
++ /web800fo/: This might be interesting.
++ /webadmin/: This might be interesting: probably HostingController, www.hostingcontroller.com.
++ /webboard/: This might be interesting.
++ /webcart-lite/: This might be interesting.
++ /webcart/: This might be interesting.
++ /webdata/: This might be interesting.
++ /weblog/: This might be interesting.
++ /weblogs/: This might be interesting.
++ /webmaster_logs/: This might be interesting.
++ /WebShop/: This might be interesting.
++ /website/: This might be interesting.
++ /webstats/: This might be interesting.
++ /WebTrend/: This might be interesting.
++ /Web_store/: This might be interesting.
++ /windows/: This might be interesting.
++ /word/: This might be interesting.
++ /work/: This might be interesting.
++ /wstats/: This might be interesting.
++ /wusage/: This might be interesting.
++ /www-sql/: This might be interesting.
++ /www/: This might be interesting.
++ /wwwjoin/: This might be interesting.
++ /wwwlog/: This might be interesting.
++ /wwwstats/: This might be interesting.
++ /zipfiles/: This might be interesting.
++ /clocktower/: Microsoft Site Server sample files may have SQL injection. See: https://github.com/sullo/advisory-archives/blob/master/RFP2201.txt
++ /market/: Microsoft Site Server sample files may have SQL injection. See: https://github.com/sullo/advisory-archives/blob/master/RFP2201.txt
++ /mspress30/: Microsoft Site Server sample files may have SQL injection. See: https://github.com/sullo/advisory-archives/blob/master/RFP2201.txt
++ /sam: This might be interesting.
++ /site/iissamples/: This might be interesting.
++ /vc30/: Microsoft Site Server sample files may have SQL injection. See: https://github.com/sullo/advisory-archives/blob/master/RFP2201.txt
++ /_mem_bin/: This might be interesting: user login.
++ /custdata/: This may be COWS (CGI Online Worldweb Shopping), and may leak customer data.
++ /hostingcontroller/: This might be interesting: probably HostingController, www.hostingcontroller.com.
++ /databases/: Databases directy found.
++ /img-sys/: Default image directory should not allow directory listing.
++ /java-sys/: Default Java directory should not allow directory listing.
++ /javadoc/: Documentation...?.
++ /log/: Ahh...log information...fun!.
++ /manager/: May be a web server or site manager.
++ /manual/: Web server manual found.
++ /exchange/: This might be interesting: Outlook/Exchange OWA.
++ /add_acl: This might be interesting: has been seen in web logs from an unknown scanner.
++ /adv/gm001-mc/: This might be interesting: has been seen in web logs from an unknown scanner.
++ /bugtest+/+: This might be interesting: has been seen in web logs from an unknown scanner.
++ /dbabble: This might be interesting: has been seen in web logs from an unknown scanner.
++ /docs/NED: This might be interesting: has been seen in web logs from an unknown scanner.
++ /do_map: This might be interesting: has been seen in web logs from an unknown scanner.
++ /do_subscribe: This might be interesting: has been seen in web logs from an unknown scanner.
++ /etc/shadow+: This might be interesting: has been seen in web logs from an unknown scanner.
++ /moregroupware/modules/webmail2/inc/: This might be interesting: has been seen in web logs from an unknown scanner.
++ /netget?sid=Safety&amp;amp;msg=2002&amp;amp;file=Safety: This might be interesting: has been seen in web logs from an unknown scanner.
++ /OpenTopic: This might be interesting: has been seen in web logs from an unknown scanner.
++ /pks/lookup: This might be interesting: has been seen in web logs from an unknown scanner.
++ /protected/: This might be interesting: has been seen in web logs from an unknown scanner.
++ /texis/websearch/phine: This might be interesting: has been seen in web logs from an unknown scanner.
++ /database/: Database directory found.
++ /jservdocs/: Default Apache JServ docs should be removed. See: CWE-552
++ /akopia/: Akopia is installed. See: CWE-552
++ /servlet/Counter: JRun default servlet found. All default code should be removed from servers. See: CWE-552
++ /servlet/DateServlet: JRun default servlet found. All default code should be removed from servers. See: CWE-552
++ /servlet/FingerServlet: JRun default servlet found. All default code should be removed from servers. See: CWE-552
++ /servlet/HelloWorldServlet: JRun default servlet found. All default code should be removed from servers. See: CWE-552
++ /servlet/SessionServlet: JRun or Netware WebSphere default servlet found. All default code should be removed from servers. See: CWE-552
++ /servlet/SimpleServlet: JRun default servlet found (possibly Websphere). All default code should be removed from servers. See: CWE-552
++ /servlet/SnoopServlet: JRun, Netware Java Servlet Gateway, or WebSphere default servlet found. All default code should be removed from servers. See: CWE-552
++ /_private/: FrontPage directory found. See: https://en.wikipedia.org/wiki/Microsoft_FrontPage
++ /_private/_vti_cnf/: FrontPage directory found. See: https://en.wikipedia.org/wiki/Microsoft_FrontPage
++ /_vti_bin/: FrontPage directory found. See: https://en.wikipedia.org/wiki/Microsoft_FrontPage
++ /_vti_bin/_vti_cnf/: FrontPage directory found. See: https://en.wikipedia.org/wiki/Microsoft_FrontPage
++ /_vti_cnf/_vti_cnf/: FrontPage directory found. See: https://en.wikipedia.org/wiki/Microsoft_FrontPage
++ /_vti_log/_vti_cnf/: FrontPage directory found. See: https://en.wikipedia.org/wiki/Microsoft_FrontPage
++ /nethome/: Netscape Enterprise Server default doc/manual directory. Reveals server path at bottom of page. See: CWE-552
++ /servlet/AdminServlet: Netware Web Search Server (adminservlet) found. All default code should be removed from web servers. See: CWE-552
++ /servlet/gwmonitor: Netware Gateway monitor found. All default code should be removed from web servers. See: CWE-552
++ /servlet/PrintServlet: Novell Netware default servlet found. All default code should be removed from the system. See: CWE-552
++ /servlet/SearchServlet: Novell Netware default servlet found. All default code should be removed from the system. See: CWE-552
++ /servlet/ServletManager: Netware Java Servlet Gateway found. Default user ID is servlet, default password is manager. All default code should be removed from Internet servers. See: CWE-552
++ /servlet/sq1cdsn: Novell Netware default servlet found. All default code should be removed from the system. See: CWE-552
++ /servlet/sqlcdsn: Netware SQL connector found. All default code should be removed from web servers. See: CWE-552
++ /servlet/webacc: Netware Enterprise and/or GroupWise web access found. All default code should be removed from Internet servers. See: CWE-552
++ /servlet/webpub: Netware Web Publisher found. All default code should be removed from web servers. See: CWE-552
++ /WebSphereSamples: Netware Webshere sample applications found. All default code should be removed from web servers. See: CWE-552
++ /a/: May be Kebi Web Mail administration menu. See: CWE-552
++ /basilix/: BasiliX webmail application. Default mysql database name is 'BASILIX' with password 'bsxpass'. See: CWE-552
++ /interchange/: Interchange chat is installed. Look for a high-numbered port like 20xx to find it running. See: CWE-552
++ /CFIDE/administrator/index.cfm:X-Frame-Options header is deprecated and was replaced with the Content-Security-Policy HTTP header with the frame-ancestors directive instead. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /CFIDE/administrator/index.cfm: ColdFusion Administrator found. ColdFusion 4.5.1 and earlier may have an overflow by submitting a 40k character password. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2000-0538 http://www.securityfocus.com/bid/1314.
++ /surf/scwebusers: SurfControl SuperScout Web Reports Server user and password file is available. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-0705
++ /isqlplus: Oracle iSQL*Plus is installed. This may be vulnerable to a buffer overflow in the user ID field. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-1264
++ /catinfo: May be vulnerable to a buffer overflow. Request '/catinfo?' and add on 2048 of garbage to test. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0432
++ /soap/servlet/soaprouter: Oracle 9iAS SOAP components allow anonymous users to deploy applications by default. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-1371
++ /XQKSh4qPMQOKIeTqGAdXZ3zQGKYYIbXrcE8fxxRd1DroqL4FLWewR803WgwzLLPa7pmCAt0RxsThfPof5l1GsyZzhY2vfxvRjnGJ5EiR5wouhq1Tn7BLaZkRtRWrOhRutmRN5Z4Tw1nPsFUgx23lGCUMX27UAdm4CzVIy0rQLYHyLclunezzeQqMuJjDtKbqPEfR4PIQEoIz8gmjVvYhx6b2aJxGpdV&lt;font%20size=50&gt;DEFACED&lt;!--//--: MyWebServer 1.0.2 is vulnerable to HTML injection. Upgrade to a later version. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-1453
++ /server-info: This gives a lot of Apache information. Comment out appropriate line in httpd.conf or restrict access to allowed hosts. See: https://www.invicti.com/web-vulnerability-scanner/vulnerabilities/apache-server-info-detected/
++ /stronghold-info: Redhat Stronghold from versions 2.3 up to 3.0 discloses sensitive information. This gives information on configuration. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0868
++ /stronghold-status: Redhat Stronghold from versions 2.3 up to 3.0 discloses sensitive information. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0868
++ /j2ee/: j2ee directory found--possibly an Oracle app server directory. See: CWE-552
++ /webcache/: Oracle WebCache Demo. See: CWE-552
++ /bmp/: SQLJ Demo Application. See: CWE-552
++ /webapp/admin/_pages/_bc4jadmin/: Oracle JSP files. See: CWE-552
++ /_pages/_demo/: Oracle JSP file. See: CWE-552
++ /_pages/_webapp/_jsp/: Oracle JSP file. See: CWE-552
++ /_pages/_demo/_sql/: Oracle JSP file. See: CWE-552
++ /OA_HTML/_pages/: Oracle JSP file. See: CWE-552
++ /reports/rwservlet?server=repserv+report=/tmp/hacker.rdf+destype=cache+desformat=PDF: Oracle Reports rwservlet report Variable Arbitrary Report Executable Execution. See: https://www.exploit-db.com/exploits/26006
++ /apex/: Oracle Application Express login screen. See: CWE-552
++ /OA_JAVA/: Oracle Applications Portal Page. See: CWE-552
++ /OA_HTML/: Oracle Applications Portal Page. See: CWE-552
++ /servlets/weboam/oam/oamLogin: Oracle Application Manager. See: CWE-552
++ /reports/rwservlet: Oracle Reports. See: CWE-552
++ /reports/rwservlet/showenv: Oracle Reports. See: CWE-552
++ /reports/rwservlet/showmap: Oracle Reports. See: CWE-552
++ /reports/rwservlet/showjobs: Oracle Reports. See: CWE-552
++ /reports/rwservlet/getjobid7?server=myrep: Oracle Reports. See: CWE-552
++ /reports/rwservlet/getjobid4?server=myrep: Oracle Reports. See: CWE-552
++ /reports/rwservlet/showmap?server=myserver: Oracle Reports. See: CWE-552
++ /pls/portal/SELECT: Access to Oracle pages could have an unknown impact.
++ /pls/portal/null: Access to Oracle pages could have an unknown impact.
++ /OA_MEDIA/: Oracle Applications portal pages found.
++ /OA_HTML/META-INF/: Oracle Applications portal pages found.
++ /OA_JAVA/Oracle/: Oracle Applications portal pages found.
++ /OA_HTML/jsp/: Oracle Applications portal page found. See: CWE-552
++ /cehttp/trace: Sterling Commerce Connect Direct trace log file may contain user ID information.
++ /cehttp/property/: Sterling Commerce Connect Direct configuration files.
++ /staging/: This might be interesting.
++ /_archive/: Archive found.
++ /webservices/IlaWebServices: Host has the Oracle iLearning environment installed.
++ /phone/: This might be interesting.
++ /Admin/: This might be interesting.
++ /af/: This might be interesting: potential country code (Afghanistan).
++ /ax/: This might be interesting: potential country code (Aland Islands).
++ /al/: This might be interesting: potential country code (Albania).
++ /dz/: This might be interesting: potential country code (Algeria).
++ /as/: This might be interesting: potential country code (American Samoa).
++ /ad/: This might be interesting: potential country code (Andorra).
++ /ao/: This might be interesting: potential country code (Angola).
++ /ai/: This might be interesting: potential country code (Anguilla).
++ /aq/: This might be interesting: potential country code (Antarctica).
++ /ag/: This might be interesting: potential country code (Antigua And Barbuda).
++ /ar/: This might be interesting: potential country code (Argentina).
++ /am/: This might be interesting: potential country code (Armenia).
++ /aw/: This might be interesting: potential country code (Aruba).
++ /au/: This might be interesting: potential country code (Australia).
++ /at/: This might be interesting: potential country code (Austria).
++ /az/: This might be interesting: potential country code (Azerbaijan).
++ /bs/: This might be interesting: potential country code (Bahamas).
++ /bh/: This might be interesting: potential country code (Bahrain).
++ /bd/: This might be interesting: potential country code (Bangladesh).
++ /bb/: This might be interesting: potential country code (Barbados).
++ /by/: This might be interesting: potential country code (Belarus).
++ /be/: This might be interesting: potential country code (Belgium).
++ /bz/: This might be interesting: potential country code (Belize).
++ /bj/: This might be interesting: potential country code (Benin).
++ /bm/: This might be interesting: potential country code (Bermuda).
++ /bt/: This might be interesting: potential country code (Bhutan).
++ /bo/: This might be interesting: potential country code (Bolivia).
++ /ba/: This might be interesting: potential country code (Bosnia And Herzegovina).
++ /bw/: This might be interesting: potential country code (Botswana).
++ /bv/: This might be interesting: potential country code (Bouvet Island).
++ /br/: This might be interesting: potential country code (Brazil).
++ /io/: This might be interesting: potential country code (British Indian Ocean Territory).
++ /bn/: This might be interesting: potential country code (Brunei Darussalam).
++ /bg/: This might be interesting: potential country code (Bulgaria).
++ /bf/: This might be interesting: potential country code (Burkina Faso).
++ /bi/: This might be interesting: potential country code (Burundi).
++ /kh/: This might be interesting: potential country code (Cambodia).
++ /cm/: This might be interesting: potential country code (Cameroon).
++ /ca/: This might be interesting: potential country code (Canada).
++ /cv/: This might be interesting: potential country code (Cape Verde).
++ /ky/: This might be interesting: potential country code (Cayman Islands).
++ /cf/: This might be interesting: potential country code (Central African Republic).
++ /td/: This might be interesting: potential country code (Chad).
++ /cl/: This might be interesting: potential country code (Chile).
++ /cn/: This might be interesting: potential country code (China).
++ /cx/: This might be interesting: potential country code (Christmas Island).
++ /cc/: This might be interesting: potential country code (Cocos (keeling) Islands).
++ /co/: This might be interesting: potential country code (Colombia).
++ /km/: This might be interesting: potential country code (Comoros).
++ /cg/: This might be interesting: potential country code (Congo).
++ /cd/: This might be interesting: potential country code (The Democratic Republic Of The Congo).
++ /ck/: This might be interesting: potential country code (Cook Islands).
++ /cr/: This might be interesting: potential country code (Costa Rica).
++ /ci/: This might be interesting: potential country code (CÔte D'ivoire).
++ /hr/: This might be interesting: potential country code (Croatia).
++ /cu/: This might be interesting: potential country code (Cuba).
++ /cy/: This might be interesting: potential country code (Cyprus).
++ /cz/: This might be interesting: potential country code (Czech Republic).
++ /dk/: This might be interesting: potential country code (Denmark).
++ /dj/: This might be interesting: potential country code (Djibouti).
++ /dm/: This might be interesting: potential country code (Dominica).
++ /do/: This might be interesting: potential country code (Dominican Republic).
++ /ec/: This might be interesting: potential country code (Ecuador).
++ /eg/: This might be interesting: potential country code (Egypt).
++ /sv/: This might be interesting: potential country code (El Salvador).
++ /gq/: This might be interesting: potential country code (Equatorial Guinea).
++ /er/: This might be interesting: potential country code (Eritrea).
++ /ee/: This might be interesting: potential country code (Estonia).
++ /et/: This might be interesting: potential country code (Ethiopia).
++ /fk/: This might be interesting: potential country code (Falkland Islands (malvinas)).
++ /fo/: This might be interesting: potential country code (Faroe Islands).
++ /fj/: This might be interesting: potential country code (Fiji).
++ /fi/: This might be interesting: potential country code (Finland).
++ /fr/: This might be interesting: potential country code (France).
++ /gf/: This might be interesting: potential country code (French Guiana).
++ /pf/: This might be interesting: potential country code (French Polynesia).
++ /tf/: This might be interesting: potential country code (French Southern Territories).
++ /ga/: This might be interesting: potential country code (Gabon).
++ /gm/: This might be interesting: potential country code (Gambia).
++ /ge/: This might be interesting: potential country code (Georgia).
++ /de/: This might be interesting: potential country code (Germany).
++ /gh/: This might be interesting: potential country code (Ghana).
++ /gi/: This might be interesting: potential country code (Gibraltar).
++ /gr/: This might be interesting: potential country code (Greece).
++ /gl/: This might be interesting: potential country code (Greenland).
++ /gd/: This might be interesting: potential country code (Grenada).
++ /gp/: This might be interesting: potential country code (Guadeloupe).
++ /gu/: This might be interesting: potential country code (Guam).
++ /gt/: This might be interesting: potential country code (Guatemala).
++ /gg/: This might be interesting: potential country code (Guernsey).
++ /gn/: This might be interesting: potential country code (Guinea).
++ /gw/: This might be interesting: potential country code (Guinea-bissau).
++ /gy/: This might be interesting: potential country code (Guyana).
++ /ht/: This might be interesting: potential country code (Haiti).
++ /hm/: This might be interesting: potential country code (Heard Island And Mcdonald Islands).
++ /va/: This might be interesting: potential country code (Holy See (vatican City State)).
++ /hn/: This might be interesting: potential country code (Honduras).
++ /hk/: This might be interesting: potential country code (Hong Kong).
++ /hu/: This might be interesting: potential country code (Hungary).
++ /is/: This might be interesting: potential country code (Iceland).
++ /in/: This might be interesting: potential country code (India).
++ /id/: This might be interesting: potential country code (Indonesia).
++ /ir/: This might be interesting: potential country code (Islamic Republic Of Iran).
++ /iq/: This might be interesting: potential country code (Iraq).
++ /ie/: This might be interesting: potential country code (Ireland).
++ /im/: This might be interesting: potential country code (Isle Of Man).
++ /il/: This might be interesting: potential country code (Israel).
++ /it/: This might be interesting: potential country code (Italy).
++ /jm/: This might be interesting: potential country code (Jamaica).
++ /jp/: This might be interesting: potential country code (Japan).
++ /je/: This might be interesting: potential country code (Jersey).
++ /jo/: This might be interesting: potential country code (Jordan).
++ /kz/: This might be interesting: potential country code (Kazakhstan).
++ /ke/: This might be interesting: potential country code (Kenya).
++ /ki/: This might be interesting: potential country code (Kiribati).
++ /kp/: This might be interesting: potential country code (Democratic People's Republic Of Korea).
++ /kr/: This might be interesting: potential country code (Republic Of Korea).
++ /kw/: This might be interesting: potential country code (Kuwait).
++ /kg/: This might be interesting: potential country code (Kyrgyzstan).
++ /la/: This might be interesting: potential country code (Lao People's Democratic Republic).
++ /lv/: This might be interesting: potential country code (Latvia).
++ /lb/: This might be interesting: potential country code (Lebanon).
++ /ls/: This might be interesting: potential country code (Lesotho).
++ /lr/: This might be interesting: potential country code (Liberia).
++ /ly/: This might be interesting: potential country code (Libyan Arab Jamahiriya).
++ /li/: This might be interesting: potential country code (Liechtenstein).
++ /lt/: This might be interesting: potential country code (Lithuania).
++ /lu/: This might be interesting: potential country code (Luxembourg).
++ /mo/: This might be interesting: potential country code (Macao).
++ /mk/: This might be interesting: potential country code (Macedonia).
++ /mg/: This might be interesting: potential country code (Madagascar).
++ /mw/: This might be interesting: potential country code (Malawi).
++ /my/: This might be interesting: potential country code (Malaysia).
++ /mv/: This might be interesting: potential country code (Maldives).
++ /ml/: This might be interesting: potential country code (Mali).
++ /mt/: This might be interesting: potential country code (Malta).
++ /mh/: This might be interesting: potential country code (Marshall Islands).
++ /mq/: This might be interesting: potential country code (Martinique).
++ /mr/: This might be interesting: potential country code (Mauritania).
++ /mu/: This might be interesting: potential country code (Mauritius).
++ /yt/: This might be interesting: potential country code (Mayotte).
++ /mx/: This might be interesting: potential country code (Mexico).
++ /fm/: This might be interesting: potential country code (Federated States Of Micronesia).
++ /md/: This might be interesting: potential country code (Republic Of Moldova).
++ /mc/: This might be interesting: potential country code (Monaco).
++ /mn/: This might be interesting: potential country code (Mongolia).
++ /me/: This might be interesting: potential country code (Montenegro).
++ /ms/: This might be interesting: potential country code (Montserrat).
++ /ma/: This might be interesting: potential country code (Morocco).
++ /mz/: This might be interesting: potential country code (Mozambique).
++ /mm/: This might be interesting: potential country code (Myanmar).
++ /na/: This might be interesting: potential country code (Namibia).
++ /nr/: This might be interesting: potential country code (Nauru).
++ /np/: This might be interesting: potential country code (Nepal).
++ /nl/: This might be interesting: potential country code (Netherlands).
++ /an/: This might be interesting: potential country code (Netherlands Antilles).
++ /nc/: This might be interesting: potential country code (New Caledonia).
++ /nz/: This might be interesting: potential country code (New Zealand).
++ /ni/: This might be interesting: potential country code (Nicaragua).
++ /ne/: This might be interesting: potential country code (Niger).
++ /ng/: This might be interesting: potential country code (Nigeria).
++ /nu/: This might be interesting: potential country code (Niue).
++ /nf/: This might be interesting: potential country code (Norfolk Island).
++ /mp/: This might be interesting: potential country code (Northern Mariana Islands).
++ /no/: This might be interesting: potential country code (Norway).
++ /om/: This might be interesting: potential country code (Oman).
++ /pk/: This might be interesting: potential country code (Pakistan).
++ /pw/: This might be interesting: potential country code (Palau).
++ /ps/: This might be interesting: potential country code (Palestinian Territory).
++ /pa/: This might be interesting: potential country code (Panama).
++ /pg/: This might be interesting: potential country code (Papua New Guinea).
++ /py/: This might be interesting: potential country code (Paraguay).
++ /pe/: This might be interesting: potential country code (Peru).
++ /ph/: This might be interesting: potential country code (Philippines).
++ /pn/: This might be interesting: potential country code (Pitcairn).
++ /pl/: This might be interesting: potential country code (Poland).
++ /pt/: This might be interesting: potential country code (Portugal).
++ /pr/: This might be interesting: potential country code (Puerto Rico).
++ /qa/: This might be interesting: potential country code (Qatar).
++ /re/: This might be interesting: potential country code (RÉunion).
++ /ro/: This might be interesting: potential country code (Romania).
++ /ru/: This might be interesting: potential country code (Russian Federation).
++ /rw/: This might be interesting: potential country code (Rwanda).
++ /bl/: This might be interesting: potential country code (Saint BarthÉlemy).
++ /sh/: This might be interesting: potential country code (Saint Helena).
++ /kn/: This might be interesting: potential country code (Saint Kitts And Nevis).
++ /lc/: This might be interesting: potential country code (Saint Lucia).
++ /mf/: This might be interesting: potential country code (Saint Martin).
++ /pm/: This might be interesting: potential country code (Saint Pierre And Miquelon).
++ /vc/: This might be interesting: potential country code (Saint Vincent And The Grenadines).
++ /ws/: This might be interesting: potential country code (Samoa).
++ /sm/: This might be interesting: potential country code (San Marino).
++ /st/: This might be interesting: potential country code (Sao Tome And Principe).
++ /sa/: This might be interesting: potential country code (Saudi Arabia).
++ /sn/: This might be interesting: potential country code (Senegal).
++ /rs/: This might be interesting: potential country code (Serbia).
++ /sc/: This might be interesting: potential country code (Seychelles).
++ /sl/: This might be interesting: potential country code (Sierra Leone).
++ /sg/: This might be interesting: potential country code (Singapore).
++ /sk/: This might be interesting: potential country code (Slovakia).
++ /si/: This might be interesting: potential country code (Slovenia).
++ /sb/: This might be interesting: potential country code (Solomon Islands).
++ /so/: This might be interesting: potential country code (Somalia).
++ /za/: This might be interesting: potential country code (South Africa).
++ /gs/: This might be interesting: potential country code (South Georgia And The South Sandwich Islands).
++ /es/: This might be interesting: potential country code (Spain).
++ /lk/: This might be interesting: potential country code (Sri Lanka).
++ /sd/: This might be interesting: potential country code (Sudan).
++ /sr/: This might be interesting: potential country code (Suriname).
++ /sj/: This might be interesting: potential country code (Svalbard And Jan Mayen).
++ /sz/: This might be interesting: potential country code (Swaziland).
++ /se/: This might be interesting: potential country code (Sweden).
++ /ch/: This might be interesting: potential country code (Switzerland).
++ /sy/: This might be interesting: potential country code (Syrian Arab Republic).
++ /tw/: This might be interesting: potential country code (Taiwan).
++ /tj/: This might be interesting: potential country code (Tajikistan).
++ /tz/: This might be interesting: potential country code (United Republic Of Tanzania).
++ /th/: This might be interesting: potential country code (Thailand).
++ /tl/: This might be interesting: potential country code (Timor-leste).
++ /tg/: This might be interesting: potential country code (Togo).
++ /tk/: This might be interesting: potential country code (Tokelau).
++ /to/: This might be interesting: potential country code (Tonga).
++ /tt/: This might be interesting: potential country code (Trinidad And Tobago).
++ /tn/: This might be interesting: potential country code (Tunisia).
++ /tr/: This might be interesting: potential country code (Turkey).
++ /tm/: This might be interesting: potential country code (Turkmenistan).
++ /tc/: This might be interesting: potential country code (Turks And Caicos Islands).
++ /tv/: This might be interesting: potential country code (Tuvalu).
++ /ug/: This might be interesting: potential country code (Uganda).
++ /ua/: This might be interesting: potential country code (Ukraine).
++ /ae/: This might be interesting: potential country code (United Arab Emirates).
++ /gb/: This might be interesting: potential country code (United Kingdom).
++ /us/: This might be interesting: potential country code (United States).
++ /um/: This might be interesting: potential country code (United States Minor Outlying Islands).
++ /uy/: This might be interesting: potential country code (Uruguay).
++ /uz/: This might be interesting: potential country code (Uzbekistan).
++ /vu/: This might be interesting: potential country code (Vanuatu).
++ /ve/: This might be interesting: potential country code (Venezuela).
++ /vn/: This might be interesting: potential country code (Viet Nam).
++ /vg/: This might be interesting: potential country code (British Virgin Islands).
++ /vi/: This might be interesting: potential country code (U.S. Virgin Islands).
++ /wf/: This might be interesting: potential country code (Wallis And Futuna).
++ /eh/: This might be interesting: potential country code (Western Sahara).
++ /ye/: This might be interesting: potential country code (Yemen).
++ /zm/: This might be interesting: potential country code (Zambia).
++ /zw/: This might be interesting: potential country code (Zimbabwe).
++ /www/2: This might be interesting.
++ /admin1/: Admin login page/section found.
++ /admin4_account/: Admin login page/section found.
++ /admin4_colon/: Admin login page/section found.
++ /administer/: Admin login page/section found.
++ /administr8/: Admin login page/section found.
++ /administracao/: Admin login page/section found.
++ /administraçao/: Admin login page/section found.
++ /administracion/: Admin login page/section found.
++ /administrateur/: Admin login page/section found.
++ /administratie/: Admin login page/section found.
++ /administration/: Admin login page/section found.
++ /administratoraccounts/: Admin login page/section found.
++ /administrators/: Admin login page/section found.
++ /administrivia/: Admin login page/section found.
++ /adminisztrátora/: Admin login page/section found.
++ /adminpro/: Admin login page/section found.
++ /admins/: Admin login page/section found.
++ /AdminTools/: Admin login page/section found.
++ /amministratore/: Admin login page/section found.
++ /autologin/: Admin login page/section found.
++ /banneradmin/: Admin login page/section found.
++ /bbadmin/: Admin login page/section found.
++ /beheerder/: Admin login page/section found.
++ /bigadmin/: Admin login page/section found.
++ /blogindex/: Admin login page/section found.
++ /cadmins/: Admin login page/section found.
++ /ccms/: Admin login page/section found.
++ /ccp14admin/: Admin login page/section found.
++ /cmsadmin/: Admin login page/section found.
++ /configuration/: Admin login page/section found.
++ /configure/: Admin login page/section found.
++ /controlpanel/: Admin login page/section found.
++ /cpanel_file/: Admin login page/section found.
++ /customer_login/: Admin login page/section found.
++ /database_administration/: Admin login page/section found.
++ /Database_Administration/: Admin login page/section found.
++ /dir-login/: Admin login page/section found.
++ /directadmin/: Admin login page/section found.
++ /ezsqliteadmin/: Admin login page/section found.
++ /formslogin/: Admin login page/section found.
++ /globes_admin/: Admin login page/section found.
++ /hpwebjetadmin/: Admin login page/section found.
++ /Indy_admin/: Admin login page/section found.
++ /irc-macadmin/: Admin login page/section found.
++ /LiveUser_Admin/: Admin login page/section found.
++ /login_db/: Admin login page/section found.
++ /login-redirect/: Admin login page/section found.
++ /login-us/: Admin login page/section found.
++ /login1/: Admin login page/section found.
++ /loginflat/: Admin login page/section found.
++ /logo_sysadmin/: Admin login page/section found.
++ /Lotus_Domino_Admin/: Admin login page/section found.
++ /macadmin/: Admin login page/section found.
++ /maintenance/: Admin login page/section found.
++ /manuallogin/: Admin login page/section found.
++ /memlogin/: Admin login page/section found.
++ /meta_login/: Admin login page/section found.
++ /moderator/: Admin login page/section found.
++ /myadmin/: Admin login page/section found.
++ /navSiteAdmin/: Admin login page/section found.
++ /newsadmin/: Admin login page/section found.
++ /openvpnadmin/: Admin login page/section found.
++ /painel/: Admin login page/section found.
++ /panel/: Admin login page/section found.
++ /pgadmin/: Admin login page/section found.
++ /phpldapadmin/: Admin login page/section found.
++ /phppgadmin/: Admin login page/section found.
++ /phpSQLiteAdmin/: Admin login page/section found.
++ /platz_login/: Admin login page/section found.
++ /power_user/: Admin login page/section found.
++ /project-admins/: Admin login page/section found.
++ /pureadmin/: Admin login page/section found.
++ /radmind-1/: Admin login page/section found.
++ /radmind/: Admin login page/section found.
++ /rcLogin/: Admin login page/section found.
++ /server_admin_small/: Admin login page/section found.
++ /ServerAdministrator/: Admin login page/section found.
++ /showlogin/: Admin login page/section found.
++ /simpleLogin/: Admin login page/section found.
++ /smblogin/: Admin login page/section found.
++ /sql-admin/: Admin login page/section found.
++ /ss_vms_admin_sm/: Admin login page/section found.
++ /sshadmin/: Admin login page/section found.
++ /staradmin/: Admin login page/section found.
++ /sub-login/: Admin login page/section found.
++ /Super-Admin/: Admin login page/section found.
++ /support_login/: Admin login page/section found.
++ /sys-admin/: Admin login page/section found.
++ /sysadmin/: Admin login page/section found.
++ /SysAdmin/: Admin login page/section found.
++ /SysAdmin2/: Admin login page/section found.
++ /sysadmins/: Admin login page/section found.
++ /system_administration/: Admin login page/section found.
++ /system-administration/: Admin login page/section found.
++ /ur-admin/: Admin login page/section found.
++ /useradmin/: Admin login page/section found.
++ /UserLogin/: Admin login page/section found.
++ /utility_login/: Admin login page/section found.
++ /v2/painel/: Admin login page/section found.
++ /vadmind/: Admin login page/section found.
++ /vmailadmin/: Admin login page/section found.
++ /webmaster/: Admin login page/section found.
++ /websvn/: Admin login page/section found.
++ /wizmysqladmin/: Admin login page/section found.
++ /wp-admin/: Admin login page/section found.
++ /wordpress/wp-admin/: Admin login page/section found.
++ /wp-login/: Admin login page/section found.
++ /wordpress/wp-login/: Admin login page/section found.
++ /xlogin/: Admin login page/section found.
++ /maint/: This might be interesting.
++ /jk-status: Apache mod_jk status page is visible.
++ /balancer-manager: mod_proxy_balancer management page is visible.
++ /servlets-examples/: Tomcat servlets examples are visible.
++ /admin-console: JBoss admin console is visible.
++ /messages/: This might be interesting.
++ /cms/: This might be interesting.
++ /helpdesk/: This might be interesting.
++ /3rdparty/phpMyAdmin/: phpMyAdmin directory found.
++ /phpMyAdmin/: phpMyAdmin directory found.
++ /3rdparty/phpmyadmin/: phpMyAdmin directory found.
++ /phpmyadmin/: phpMyAdmin directory found.
++ /pma/: phpMyAdmin directory found.
++ /openadmin/: Informix OpenAdmin tool administration login.
++ /adfs/ls/?wa=wsignout1.0: Active Directory Federation Services sign out page found.
++ /adfs/ls/?wa=wsignin1.0&amp;wtrealm=http://www.cirt.net/: Active Directory Federation Services sign in page found.
++ /manager/html: Tomcat Manager / Host Manager interface found (pass protected).
++ /jk-manager/html: Tomcat Manager / Host Manager interface found (pass protected).
++ /jk-status/html: Tomcat Manager / Host Manager interface found (pass protected).
++ /admin/html: Tomcat Manager / Host Manager interface found (pass protected).
++ /host-manager/html: Tomcat Manager / Host Manager interface found (pass protected).
++ /adfs/services/proxytrustpolicystoretransfer: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/samlprotocol/proxytrust: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/mexsoap: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/proxymexhttpget/: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/proxymex: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/2005/windowstransport: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/2005/certificatemixed: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/2005/certificatetransport: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/2005/usernamemixed: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/2005/kerberosmixed: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/2005/issuedtokenmixedasymmetricbasic256: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/2005/issuedtokenmixedsymmetricbasic256: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/13/kerberosmixed: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/13/certificatemixed: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/13/usernamemixed: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/13/issuedtokenmixedasymmetricbasic256: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/13/issuedtokenmixedsymmetricbasic256: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trusttcp/windows: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/proxytrust: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/proxytrust13: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/proxytrustprovisionusername: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /adfs/services/trust/proxytrustprovisionissuedtoken: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /FederationMetadata/2007-06/: Active Directory Federation Services page found. See: https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview
++ /console/: Application console found.
++ /wsman/: Windows Remote Management is enabled.
++ /webservices/: Webservices found.
++ /atg/bcc: Oracle ATG Business Control Center.
++ /dyn/admin/: Admin page found; possibly Oracle ATG.
++ /crx: Adobe CQ CRX Console.
++ /system/console/configMgr: OSGi Apache Felix console.
++ /system/console/bundles: OSGi Apache Felix console.
++ /system/console: OSGi Apache Felix console.
++ /repository/: CRX WebDAV upload.
++ /cqresource/: CRX WebDAV upload.
++ /etc/cloudservices: Adobe Experience Manager Cloud Service Information.
++ /etc/reports: Adobe Experience Manager Reports.
++ /dumpinfo: National Instruments Service Locator.
++ /manage/Logs/: Covertix SmartCipher Console Login and Web Service Log directory detected.
++ /rsa: Encryption key exposed.
++ /dsa: Encryption key exposed.
++ /id_rsa: Encryption key exposed.
++ /id_dsa: Encryption key exposed.
++ /identity: Encryption key exposed.
++ /key: Encryption key exposed.
++ /encrypt: This might be interesting.
++ /decrypt: This might be interesting.
++ /debug/: Possible debug directory/program found.
++ /~ftp/: Allowed to browse ftp user's home directory. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-1013
++ /_layouts/images/: FrontPage/Sharepointfile available.
++ /server-manager/: Mitel Audio and Web Conferencing server manager identified.
++ /manager/status: Tomcat Server Status interface found (pass protected).
++ /jk-manager/status: Tomcat Server Status interface found (pass protected).
++ /jk-status/status: Tomcat Server Status interface found (pass protected).
++ /admin/status: Tomcat Server Status interface found (pass protected).
++ /host-manager/status: Tomcat Server Status interface found (pass protected).
++ /_async/AsyncResponseServiceJms?WSDL: BEA WebLogic may allow remote takeover. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-2725 CNVD-C-2019-48814
++ 8099 requests: 15 error(s) and 1069 item(s) reported on remote host
++ End Time:           2025-05-29 13:26:24 (GMT2) (285 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+</raw_output>
+</NiktoScanResults>

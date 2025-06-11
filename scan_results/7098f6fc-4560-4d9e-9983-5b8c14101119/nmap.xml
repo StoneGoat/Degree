@@ -1,0 +1,781 @@
+<?xml version="1.0" ?>
+<NmapScanResults>
+    <tag_188_114_97_1>
+        <tag_188_114_97_1>
+            <hostnames>
+                <name/>
+                <type/>
+            </hostnames>
+            <addresses>
+                <ipv4>188.114.97.1</ipv4>
+            </addresses>
+            <status>
+                <state>up</state>
+                <reason>user-set</reason>
+            </status>
+            <open_ports>
+                <tag_80>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757824eb1c0d28-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 947578239e4db902-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757823ee9efff2-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RPCCheck: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:14 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  X11Probe: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-server-header>cloudflare</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                    </script>
+                </tag_80>
+                <tag_443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>https</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:16 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 9475784b5a6cb954-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:15 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 947578496bc2773c-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:15 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 9475784a5b516679-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RPCCheck: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:21 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  tor-versions: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:16 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-server-header>cloudflare</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <sslv2-drown>
+</sslv2-drown>
+                    </script>
+                </tag_443>
+                <tag_8080>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http-proxy</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 947578249882fffe-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 947578239c93fe9b-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757823ec97b90f-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  Socks4, Socks5: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:09 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-server-header>cloudflare</http-server-header>
+                    </script>
+                </tag_8080>
+                <tag_8443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>https-alt</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  DNSVersionBindReqTCP, RPCCheck: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:21 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  FourOhFourRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:16 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 9475784b392dfffb-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:15 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 9475784969c46694-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 10:57:15 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 9475784a4f9fb927-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-server-header>cloudflare</http-server-header>
+                        <sslv2-drown>
+</sslv2-drown>
+                    </script>
+                </tag_8443>
+            </open_ports>
+        </tag_188_114_97_1>
+    </tag_188_114_97_1>
+    <tag_188_114_96_1>
+        <tag_188_114_96_1>
+            <hostnames>
+                <name/>
+                <type/>
+            </hostnames>
+            <addresses>
+                <ipv4>188.114.96.1</ipv4>
+            </addresses>
+            <status>
+                <state>up</state>
+                <reason>user-set</reason>
+            </status>
+            <open_ports>
+                <tag_80>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757eed38856640-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757eebee62773c-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757eec38c2a55c-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RPCCheck: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:52 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  X11Probe: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-server-header>cloudflare</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                    </script>
+                </tag_80>
+                <tag_443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>https</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:53 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 94757f143c777740-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:53 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 94757f125cc4fffa-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:53 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 94757f134a24e247-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RPCCheck: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:59 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  tor-versions: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:54 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-csrf>Couldn't find any CSRF vulnerabilities.</http-csrf>
+                        <http-dombased-xss>Couldn't find any DOM based XSS.</http-dombased-xss>
+                        <http-server-header>cloudflare</http-server-header>
+                        <http-stored-xss>Couldn't find any stored XSS vulnerabilities.</http-stored-xss>
+                        <sslv2-drown>
+</sslv2-drown>
+                    </script>
+                </tag_443>
+                <tag_8080>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>http-proxy</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  FourOhFourRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757eecfcbafea0-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757eebed5cfe9e-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 400 Bad Request
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    Server: cloudflare
+    CF-RAY: 94757eec3bd0feac-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  Socks4, Socks5: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:47 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-server-header>cloudflare</http-server-header>
+                    </script>
+                </tag_8080>
+                <tag_8443>
+                    <state>open</state>
+                    <reason>syn-ack</reason>
+                    <name>https-alt</name>
+                    <product>cloudflare</product>
+                    <version/>
+                    <extrainfo/>
+                    <conf>10</conf>
+                    <cpe/>
+                    <script>
+                        <clamav-exec>ERROR: Script execution failed (use -d to debug)</clamav-exec>
+                        <fingerprint-strings>
+  DNSVersionBindReqTCP, RPCCheck: 
+    HTTP/1.1 400 Bad Request
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:59 GMT
+    Content-Type: text/html
+    Content-Length: 155
+    Connection: close
+    CF-RAY: -
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  FourOhFourRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:53 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 94757f142c71773f-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  GetRequest: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:53 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 94757f125a4ab908-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  HTTPOptions: 
+    HTTP/1.1 403 Forbidden
+    Server: cloudflare
+    Date: Thu, 29 May 2025 11:01:53 GMT
+    Content-Type: text/html
+    Content-Length: 151
+    Connection: close
+    CF-RAY: 94757f133ca9feaf-AMS
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  RTSPRequest: 
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+    &lt;hr&gt;&lt;center&gt;cloudflare&lt;/center&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</fingerprint-strings>
+                        <http-server-header>cloudflare</http-server-header>
+                        <sslv2-drown>
+</sslv2-drown>
+                    </script>
+                </tag_8443>
+            </open_ports>
+        </tag_188_114_96_1>
+    </tag_188_114_96_1>
+</NmapScanResults>

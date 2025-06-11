@@ -51,6 +51,11 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
+<<<<<<< HEAD
+=======
+            # scan_id = "86431de3-fd9e-4ff3-9620-0dec3a284ddd"
+
+>>>>>>> 9fc433a (+)
             print(f"Generated new scan ID: {scan_id}")
 
             # Create directory for this scan using the absolute base path
