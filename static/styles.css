@@ -111,7 +111,6 @@ body {
   color: var(--color-text);
 }
 
-/* Unified input styling */
 .scan-form input[type="text"],
 .scan-form input[type="url"],
 .scan-form input[type="password"],
@@ -125,13 +124,11 @@ body {
   color: var(--color-text);
 }
 
-/* Hide disabled inputs */
 .scan-form input:disabled,
 .scan-form select:disabled {
   display: none;
 }
 
-/* Ensure labels in login-div stack nicely */
 .login-div label {
   display: block;
   margin-top: 0.75em;

@@ -101,13 +101,13 @@ def verify_dvwa_authentication(cookies, target_url):
             if response.status_code == 200:
                 # Look for common DVWA authenticated page elements
                 if "Logout" in response.text and "DVWA Security" in response.text:
-                    logger.info(f"✓ Authentication verified at {url}")
+                    logger.info(f"Authentication verified at {url}")
                     return url
                 elif "Welcome to Damn Vulnerable Web Application" in response.text and "Logout" in response.text:
-                    logger.info(f"✓ Authentication verified at {url}")
+                    logger.info(f"Authentication verified at {url}")
                     return url
                 elif "DVWA" in response.text and "Logout" in response.text:
-                    logger.info(f"✓ Authentication verified at {url}")
+                    logger.info(f"Authentication verified at {url}")
                     return url
                 else:
                     logger.info(f"Page at {url} doesn't appear to be authenticated (no Logout link)")
@@ -154,7 +154,7 @@ def configure_zap_session(session_cookies, target_url):
             logger.error(f"Could not find site {domain} in ZAP")
             return False
             
-        # Add the session tokens (cookies) to ZAP
+        # Add the session tokens to ZAP
         for cookie_name in session_cookies.keys():
             logger.info(f"Adding session token: {cookie_name}")
             zap.httpsessions.add_session_token(site, cookie_name)
@@ -293,11 +293,6 @@ def run_authenticated_scan(target, username, password, id, session_cookies=None)
                     logger.error("Failed to configure ZAP with external cookies")
             else:
                 logger.warning("Provided cookies failed verification")
-        
-        # If we're here, either:
-        # 1. No cookies were provided, or
-        # 2. Provided cookies failed verification, or
-        # 3. ZAP configuration failed
         
         # Try direct authentication
         if username and password:

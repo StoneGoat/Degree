@@ -7,18 +7,17 @@ from datetime import datetime as dt
 import traceback
 import combined_scan_module
 import AI.chat as chat
-import traceback # Import traceback for detailed error logging
+import traceback
 import json
 import xml.etree.ElementTree as ET
 
-# Assuming these are your custom modules
-import AI.chat as chat # More explicit import if chat is a module inside AI
+import AI.chat as chat
 import pdf_writer_module
 import generate_graphs
 
 # Config
 app = Flask(__name__)
-app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_default_development_secret_key') # Use env var or default
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_default_development_secret_key')
 SCAN_RESULTS_BASE_DIR = os.path.abspath('scan_results')
 app.config['SCAN_RESULTS_DIR'] = SCAN_RESULTS_BASE_DIR
 STATUS_FILENAME = 'status.md'
@@ -52,8 +51,6 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
-            # scan_id = "d39d0e8a-864e-4655-b459-b43124cdaded"
-
             print(f"Generated new scan ID: {scan_id}")
 
             # Create directory for this scan using the absolute base path
@@ -61,7 +58,7 @@ def index():
             os.makedirs(scan_dir, exist_ok=True)
             print(f"Created scan directory: {scan_dir}")
 
-            # Initialize the VULNERABILITY md file (minimal header)
+            # Initialize the VULNERABILITY md file
             md_file_path = os.path.join(scan_dir, VULNERABILITY_FILENAME)
             try:
                 with open(md_file_path, 'w', encoding='utf-8') as f:
@@ -127,13 +124,6 @@ def run_scan_process(scan_id, domain, login_url, level, scan_dir, md_file_path, 
         "## Scan Tool Execution Complete\n\n"
     )
 
-    # append_status("## ZAP AI Analysis Starting")
-    # zap_xml = os.path.join(scan_dir, f"zap.xml")
-    # if os.path.exists(zap_xml):
-    #     send_zap_to_AI(scan_id, zap_xml, status_md_path, level)
-    # else:
-    #     append_status("### ZAP AI Skipped: zap-report XML not found")
-
     create_combined_xml(scan_dir)
 
     overview_xml = os.path.join(scan_dir, f"scan-report.xml")
@@ -186,12 +176,6 @@ def scan_results():
     if not scan_id:
         flash("No scan ID provided.")
         return redirect(url_for("index"))
-
-    # try:
-    #     uuid.UUID(scan_id, version=4)
-    # except ValueError:
-    #     flash("Invalid Scan ID format.")
-    #     return redirect(url_for("index"))
 
     scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
     if not os.path.isdir(scan_dir):
@@ -334,10 +318,6 @@ def update_results():
     if not scan_id:
         print("Update request received without scan_id")
         return jsonify({"error": "No scan ID provided"}), 400
-    # try: uuid.UUID(scan_id, version=4)
-    # except ValueError:
-    #     print(f"Update request received with invalid scan_id format: {scan_id}")
-    #     return jsonify({"error": "Invalid Scan ID format"}), 400
 
     try:
         vulnerability_data = request.get_json()["content"]
@@ -372,7 +352,7 @@ def update_results():
               try:
                   data = json.load(f)
               except json.JSONDecodeError:
-                  # Empty or invalid JSON → reinitialize
+                  # Empty or invalid JSON -> reinitialize
                   data = {0: (), 1: (), 2: (), 3: (), 4: (), 5: ()}
 
               # 3. Update the mapping
@@ -472,7 +452,7 @@ def download_pdf(scan_id):
         return redirect(url_for("index"))
 
     scan_dir = os.path.join(app.config['SCAN_RESULTS_DIR'], scan_id)
-    md_file = os.path.join(scan_dir, VULNERABILITY_FILENAME) # Source is vulnerability report
+    md_file = os.path.join(scan_dir, VULNERABILITY_FILENAME)
     output_pdf = os.path.join(scan_dir, f"scan_report_{scan_id}.pdf")
 
     if not os.path.exists(scan_dir):
@@ -508,7 +488,7 @@ def download_pdf(scan_id):
 def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
     """Generates graphs. Appends LINKS to vulnerability.md. Appends STATUS/ERRORS to status.md."""
     print(f"[{scan_id}] --- Attempting graph generation and markdown update ---")
-    graph_link_section = "\n\n## Visual Summary\n\n" # For vulnerability.md
+    graph_link_section = "\n\n## Visual Summary\n\n"
     status_updates_for_graphs = [] # Collect status messages
     graphs_added_to_vuln = 0
     graphs_failed = []
@@ -551,7 +531,7 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
                 if graphs_failed:
                     msg = f"Missing Graphs: Expected graph files not found: `{'`, `'.join(graphs_failed)}`"
                     status_updates_for_graphs.append(msg)
-                graph_link_section += "---\n\n" # Separator in vulnerability report
+                graph_link_section += "---\n\n"
         else:
             msg = "Graph Generation Status: Graph generation failed or was skipped (returned None). No graphs added."
             print(f"[{scan_id}] {msg}")
@@ -563,7 +543,7 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
         status_updates_for_graphs.append(msg)
         if graph_output_dir is None and 'graph_output_dir' not in locals(): graph_output_dir = None
 
-    # Append graph LINKS section to VULNERABILITY markdown
+    # Append graph LINKS section to vulnerability markdown
     if graphs_added_to_vuln > 0:
         try:
             print(f"[{scan_id}] Appending {graphs_added_to_vuln} graph links to {VULNERABILITY_FILENAME}.")
@@ -574,7 +554,7 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
               try:
                   data = json.load(f)
               except json.JSONDecodeError:
-                  # Empty or invalid JSON → reinitialize
+                  # Empty or invalid JSON -> reinitialize
                   data = {0: (), 1: (), 2: (), 3: (), 4: (), 5: ()}
 
               # 3. Update the mapping
@@ -587,7 +567,7 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
 
               # Now rebuild the vulnerability.md from the JSON data
               with open(md_file_path, 'w', encoding='utf-8') as f:
-                  for order_key in sorted(data.keys(), key=str):  # Sort by order key
+                  for order_key in sorted(data.keys(), key=str):
                       for chunk in data[order_key]:
                           if chunk:  # Only write non-empty chunks
                               f.write(chunk)
@@ -595,11 +575,10 @@ def add_graphs_to_markdown(scan_id, scan_dir, md_file_path, status_md_path):
         except IOError as e:
             msg = f"Markdown Write Error: Failed to write graph links to {VULNERABILITY_FILENAME}: `{e}`"
             print(f"[{scan_id}] {msg}")
-            status_updates_for_graphs.append(msg) # Log this failure too
+            status_updates_for_graphs.append(msg)
     else:
          print(f"[{scan_id}] No graph links generated to add to {VULNERABILITY_FILENAME}.")
 
-    # Append graph STATUS/ERROR updates to STATUS markdown
     if status_updates_for_graphs:
         try:
             with open(status_md_path, 'a', encoding='utf-8') as f:

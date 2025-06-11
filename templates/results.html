@@ -109,12 +109,12 @@
 
       // animate dots
       let dots = 0;
-      const loadingDotsInterval = setInterval(function() { // Give this interval a name
+      const loadingDotsInterval = setInterval(function() { // Give interval a name
         if (!scanComplete) {
           dots = (dots + 1) % 4;
           $("#loading-text").text("Scanning in progress" + ".".repeat(dots));
         } else {
-           clearInterval(loadingDotsInterval); // Clear this specific interval
+           clearInterval(loadingDotsInterval); // Clear interval
         }
       }, 500);
     });

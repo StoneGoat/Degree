@@ -1,7 +1,5 @@
 import requests
-import nikto_module
 from bs4 import BeautifulSoup
-import nikto_module
 
 def get_session(login_url, username, password):
     session = requests.Session()

@@ -50,5 +50,3 @@ def run_scan(domain, scan_id, level, login_url, username=None, password=None):
                 print(f"[{scan_id}] Error in {which} scan: {e}")
 
     return f"Scan complete for domain: {domain}"
-
-#run_scan("https://vuln.stenaeke.org/", "jkahsdkasejajhsdjahsd", 2, "admin", "password")

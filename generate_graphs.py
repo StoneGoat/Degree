@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from collections import Counter
 import re
 import sys
@@ -140,11 +139,9 @@ def parse_nmap_data(nmap_results_root):
     try:
         # Iterate through the first level tags
         for outer_host_tag in nmap_results_root:
-            # Find the nested tag with the same name which seems to contain the data
+            # Find the nested tag with the same name
             host_data_tag = outer_host_tag.find(f'.//{outer_host_tag.tag}')
             if host_data_tag is None:
-                 # If the nested tag isn't found, maybe the structure is flat sometimes?
-                 # Try using the outer tag itself. If still no address, skip.
                 if outer_host_tag.find('.//addresses/ipv4') is None and outer_host_tag.find('.//addresses/ipv6') is None:
                      print(f"   - Warning: Skipping Nmap entry - Could not find host data within <{outer_host_tag.tag}> or its children.")
                      continue
@@ -180,7 +177,7 @@ def parse_nmap_data(nmap_results_root):
                          continue
 
                     portid = port_id_str
-                    protocol = 'tcp' # Assuming tcp
+                    protocol = 'tcp'
 
                     state_elem = port_tag.find('state')
                     name_elem = port_tag.find('name')
@@ -297,7 +294,7 @@ def visualize_alert_counts(zap_data, output_file='2_zap_alert_counts.png'):
         for name in alert_labels: y_labels.append(name[:max_label_length - 3] + '...' if len(name) > max_label_length else name)
         fig_height = max(6, len(y_labels) * 0.5)
 
-        plt.figure(figsize=(10, fig_height)); y_pos = np.arange(len(y_labels)) # Keep original figsize
+        plt.figure(figsize=(10, fig_height)); y_pos = np.arange(len(y_labels))
         bars = plt.barh(y_pos, alert_values, color=plt.cm.viridis(np.linspace(0.8, 0.2, len(y_labels))))
         plt.yticks(y_pos, y_labels, fontsize=9); plt.gca().invert_yaxis()
         max_val = max(alert_values) if alert_values else 1
@@ -339,7 +336,7 @@ def visualize_nmap_port_status(nmap_data, output_file='4_nmap_port_status.png'):
         state_colors = {'open': '#5cb85c', 'closed': '#d9534f', 'filtered': '#f0ad4e', 'open|filtered': '#7aacc9', 'closed|filtered': '#e17c79', 'other': '#aaaaaa'}
         colors = [state_colors.get(state, '#aaaaaa') for state in states_to_plot]
 
-        plt.figure(figsize=(8, 6)); bars = plt.bar(states_to_plot, counts_to_plot, color=colors) # Keep original figsize
+        plt.figure(figsize=(8, 6)); bars = plt.bar(states_to_plot, counts_to_plot, color=colors)
         max_count = max(counts_to_plot) if counts_to_plot else 1
         for bar in bars:
             yval = bar.get_height()
@@ -379,7 +376,7 @@ def visualize_nikto_findings(nikto_data, output_file='5_nikto_findings.png'):
         plot_data = {cat: count for cat, count in category_counts.items() if count > 0}
         if not plot_data: print("  - Skipping Nikto Findings: No categories found."); return
 
-        plt.figure(figsize=(10, 8)); labels = list(plot_data.keys()); values = list(plot_data.values()) # Keep original figsize
+        plt.figure(figsize=(10, 8)); labels = list(plot_data.keys()); values = list(plot_data.values())
         colors = plt.cm.Set3(np.linspace(0, 1, len(labels)))
         total_findings = sum(values)
         def autopct_func(pct): count = int(round(pct * total_findings / 100.0)); return f'{count}' if pct >= 5 and count > 0 else ''
@@ -500,7 +497,7 @@ def main(xml_file_path, output_dir):
 
         print("\nGenerating individual visualizations...")
 
-        # Construct full output paths using os.path.join
+        # Construct full output paths
         summary_output_path = os.path.join(output_dir, '0_summary_findings.png')
         zap_risk_output_path = os.path.join(output_dir, '1_zap_risk_distribution.png')
         zap_alerts_output_path = os.path.join(output_dir, '2_zap_alert_counts.png')
