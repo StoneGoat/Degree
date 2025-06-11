@@ -61,8 +61,6 @@ def get_alert_items_from_xml(file_path, level=0):
     root = tree.getroot()
     alert_items = []
     
-    # Use the root directly since OWASPZAPReport is the root element in the XML
-    # This line is the key fix:
     zap_report = root
     
     for site in zap_report.findall('site'):
@@ -116,7 +114,7 @@ def save_json(data, filename):
         json.dump(data, f, indent=4)
     print(f"JSON saved as {filename}")
 
-def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id="", level=1):
+def run_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id="", level=1):
     """
     Loads alert items from the XML file and sends each as a message to the AI.
     It parses the markdown response and checks that it contains exactly 5 sections.
@@ -196,25 +194,15 @@ def test_alert_items(xml_file_path="../scan-report2.xml", model_id="WhiteRabbitN
             print("Response received:")
             print(response)
             sections = parse_markdown_response_ordered(response)
-
             break
-            
-            if len(sections) == 5:
-                break
-            else:
-                print(f"Response has {len(sections)} sections (expected 5). Resending request (attempt {attempt+1})...")
-                attempt += 1
         
-        if attempt == max_attempts:
-            print(f"Failed to get a proper response after {max_attempts} attempts for alert {i}.")
-        else:
-            # Map the 6 sections to the fixed keys.
-            alert_data = dict(zip(fixed_keys, sections))
-            alert_name = re.search(r"Alert:\s*(.+)", message).group(1)
-            print(f"Alert Name: {alert_name}")
-            scan_results["zap"][f"{alert_name}"] = alert_data
-            vulnerability_data = {alert_name: alert_data}
-            send_vulnerability_to_api(vulnerability_data, scan_id, 4)
+        # Map the 6 sections to the fixed keys.
+        alert_data = dict(zip(fixed_keys, sections))
+        alert_name = re.search(r"Alert:\s*(.+)", message).group(1)
+        print(f"Alert Name: {alert_name}")
+        scan_results["zap"][f"{alert_name}"] = alert_data
+        vulnerability_data = {alert_name: alert_data}
+        send_vulnerability_to_api(vulnerability_data, scan_id, 4)
 
         print("-" * 80)
 
@@ -305,7 +293,6 @@ def extract_successful_scripts_from_nmap_xml(file_path):
             continue
         
         # Extract host info for context
-        hostname = nested_host.findtext('./hostnames/name', 'Unknown')
         open_ports_elem = nested_host.find('open_ports')
         if open_ports_elem is None:
             continue
@@ -475,7 +462,7 @@ def clean_response(response):
             response = response[len(phrase):].strip()
     return response
 
-def test_nmap_object(xml_file_path="../scan-report2.xml", 
+def run_nmap_object(xml_file_path="../scan-report2.xml", 
                      model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
     Loads Nmap scan results from the XML file and sends each as a message to the AI.
@@ -596,9 +583,9 @@ def test_nmap_object(xml_file_path="../scan-report2.xml",
         send_vulnerability_to_api(vulnerability_data, scan_id, 3)
         print("-" * 80)
 
-    test_nmap_scripts(xml_file_path, model_id, scan_id, level)
+    run_nmap_scripts(xml_file_path, model_id, scan_id, level)
 
-def test_nmap_scripts(xml_file_path="../scan-report2.xml", 
+def run_nmap_scripts(xml_file_path="../scan-report2.xml", 
                      model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
     Extracts individual script results from Nmap scans and processes each one separately.
@@ -778,7 +765,7 @@ def get_nikto_results_from_xml(file_path):
     
     return results
 
-def test_nikto_object(xml_file_path="../scan-report2.xml", 
+def run_nikto_object(xml_file_path="../scan-report2.xml", 
                      model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
     Loads Nikto scan results from the XML file and sends each as a message to the AI.
@@ -901,17 +888,17 @@ def test_nikto_object(xml_file_path="../scan-report2.xml",
         print("-" * 80)
 
 def run_zap_analysis(xml_file_path, scan_id, level):
-    test_alert_items(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
+    run_alert_items(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
 
 def run_nmap_analysis(xml_file_path, scan_id, level):
     print("\n\nCHAT RUNNING\n\n")
-    test_nmap_object(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
+    run_nmap_object(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
 
 def run_nikto_analysis(xml_file_path, scan_id, level):
-    test_nikto_object(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
+    run_nikto_object(xml_file_path, model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=scan_id, level=level)
 
 def run_overview_analysis(xml_file_path, scan_id, level):
-    test_scan_overview(xml_file_path=xml_file_path, scan_id=scan_id, level=level)
+    run_scan_overview(xml_file_path=xml_file_path, scan_id=scan_id, level=level)
 
 def get_scan_overview(file_path):
     """
@@ -1030,7 +1017,7 @@ def get_scan_overview(file_path):
     
     return summary_text
 
-def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
+def run_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRabbitNeo/Llama-3-WhiteRabbitNeo-8B-v2.0", scan_id=None, level=0):
     """
     Extracts scan data and sends it to the LLM for an overview analysis.
     
@@ -1081,19 +1068,3 @@ def test_scan_overview(xml_file_path = "../scan-report2.xml", model_id="WhiteRab
         send_vulnerability_to_api(overview_data, scan_id, 0)
     
     return response
-
-# if __name__ == "__main__":
-#     mode = input("Enter 'test' to run alert items test or 'chat' for interactive chat: ").strip().lower()
-#     if mode == 'test':
-#         # level = int(input("Input Level"))
-
-#         for i in range(2, 3):
-#           print("Testing for Level: " + str(i))
-#           # test_alert_items(level=i)
-#           # test_nmap_object(level=i)  
-#           # test_nikto_object(level=i)
-#           test_nmap_scripts("scan_results/f2abfd78-342e-48cc-94de-14d943a3eca4/nmap.xml", scan_id="ajhsdkjasdk", level=1)
-#           # print("\n\n\nResponse:\n\n\n" + test_scan_overview(xml_file_path="../scan_results/d39d0e8a-864e-4655-b459-b43124cdaded/scan-report.xml"))
-#           # save_json(scan_results, "scan_results.json")
-#     else:
-#         interactive_chat()
