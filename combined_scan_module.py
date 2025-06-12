@@ -4,7 +4,6 @@ import nmap_module
 import nikto_module
 import zap_module
 import session_cookie_module
-import AI.chat as chat
 import frontend
 
 def run_scan(domain, scan_id, level, login_url, username=None, password=None):

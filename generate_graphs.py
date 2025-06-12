@@ -6,8 +6,13 @@ import re
 import sys
 import os
 import traceback
+from dotenv import load_dotenv
+from pathlib import Path
 
-OUTPUT_DPI = 75
+dotenv_path = Path('.env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+OUTPUT_DPI = os.getenv('GRAPHS_OUTPUT_DPI')
 
 def parse_security_scan_xml(file_path):
     """Parse the security scan XML file and extract relevant data."""

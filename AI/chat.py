@@ -2,8 +2,14 @@ import xml.etree.ElementTree as ET
 import requests
 import re
 import json
+from os import getenv
+from dotenv import load_dotenv
+from pathlib import Path
 
-API_URL = "http://127.0.0.1:9000/chat"
+dotenv_path = Path('.env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+API_URL = getenv('CHAT_API_URL')
 
 model_list = {
     "segolilylabs/Lily-Cybersecurity-7B-v0.2",

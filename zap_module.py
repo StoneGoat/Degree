@@ -4,15 +4,20 @@ import logging
 import os
 from zapv2 import ZAPv2
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
 
 # Config
-API_KEY = '126gp7bpv1rfgf5aqbious8cpb'
-PROXY = 'http://localhost:8080'
-RESULTS_DIR = 'scan_results'
+dotenv_path = Path('.env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+API_KEY = os.getenv('ZAP_API_KEY')
+PROXY = os.getenv('ZAP_PROXY')
+RESULTS_DIR = os.getenv('RESULTS_DIR')
 
 zap = ZAPv2(apikey=API_KEY, proxies={'http': PROXY, 'https': PROXY})
 

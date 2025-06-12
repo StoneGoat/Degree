@@ -1,8 +1,12 @@
 import subprocess
 import os
 from xml_module import convert_dict_to_pretty_xml
+from dotenv import load_dotenv
+from pathlib import Path
 
-RESULTS_DIR = 'scan_results'
+dotenv_path = Path('.env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+RESULTS_DIR = os.getenv('RESULTS_DIR')
 
 def nikto_scan_to_xml(target, scan_id, session_cookies=None):
     flag = '-h' if not target.startswith(('http://', 'https://')) else '-url'

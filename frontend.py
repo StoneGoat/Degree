@@ -10,18 +10,21 @@ import AI.chat as chat
 import traceback
 import json
 import xml.etree.ElementTree as ET
-
 import AI.chat as chat
 import pdf_writer_module
 import generate_graphs
+from dotenv import load_dotenv
+from pathlib import Path
 
 # Config
+dotenv_path = Path('.env/.env')
+load_dotenv(dotenv_path=dotenv_path)
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_default_development_secret_key')
-SCAN_RESULTS_BASE_DIR = os.path.abspath('scan_results')
+SCAN_RESULTS_BASE_DIR = os.getenv('RESULTS_DIR')
 app.config['SCAN_RESULTS_DIR'] = SCAN_RESULTS_BASE_DIR
-STATUS_FILENAME = 'status.md'
-VULNERABILITY_FILENAME = 'vulnerability.md'
+STATUS_FILENAME = os.getenv('STATUS_FILENAME')
+VULNERABILITY_FILENAME = os.getenv('VULNERABILITY_FILENAME')
 
 # Ensure the scan results directory exists
 os.makedirs(app.config['SCAN_RESULTS_DIR'], exist_ok=True)
@@ -51,11 +54,6 @@ def index():
         try:
             # Generate a unique scan ID
             scan_id = str(uuid.uuid4())
-<<<<<<< HEAD
-=======
-            # scan_id = "86431de3-fd9e-4ff3-9620-0dec3a284ddd"
-
->>>>>>> 9fc433a (+)
             print(f"Generated new scan ID: {scan_id}")
 
             # Create directory for this scan using the absolute base path

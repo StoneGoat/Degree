@@ -1,8 +1,12 @@
 import os
 import nmap
 from xml_module import convert_dict_to_pretty_xml
+from dotenv import load_dotenv
+from pathlib import Path
 
-RESULTS_DIR = 'scan_results'
+dotenv_path = Path('.env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+RESULTS_DIR = os.getenv('RESULTS_DIR')
 nmap_scanner = nmap.PortScanner()
 
 def filter_nmap_result(result):
