@@ -62,6 +62,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+
 ---
 
 ## Usage
@@ -70,6 +71,15 @@ pip install -r requirements.txt
 
 1. Set up AI API using this guide: https://huggingface.co/docs/transformers/en/quicktour 
 2. Run zap-proxy and LLM API, add API to .env file
+##### Example .env
+ZAP_API_KEY = '*key*'  
+ZAP_PROXY = 'http://localhost:8080'   
+RESULTS_DIR = 'scan_results'    
+GRAPHS_OUTPUT_DPI = 75    
+STATUS_FILENAME = 'status.md'    
+VULNERABILITY_FILENAME = 'vulnerability.md'   
+CHAT_API_URL = "http://127.0.0.1:9000/chat"
+
 3. Run frontend.py in terminal
 4. Open `http://localhost:5000`, enter a target URL, choose an expertise level, and submit.
 ---
